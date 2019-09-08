@@ -28,7 +28,6 @@
     "test": "react-scripts test",
     "testCI": "react-scripts test --env=jsdom --watchAll=false",
     "eject": "react-scripts eject",
-    "deploy": "yarn build && firebase deploy",
     "prettier-check": "prettier --check \"src/**/*.{ts,tsx}\"",
     "lint": "eslint --max-warnings 0 \"src/**/*.{ts,tsx}\""
   },

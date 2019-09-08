@@ -1,10 +1,7 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Custom Scripts
-In the project directory, you can run:
+## CI/CD
+The CI (Github actions) runs after each push to master. If the CI flow is successful, the web app will be automatically deployed to Firebase Hosting.
 
-### `yarn testAll`
-Runs all tests.
-
-### `yarn deploy`
-Builds and deploys to Firebase hosting.
+## Firebase Hosting
+The web app is hosted in Firebase: https://project-tracker-8ea42.web.app/
