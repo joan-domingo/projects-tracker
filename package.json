@@ -26,8 +26,7 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "testAll": "react-scripts test --watchAll",
-    "testCI": "react-scripts test --reporters=default --reporters=jest-unit",
+    "testCI": "set CI=true && react-scripts test",
     "eject": "react-scripts eject",
     "deploy": "yarn build && firebase deploy",
     "prettier-check": "prettier --check \"src/**/*.{ts,tsx}\""

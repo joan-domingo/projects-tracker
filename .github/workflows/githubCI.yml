@@ -1,0 +1,29 @@
+name: CI
+
+on: [push]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v1
+
+    - name: Install dependencies
+      run: yarn install
+
+    - name: Check code formatting
+      run: yarn prettier-check
+
+    - name: Check for Typescript compiler errors
+      run: yarn tsc
+
+    - name: Check for linting errors
+      run: yarn lint
+
+    - name: Run tests
+      run: yarn run testCI
+
+    - name: Build web app
+      run: yarn build
