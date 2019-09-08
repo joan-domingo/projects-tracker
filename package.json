@@ -29,7 +29,8 @@
     "testCI": "set CI=true && react-scripts test",
     "eject": "react-scripts eject",
     "deploy": "yarn build && firebase deploy",
-    "prettier-check": "prettier --check \"src/**/*.{ts,tsx}\""
+    "prettier-check": "prettier --check \"src/**/*.{ts,tsx}\"",
+    "lint": "eslint --max-warnings 0 \"src/**/*.{ts,tsx}\""
   },
   "eslintConfig": {
     "extends": "react-app"
