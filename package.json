@@ -14,6 +14,7 @@
     "typescript": "3.5.3"
   },
   "devDependencies": {
+    "@arkweid/lefthook": "^0.6.3",
     "@types/jest": "24.0.17",
     "@types/node": "12.7.1",
     "@types/react": "16.9.1",
@@ -26,6 +27,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "testAll": "react-scripts test --watchAll",
+    "testCI": "react-scripts test --reporters=default --reporters=jest-unit",
     "eject": "react-scripts eject",
     "deploy": "yarn build && firebase deploy",
     "prettier-check": "prettier --check \"src/**/*.{ts,tsx}\""

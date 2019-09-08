@@ -1,0 +1,13 @@
+pre-commit:
+  parallel: true
+  commands:
+    compiler-check:
+      run: yarn run tsc
+    linter:
+      glob: "*.{js,jsx,ts,tsx}"
+      run: yarn run eslint --max-warnings 0 {staged_files}
+    prettier-check:
+      glob: "*.{js,jsx,ts,tsx}"
+      run: yarn run prettier --check {staged_files}
+    tests:
+      run: yarn testCI
