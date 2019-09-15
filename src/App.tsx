@@ -1,9 +1,42 @@
-import React from 'react';
+import React, { FC, useEffect, useRef, useState } from 'react';
 
 import './App.css';
+import firebase from './Firebase';
 import logo from './logo.svg';
 
-const App: React.FC = () => {
+const database = firebase.database();
+
+const App: FC = () => {
+  const [data, setData] = useState();
+
+  const componentIsMounted = useRef(true);
+  useEffect(() => {
+    return () => {
+      componentIsMounted.current = false;
+    };
+  }, []);
+
+  useEffect(() => {
+    getData();
+  }, [data]);
+
+  const getData = () => {
+    database
+      .ref('/')
+      .once('value')
+      .then(snapshot => {
+        if (componentIsMounted.current) {
+          setData(snapshot.val());
+        }
+      });
+  };
+
+  const handleOnPressAddData = () => {
+    database.ref('test/').set({
+      name: 'joan',
+    });
+  };
+
   return (
     <div className="App">
       <header className="App-header">
@@ -19,6 +52,9 @@ const App: React.FC = () => {
         >
           Learn React
         </a>
+        <button className="App-link" onClick={handleOnPressAddData}>
+          Add Data
+        </button>
       </header>
     </div>
   );
