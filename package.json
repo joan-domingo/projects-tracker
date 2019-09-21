@@ -10,6 +10,7 @@
     "react-router-dom": "^5.0.1",
     "react-scripts": "3.1.0",
     "redux": "^4.0.4",
+    "redux-devtools-extension": "^2.13.8",
     "redux-observable": "^1.1.0",
     "redux-starter-kit": "^0.6.3",
     "styled-components": "^4.3.2",
@@ -23,6 +24,7 @@
     "@types/node": "12.7.1",
     "@types/react": "16.9.1",
     "@types/react-dom": "16.8.5",
+    "@types/react-redux": "^7.1.2",
     "@types/react-router-dom": "^4.3.5",
     "prettier": "^1.18.2",
     "tslint-config-prettier": "^1.18.0"
