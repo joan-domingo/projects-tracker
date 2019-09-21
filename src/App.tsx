@@ -1,9 +1,9 @@
 import React, { FC } from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 
+import SignInPage from './auth/SignInPage';
 import Dashboard from './dashboard/Dashboard';
 import { dashboard, landing } from './routing';
-import SignInPage from './SignIn/SignInPage';
 
 const App: FC = () => (
   <Router>

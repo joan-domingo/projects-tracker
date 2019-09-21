@@ -1,15 +1,17 @@
 import { combineReducers } from 'redux';
 import { combineEpics } from 'redux-observable';
+import authReducer, { authEpic, AuthState } from './auth/auth.redux';
 
 // State
 
-// tslint:disable-next-line: no-empty-interface
-export interface State {}
+export interface State {
+  auth: AuthState;
+}
 
 // Epic
 
-export const rootEpic = combineEpics();
+export const rootEpic = combineEpics(authEpic);
 
 // Reducer
 
-export default combineReducers({});
+export default combineReducers({ auth: authReducer });
