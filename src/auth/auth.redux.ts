@@ -20,7 +20,7 @@ export const selectIsSignedIn = (state: State) => Boolean(state.auth.userId);
 // Actions
 
 export const initializeAuthAction = createAction('auth/initializeAuth');
-export const initializeAuthSuccessAction = createAction(
+export const initializeAuthSuccessAction = createAction<string>(
   'auth/initializeAuthSuccess'
 );
 export const initializeAuthFailureAction = createAction(
@@ -39,7 +39,7 @@ const initializeAuthEpic: AuthEpic = (action$, state$, { authService }) =>
   action$.pipe(
     ofType(initializeAuthAction.type),
     switchMap(() =>
-      authService.getUser().pipe(
+      authService.getUser$().pipe(
         map(initializeAuthSuccessAction),
         catchError(() => of(initializeAuthFailureAction()))
       )

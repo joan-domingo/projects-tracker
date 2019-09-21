@@ -5,8 +5,6 @@ import { Provider } from 'react-redux';
 import App from './App';
 import AuthContainer from './auth/AuthContainer';
 import configureStore from './configureStore';
-import Firebase from './Firebase/Firebase';
-import FirebaseContext from './Firebase/FirebaseContext';
 import './index.css';
 import * as serviceWorker from './serviceWorker';
 
@@ -14,9 +12,7 @@ const rootElement = document.getElementById('root');
 ReactDOM.render(
   <Provider store={configureStore()}>
     <AuthContainer>
-      <FirebaseContext.Provider value={new Firebase()}>
-        <App />
-      </FirebaseContext.Provider>
+      <App />
     </AuthContainer>
   </Provider>,
   rootElement
