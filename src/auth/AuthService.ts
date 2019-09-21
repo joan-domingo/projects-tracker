@@ -3,7 +3,7 @@ import { map } from 'rxjs/operators';
 
 import FirebaseService from '../Firebase/FirebaseService';
 
-interface UserCredentials {
+export interface UserCredentials {
   email: string;
 }
 

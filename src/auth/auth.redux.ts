@@ -1,9 +1,14 @@
 import { combineEpics, Epic, ofType } from 'redux-observable';
-import { chainReducers, createAction, withInitialState } from 'redux-preboiled';
+import {
+  chainReducers,
+  createAction,
+  onAction,
+  withInitialState,
+} from 'redux-preboiled';
 import { of } from 'rxjs';
 import { catchError, map, switchMap } from 'rxjs/operators';
 
-import AuthService from './AuthService';
+import AuthService, { UserCredentials } from './AuthService';
 
 export interface AuthState {
   userId: string | undefined;
@@ -20,9 +25,9 @@ export const selectIsSignedIn = (state: State) => Boolean(state.auth.userId);
 // Actions
 
 export const initializeAuthAction = createAction('auth/initializeAuth');
-export const initializeAuthSuccessAction = createAction<string>(
+export const initializeAuthSuccessAction = createAction(
   'auth/initializeAuthSuccess'
-);
+).withPayload<string>();
 export const initializeAuthFailureAction = createAction(
   'auth/initializeAuthFailure'
 );
@@ -40,7 +45,7 @@ const initializeAuthEpic: AuthEpic = (action$, state$, { authService }) =>
     ofType(initializeAuthAction.type),
     switchMap(() =>
       authService.getUser$().pipe(
-        map(initializeAuthSuccessAction),
+        map((user: UserCredentials) => initializeAuthSuccessAction(user.email)),
         catchError(() => of(initializeAuthFailureAction()))
       )
     )
@@ -54,4 +59,11 @@ const initialAuthState: AuthState = {
   userId: undefined,
 };
 
-export default chainReducers(withInitialState(initialAuthState));
+export default chainReducers(
+  withInitialState(initialAuthState),
+
+  onAction(initializeAuthSuccessAction, (state, action) => ({
+    ...state,
+    userId: action.payload,
+  }))
+);

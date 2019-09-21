@@ -20,8 +20,13 @@ export default class FirebaseService {
   }
 
   // *** Auth API ***
-  public signInWithGoogle = () =>
-    this.auth!.signInWithPopup(new firebase.auth.GoogleAuthProvider());
+  public signInWithGoogle = () => {
+    const currentUser = this.auth.currentUser;
+    if (currentUser) {
+      return Promise.resolve({ user: currentUser });
+    }
+    return this.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider());
+  };
 
-  public signOut = () => this.auth!.signOut();
+  public signOut = () => this.auth.signOut();
 }
