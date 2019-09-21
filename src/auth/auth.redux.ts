@@ -6,7 +6,7 @@ import {
   withInitialState,
 } from 'redux-preboiled';
 import { of } from 'rxjs';
-import { catchError, map, switchMap } from 'rxjs/operators';
+import { catchError, map, mergeMap, switchMap } from 'rxjs/operators';
 
 import AuthService, { UserCredentials } from './AuthService';
 
@@ -32,6 +32,10 @@ export const initializeAuthFailureAction = createAction(
   'auth/initializeAuthFailure'
 );
 
+export const logoutAction = createAction('auth/logout');
+export const logoutSuccessAction = createAction('auth/logoutSuccess');
+export const logoutFailureAction = createAction('auth/logoutFailure');
+
 // Epics
 
 export interface AuthDependencies {
@@ -51,7 +55,18 @@ const initializeAuthEpic: AuthEpic = (action$, state$, { authService }) =>
     )
   );
 
-export const authEpic: AuthEpic = combineEpics(initializeAuthEpic);
+const logoutEpic: AuthEpic = (action$, state$, { authService }) =>
+  action$.pipe(
+    ofType(logoutAction.type),
+    switchMap(() =>
+      authService.signUserOut$().pipe(
+        mergeMap(() => of(logoutSuccessAction())),
+        catchError(() => of(logoutFailureAction()))
+      )
+    )
+  );
+
+export const authEpic: AuthEpic = combineEpics(initializeAuthEpic, logoutEpic);
 
 // Reducer
 
@@ -65,5 +80,10 @@ export default chainReducers(
   onAction(initializeAuthSuccessAction, (state, action) => ({
     ...state,
     userId: action.payload,
+  })),
+
+  onAction(logoutSuccessAction, state => ({
+    ...state,
+    ...initialAuthState,
   }))
 );

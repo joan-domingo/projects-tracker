@@ -22,4 +22,8 @@ export default class AuthService {
       })
     );
   }
+
+  public signUserOut$(): Observable<void> {
+    return from(this.firebaseService.signOut());
+  }
 }

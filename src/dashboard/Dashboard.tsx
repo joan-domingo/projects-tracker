@@ -1,6 +1,8 @@
-import { FC } from 'react';
+import React, { FC } from 'react';
 
 import '../App.css';
+import { useDispatch } from 'react-redux';
+import { logoutAction } from '../auth/auth.redux';
 
 /* const database = firebase.database();
 
@@ -59,7 +61,17 @@ const Dashboard: FC = () => {
 };*/
 
 const Dashboard: FC = () => {
-  return null;
+  const dispatch = useDispatch();
+  return (
+    <div>
+      <p>You are now signed In!</p>
+      <button onClick={handleOnClickLogout}>log out</button>
+    </div>
+  );
+
+  function handleOnClickLogout() {
+    dispatch(logoutAction());
+  }
 };
 
 export default Dashboard;
