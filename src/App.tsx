@@ -1,63 +1,15 @@
-import React, { FC, useEffect, useRef, useState } from 'react';
+import React, { FC } from 'react';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
 
-import './App.css';
-import firebase from './Firebase';
-import logo from './logo.svg';
+import Dashboard from './dashboard/Dashboard';
+import { dashboard, landing } from './routing';
+import SignInPage from './SignIn/SignInPage';
 
-const database = firebase.database();
-
-const App: FC = () => {
-  const [data, setData] = useState();
-
-  const componentIsMounted = useRef(true);
-  useEffect(() => {
-    return () => {
-      componentIsMounted.current = false;
-    };
-  }, []);
-
-  useEffect(() => {
-    getData();
-  }, [data]);
-
-  const getData = () => {
-    database
-      .ref('/')
-      .once('value')
-      .then(snapshot => {
-        if (componentIsMounted.current) {
-          setData(snapshot.val());
-        }
-      });
-  };
-
-  const handleOnPressAddData = () => {
-    database.ref('test/').set({
-      name: 'joan',
-    });
-  };
-
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-        <button className="App-link" onClick={handleOnPressAddData}>
-          Add Data
-        </button>
-      </header>
-    </div>
-  );
-};
+const App: FC = () => (
+  <Router>
+    <Route exact path={landing} component={SignInPage} />
+    <Route path={dashboard} component={Dashboard} />
+  </Router>
+);
 
 export default App;
