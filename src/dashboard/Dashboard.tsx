@@ -1,7 +1,8 @@
 import React, { FC } from 'react';
+import { useDispatch } from 'react-redux';
+import { withRouter } from 'react-router';
 
 import '../App.css';
-import { useDispatch } from 'react-redux';
 import { logoutAction } from '../auth/auth.redux';
 
 /* const database = firebase.database();
@@ -74,4 +75,4 @@ const Dashboard: FC = () => {
   }
 };
 
-export default Dashboard;
+export default withRouter(Dashboard);

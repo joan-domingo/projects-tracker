@@ -32,6 +32,12 @@ export const initializeAuthFailureAction = createAction(
   'auth/initializeAuthFailure'
 );
 
+export const loginAction = createAction('auth/login');
+export const loginSuccessAction = createAction('auth/loginSuccess').withPayload<
+  string
+>();
+export const loginFailureAction = createAction('auth/loginFailure');
+
 export const logoutAction = createAction('auth/logout');
 export const logoutSuccessAction = createAction('auth/logoutSuccess');
 export const logoutFailureAction = createAction('auth/logoutFailure');
@@ -55,6 +61,17 @@ const initializeAuthEpic: AuthEpic = (action$, state$, { authService }) =>
     )
   );
 
+const loginEpic: AuthEpic = (action$, state$, { authService }) =>
+  action$.pipe(
+    ofType(loginAction.type),
+    switchMap(() =>
+      authService.signUserIn$().pipe(
+        map((user: UserCredentials) => loginSuccessAction(user.email)),
+        catchError(() => of(loginFailureAction()))
+      )
+    )
+  );
+
 const logoutEpic: AuthEpic = (action$, state$, { authService }) =>
   action$.pipe(
     ofType(logoutAction.type),
@@ -66,7 +83,11 @@ const logoutEpic: AuthEpic = (action$, state$, { authService }) =>
     )
   );
 
-export const authEpic: AuthEpic = combineEpics(initializeAuthEpic, logoutEpic);
+export const authEpic: AuthEpic = combineEpics(
+  initializeAuthEpic,
+  loginEpic,
+  logoutEpic
+);
 
 // Reducer
 
@@ -77,7 +98,7 @@ const initialAuthState: AuthState = {
 export default chainReducers(
   withInitialState(initialAuthState),
 
-  onAction(initializeAuthSuccessAction, (state, action) => ({
+  onAction(loginSuccessAction, (state, action) => ({
     ...state,
     userId: action.payload,
   })),

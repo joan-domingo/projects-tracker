@@ -1,15 +1,16 @@
 import React, { FC } from 'react';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { BrowserRouter, Route } from 'react-router-dom';
 
-import LandingPage from './auth/LandingPage';
+import LoginPage from './auth/LoginPage';
 import Dashboard from './dashboard/Dashboard';
-import { dashboard, landing } from './routing';
+import PrivateRoute from './routing/PrivateRoute';
+import { dashboard, login } from './routing/routes';
 
 const App: FC = () => (
-  <Router>
-    <Route exact path={landing} component={LandingPage} />
-    <Route path={dashboard} component={Dashboard} />
-  </Router>
+  <BrowserRouter>
+    <Route path={login} component={LoginPage} />
+    <PrivateRoute exact path={dashboard} component={Dashboard} />
+  </BrowserRouter>
 );
 
 export default App;

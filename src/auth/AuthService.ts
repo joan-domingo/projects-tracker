@@ -23,6 +23,15 @@ export default class AuthService {
     );
   }
 
+  public signUserIn$(): Observable<UserCredentials> {
+    return from(this.firebaseService.signInWithGoogle()).pipe(
+      map(userCredential => {
+        const email = userCredential.user!.email!;
+        return { email };
+      })
+    );
+  }
+
   public signUserOut$(): Observable<void> {
     return from(this.firebaseService.signOut());
   }
