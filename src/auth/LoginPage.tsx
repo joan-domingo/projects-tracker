@@ -1,6 +1,5 @@
 import React, { FC } from 'react';
 import { useDispatch } from 'react-redux';
-import { withRouter } from 'react-router';
 import { loginAction } from './auth.redux';
 
 const LoginPage: FC = () => {
@@ -17,4 +16,4 @@ const LoginPage: FC = () => {
   }
 };
 
-export default withRouter(LoginPage);
+export default LoginPage;
