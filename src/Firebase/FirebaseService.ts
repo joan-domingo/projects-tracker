@@ -1,7 +1,8 @@
 import * as dotenv from 'dotenv';
-import firebase from 'firebase/app';
+import firebase, { User } from 'firebase/app';
 import 'firebase/auth';
 import 'firebase/database';
+import { Observable, Observer } from 'rxjs';
 
 dotenv.config();
 
@@ -20,6 +21,16 @@ export default class FirebaseService {
   }
 
   // *** Auth API ***
+  public getCurrentUser(): Promise<firebase.User> {
+    const currentUser = this.auth.currentUser;
+
+    if (currentUser !== null) {
+      return Promise.resolve(currentUser);
+    }
+
+    return Promise.reject();
+  }
+
   public signInWithGoogle = () => {
     const currentUser = this.auth.currentUser;
     if (currentUser) {
@@ -29,4 +40,12 @@ export default class FirebaseService {
   };
 
   public signOut = () => this.auth.signOut();
+
+  public onAuthStateChanged$ = () =>
+    Observable.create((observer: Observer<User | null>) =>
+      this.auth.onAuthStateChanged(
+        user => observer.next(user),
+        err => observer.error(err)
+      )
+    );
 }

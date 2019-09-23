@@ -1,3 +1,4 @@
+import { User } from 'firebase';
 import { combineEpics, Epic, ofType } from 'redux-observable';
 import {
   chainReducers,
@@ -6,11 +7,12 @@ import {
   withInitialState,
 } from 'redux-preboiled';
 import { of } from 'rxjs';
-import { catchError, map, mergeMap, switchMap } from 'rxjs/operators';
+import { ignoreElements, mergeMap, switchMap } from 'rxjs/operators';
 
-import AuthService, { UserCredentials } from './AuthService';
+import AuthService from './AuthService';
 
 export interface AuthState {
+  isAuthInitialized: boolean;
   userId: string | undefined;
 }
 
@@ -20,27 +22,20 @@ interface State {
   auth: AuthState;
 }
 
+export const selectIsAuthInitialized = (state: State) =>
+  state.auth.isAuthInitialized;
+
 export const selectIsSignedIn = (state: State) => Boolean(state.auth.userId);
 
 // Actions
 
-export const initializeAuthAction = createAction('auth/initializeAuth');
-export const initializeAuthSuccessAction = createAction(
-  'auth/initializeAuthSuccess'
-).withPayload<string>();
-export const initializeAuthFailureAction = createAction(
-  'auth/initializeAuthFailure'
-);
-
 export const loginAction = createAction('auth/login');
-export const loginSuccessAction = createAction('auth/loginSuccess').withPayload<
+export const loginDoneAction = createAction('auth/loginDone').withPayload<
   string
 >();
-export const loginFailureAction = createAction('auth/loginFailure');
 
 export const logoutAction = createAction('auth/logout');
-export const logoutSuccessAction = createAction('auth/logoutSuccess');
-export const logoutFailureAction = createAction('auth/logoutFailure');
+export const logoutDoneAction = createAction('auth/logoutDone');
 
 // Epics
 
@@ -50,41 +45,31 @@ export interface AuthDependencies {
 
 type AuthEpic = Epic<any, any, any, AuthDependencies>;
 
-const initializeAuthEpic: AuthEpic = (action$, state$, { authService }) =>
-  action$.pipe(
-    ofType(initializeAuthAction.type),
-    switchMap(() =>
-      authService.getUser$().pipe(
-        map((user: UserCredentials) => initializeAuthSuccessAction(user.email)),
-        catchError(() => of(initializeAuthFailureAction()))
+const onAuthStateChangedEpic: AuthEpic = (action$, state$, { authService }) =>
+  authService
+    .onAuthStateChanged$()
+    .pipe(
+      mergeMap((user: User | null) =>
+        user ? of(loginDoneAction(user.email!)) : of(logoutDoneAction())
       )
-    )
-  );
+    );
 
 const loginEpic: AuthEpic = (action$, state$, { authService }) =>
   action$.pipe(
     ofType(loginAction.type),
-    switchMap(() =>
-      authService.signUserIn$().pipe(
-        map((user: UserCredentials) => loginSuccessAction(user.email)),
-        catchError(() => of(loginFailureAction()))
-      )
-    )
+    switchMap(() => authService.signUserIn$()),
+    ignoreElements()
   );
 
 const logoutEpic: AuthEpic = (action$, state$, { authService }) =>
   action$.pipe(
     ofType(logoutAction.type),
-    switchMap(() =>
-      authService.signUserOut$().pipe(
-        mergeMap(() => of(logoutSuccessAction())),
-        catchError(() => of(logoutFailureAction()))
-      )
-    )
+    switchMap(() => authService.signUserOut$()),
+    ignoreElements()
   );
 
 export const authEpic: AuthEpic = combineEpics(
-  initializeAuthEpic,
+  onAuthStateChangedEpic,
   loginEpic,
   logoutEpic
 );
@@ -92,19 +77,21 @@ export const authEpic: AuthEpic = combineEpics(
 // Reducer
 
 const initialAuthState: AuthState = {
+  isAuthInitialized: false,
   userId: undefined,
 };
 
 export default chainReducers(
   withInitialState(initialAuthState),
 
-  onAction(loginSuccessAction, (state, action) => ({
+  onAction(loginDoneAction, (state, action) => ({
     ...state,
     userId: action.payload,
+    isAuthInitialized: true,
   })),
 
-  onAction(logoutSuccessAction, state => ({
-    ...state,
+  onAction(logoutDoneAction, state => ({
     ...initialAuthState,
+    isAuthInitialized: true,
   }))
 );

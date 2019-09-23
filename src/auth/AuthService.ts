@@ -1,3 +1,4 @@
+import { User } from 'firebase';
 import { from, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
@@ -14,13 +15,8 @@ export default class AuthService {
     this.firebaseService = firebaseService;
   }
 
-  public getUser$(): Observable<UserCredentials> {
-    return from(this.firebaseService.signInWithGoogle()).pipe(
-      map(userCredential => {
-        const email = userCredential.user!.email!;
-        return { email };
-      })
-    );
+  public getUser$(): Observable<User> {
+    return from(this.firebaseService.getCurrentUser());
   }
 
   public signUserIn$(): Observable<UserCredentials> {
@@ -34,5 +30,9 @@ export default class AuthService {
 
   public signUserOut$(): Observable<void> {
     return from(this.firebaseService.signOut());
+  }
+
+  public onAuthStateChanged$(): Observable<User | null> {
+    return this.firebaseService.onAuthStateChanged$();
   }
 }
