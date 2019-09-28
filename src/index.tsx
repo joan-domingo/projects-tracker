@@ -7,13 +7,19 @@ import AuthContainer from './auth/AuthContainer';
 import configureStore from './configureStore';
 import './index.css';
 import * as serviceWorker from './serviceWorker';
+import AppContainer from './shared/components/AppContainer';
+import PageContainer from './shared/components/PageContainer';
 
 const rootElement = document.getElementById('root');
 ReactDOM.render(
   <Provider store={configureStore()}>
-    <AuthContainer>
-      <App />
-    </AuthContainer>
+    <AppContainer>
+      <PageContainer>
+        <AuthContainer>
+          <App />
+        </AuthContainer>
+      </PageContainer>
+    </AppContainer>
   </Provider>,
   rootElement
 );

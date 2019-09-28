@@ -8,19 +8,9 @@ import TableRow from '@material-ui/core/TableRow';
 import React, { FC } from 'react';
 import { useDispatch } from 'react-redux';
 import { withRouter } from 'react-router';
-import styled from 'styled-components';
 
 import '../App.css';
 import { logoutAction } from '../auth/auth.redux';
-import { backgroundColor } from '../shared/styles/colors';
-
-const PageContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  padding: 0.5rem 1rem;
-  background-color: ${backgroundColor};
-  height: 100%;
-`;
 
 /* const database = firebase.database();
 
@@ -111,7 +101,7 @@ const Dashboard: FC = () => {
   const dispatch = useDispatch();
   const classes = useStyles();
   return (
-    <PageContainer>
+    <div>
       <p>You are now signed In!</p>
       <button onClick={handleOnClickLogout}>log out</button>
       <Paper className={classes.root}>
@@ -140,7 +130,7 @@ const Dashboard: FC = () => {
           </TableBody>
         </Table>
       </Paper>
-    </PageContainer>
+    </div>
   );
 
   function handleOnClickLogout() {
