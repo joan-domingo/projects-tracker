@@ -11,6 +11,7 @@ import { withRouter } from 'react-router';
 
 import '../App.css';
 import { logoutAction } from '../auth/auth.redux';
+import Button from '../shared/components/Button';
 
 /* const database = firebase.database();
 
@@ -103,7 +104,7 @@ const Dashboard: FC = () => {
   return (
     <div>
       <p>You are now signed In!</p>
-      <button onClick={handleOnClickLogout}>log out</button>
+      <Button onClick={handleOnClickLogout} label={'Log out'} />
       <Paper className={classes.root}>
         <Table className={classes.table}>
           <TableHead>

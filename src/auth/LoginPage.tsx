@@ -1,5 +1,7 @@
 import React, { FC } from 'react';
 import { useDispatch } from 'react-redux';
+
+import Button from '../shared/components/Button';
 import { loginAction } from './auth.redux';
 
 const LoginPage: FC = () => {
@@ -7,7 +9,7 @@ const LoginPage: FC = () => {
   return (
     <div>
       <p>Login Page</p>
-      <button onClick={handleOnClickLogin}>Log In</button>
+      <Button onClick={handleOnClickLogin} label={'Log In'} type="primary" />
     </div>
   );
 
