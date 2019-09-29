@@ -3,6 +3,7 @@ import firebase, { User } from 'firebase/app';
 import 'firebase/auth';
 import 'firebase/database';
 import { Observable, Observer } from 'rxjs';
+import { ProjectData } from '../shared/models/ProjectData';
 
 dotenv.config();
 
@@ -14,10 +15,12 @@ export const firebaseConfig = {
 
 export default class FirebaseService {
   private auth: firebase.auth.Auth;
+  private database: firebase.database.Database;
 
   constructor() {
     firebase.initializeApp(firebaseConfig);
     this.auth = firebase.auth();
+    this.database = firebase.database();
   }
 
   // *** Auth API ***
@@ -48,4 +51,9 @@ export default class FirebaseService {
         err => observer.error(err)
       )
     );
+
+  // *** Database API ***
+  public addNewProject(projectId: string, projectData: ProjectData) {
+    return this.database.ref('/projects/' + projectId).set(projectData);
+  }
 }

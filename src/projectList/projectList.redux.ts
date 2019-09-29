@@ -1,9 +1,17 @@
-import { combineEpics, Epic } from 'redux-observable';
-import { chainReducers, createAction, withInitialState } from 'redux-preboiled';
+import { combineEpics, Epic, ofType } from 'redux-observable';
+import {
+  chainReducers,
+  createAction,
+  onAction,
+  withInitialState,
+} from 'redux-preboiled';
+import { of } from 'rxjs';
+import { catchError, mapTo, switchMap } from 'rxjs/operators';
 import ProjectDataService from './ProjectDataService';
 
-// tslint:disable-next-line: no-empty-interface
-export interface ProjectDataState {}
+export interface ProjectDataState {
+  isAddingProject: boolean;
+}
 
 // Selectors
 
@@ -14,6 +22,12 @@ interface State {
 // Actions
 
 export const addProjectAction = createAction('projectData/addProject');
+export const addProjectSuccessAction = createAction(
+  'projectData/addProjectSuccess'
+);
+export const addProjectFailureAction = createAction(
+  'projectData/addProjectFailure'
+);
 
 // Epics
 
@@ -23,10 +37,44 @@ export interface ProjectDataDependencies {
 
 type ProjectDataEpic = Epic<any, any, any, ProjectDataDependencies>;
 
-export const projectDataEpic: ProjectDataEpic = combineEpics();
+const addProjectEpic: ProjectDataEpic = (
+  action$,
+  state$,
+  { projectDataService }
+) =>
+  action$.pipe(
+    ofType(addProjectAction.type),
+    switchMap(() =>
+      projectDataService.addNewProject$().pipe(
+        mapTo(addProjectSuccessAction()),
+        catchError(() => of(addProjectFailureAction()))
+      )
+    )
+  );
+
+export const projectDataEpic: ProjectDataEpic = combineEpics(addProjectEpic);
 
 // Reducer
 
-const initialProjectDataState: ProjectDataState = {};
+const initialProjectDataState: ProjectDataState = {
+  isAddingProject: false,
+};
 
-export default chainReducers(withInitialState(initialProjectDataState));
+export default chainReducers(
+  withInitialState(initialProjectDataState),
+
+  onAction(addProjectAction, state => ({
+    ...state,
+    isAddingProject: true,
+  })),
+
+  onAction(addProjectSuccessAction, state => ({
+    ...state,
+    isAddingProject: false,
+  })),
+
+  onAction(addProjectFailureAction, state => ({
+    ...state,
+    isAddingProject: false,
+  }))
+);

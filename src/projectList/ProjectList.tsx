@@ -1,11 +1,11 @@
 import React, { FC } from 'react';
 import { useDispatch } from 'react-redux';
 import { withRouter } from 'react-router';
-
 import styled from 'styled-components';
 import '../App.css';
 import { logoutAction } from '../auth/auth.redux';
 import Button from '../shared/components/Button';
+import { addProjectAction } from './projectList.redux';
 import ProjectListTable from './ProjectListTable';
 
 /* const database = firebase.database();
@@ -77,7 +77,7 @@ const ProjectList: FC = () => {
   );
 
   function handleOnAddProject() {
-    // dispatch(addProjectAction());
+    dispatch(addProjectAction());
   }
 
   function handleOnClickLogout() {
