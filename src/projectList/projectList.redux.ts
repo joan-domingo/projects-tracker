@@ -36,7 +36,7 @@ export const addProjectFailureAction = createAction(
 );
 
 export const readProjectDataDoneAction = createAction(
-  'read/readProjectDataDone'
+  'projectData/readProjectDataDone'
 ).withPayload<ProjectCollection>();
 
 // Epics

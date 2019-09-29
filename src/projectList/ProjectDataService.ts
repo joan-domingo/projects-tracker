@@ -10,11 +10,11 @@ export default class ProjectDataService {
   }
 
   public addNewProject$(): Observable<any> {
-    const projectId = 'test1';
+    const projectId = 'test3';
     const projectData = {
       id: projectId,
-      name: 'Test Project',
-      description: 'Test project description ...',
+      name: 'Test Project 3',
+      description: 'Test project description bla balba asdf asd...',
     };
     return from(this.firebaseService.addNewProject(projectId, projectData));
   }
