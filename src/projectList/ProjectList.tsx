@@ -6,7 +6,7 @@ import styled from 'styled-components';
 import '../App.css';
 import { logoutAction } from '../auth/auth.redux';
 import Button from '../shared/components/Button';
-import DashboardTable from './DashboardTable';
+import ProjectListTable from './ProjectListTable';
 
 /* const database = firebase.database();
 
@@ -64,21 +64,25 @@ const Dashboard: FC = () => {
   );
 };*/
 
-const DashboardContainer = styled.div``;
+const ProjectListContainer = styled.div``;
 
-const Dashboard: FC = () => {
+const ProjectList: FC = () => {
   const dispatch = useDispatch();
   return (
-    <DashboardContainer>
+    <ProjectListContainer>
       <p>You are now signed In!</p>
       <Button onClick={handleOnClickLogout} label={'Log out'} />
-      <DashboardTable />
-    </DashboardContainer>
+      <ProjectListTable onAddProject={() => handleOnAddProject()} />
+    </ProjectListContainer>
   );
+
+  function handleOnAddProject() {
+    // dispatch(addProjectAction());
+  }
 
   function handleOnClickLogout() {
     dispatch(logoutAction());
   }
 };
 
-export default withRouter(Dashboard);
+export default withRouter(ProjectList);

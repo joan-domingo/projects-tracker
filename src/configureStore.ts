@@ -3,13 +3,15 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 import { createEpicMiddleware } from 'redux-observable';
 
 import { AuthDependencies } from './auth/auth.redux';
+import { ProjectDataDependencies } from './projectList/projectList.redux';
 import rootReducer, { rootEpic } from './root.redux';
-import { authService } from './services';
+import { authService, projectDataService } from './services';
 
-type Dependencies = AuthDependencies;
+type Dependencies = AuthDependencies & ProjectDataDependencies;
 
 const dependencies: Dependencies = {
   authService,
+  projectDataService,
 };
 
 export default function configureStore() {

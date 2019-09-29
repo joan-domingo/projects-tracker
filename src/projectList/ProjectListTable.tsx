@@ -4,41 +4,45 @@ import EditIcon from '@material-ui/icons/Edit';
 import React, { FC } from 'react';
 import Table from '../shared/components/Table';
 
-const DashboardTable: FC = () => {
+interface Props {
+  onAddProject: () => void;
+}
+
+const ProjectListTable: FC<Props> = props => {
   return (
     <Table
       title="Projects"
       columns={columns}
       data={data}
-      actions={tableActions}
+      actions={getTableActions(props)}
     />
   );
 };
 
-const tableActions = [
-  {
-    icon: () => <AddIcon />,
-    tooltip: 'Add Project',
-    onClick: () => {
-      alert('Add Project');
+const getTableActions = (props: Props) => {
+  return [
+    {
+      icon: () => <AddIcon />,
+      tooltip: 'Add Project',
+      onClick: props.onAddProject,
+      isFreeAction: true,
     },
-    isFreeAction: true,
-  },
-  {
-    icon: () => <EditIcon />,
-    tooltip: 'Edit Project',
-    onClick: () => {
-      alert('Edit Project');
+    {
+      icon: () => <EditIcon />,
+      tooltip: 'Edit Project',
+      onClick: () => {
+        alert('Edit Project');
+      },
     },
-  },
-  {
-    icon: () => <DeleteIcon />,
-    tooltip: 'Delete Project',
-    onClick: () => {
-      alert('Delete Project');
+    {
+      icon: () => <DeleteIcon />,
+      tooltip: 'Delete Project',
+      onClick: () => {
+        alert('Delete Project');
+      },
     },
-  },
-];
+  ];
+};
 
 const columns = [
   { field: 'name', title: 'Project Name' },
@@ -69,4 +73,4 @@ function createData(
   return { name, rating, team, update, description };
 }
 
-export default DashboardTable;
+export default ProjectListTable;
