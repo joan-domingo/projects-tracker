@@ -6,7 +6,7 @@ import styled from 'styled-components';
 import '../App.css';
 import { logoutAction } from '../auth/auth.redux';
 import Button from '../shared/components/Button';
-import Table from '../shared/components/Table';
+import DashboardTable from './DashboardTable';
 
 /* const database = firebase.database();
 
@@ -72,7 +72,7 @@ const Dashboard: FC = () => {
     <DashboardContainer>
       <p>You are now signed In!</p>
       <Button onClick={handleOnClickLogout} label={'Log out'} />
-      <Table title="Projects" columns={columns} data={data} />
+      <DashboardTable />
     </DashboardContainer>
   );
 
@@ -80,34 +80,5 @@ const Dashboard: FC = () => {
     dispatch(logoutAction());
   }
 };
-
-const columns = [
-  { field: 'name', title: 'Project Name' },
-  { field: 'description', title: 'Project Description' },
-  { field: 'team', title: 'Names of the team' },
-  { field: 'rating', title: 'rating' },
-  { field: 'update', title: 'Last update' },
-];
-
-const data = [
-  createData(
-    'XProject',
-    4,
-    'Hans, Peter',
-    'doing good',
-    'canvas digitalization'
-  ),
-  createData('PProject', 3, 'Johannes, Mariia', 'doing meh', 'toilet app'),
-];
-
-function createData(
-  name: string,
-  rating: number,
-  team: string,
-  update: string,
-  description: string
-) {
-  return { name, rating, team, update, description };
-}
 
 export default withRouter(Dashboard);

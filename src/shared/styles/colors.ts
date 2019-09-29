@@ -1,3 +1,3 @@
-export const lightGray = '#d3d3d3';
+export const lightGray = '#f4f4f4';
 
-export const backgroundColor = lightGray;
+export const appBackgroundColor = lightGray;
