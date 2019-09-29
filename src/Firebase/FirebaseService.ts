@@ -3,7 +3,7 @@ import firebase, { User } from 'firebase/app';
 import 'firebase/auth';
 import 'firebase/database';
 import { Observable, Observer } from 'rxjs';
-import { ProjectData } from '../shared/models/ProjectData';
+import { Project, ProjectCollection } from '../shared/models/ProjectData';
 
 dotenv.config();
 
@@ -53,7 +53,17 @@ export default class FirebaseService {
     );
 
   // *** Database API ***
-  public addNewProject(projectId: string, projectData: ProjectData) {
-    return this.database.ref('/projects/' + projectId).set(projectData);
-  }
+  public addNewProject = (projectId: string, projectData: Project) =>
+    this.database.ref('/projects/' + projectId).set(projectData);
+
+  public getProjectData$ = () =>
+    Observable.create((observer: Observer<ProjectCollection>) =>
+      this.database
+        .ref('/projects')
+        .once('value')
+        .then((snapshot: firebase.database.DataSnapshot) =>
+          observer.next(snapshot.val() as ProjectCollection)
+        )
+        .catch(err => observer.error(err))
+    );
 }

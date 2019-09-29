@@ -6,10 +6,12 @@ import {
   withInitialState,
 } from 'redux-preboiled';
 import { of } from 'rxjs';
-import { catchError, mapTo, switchMap } from 'rxjs/operators';
+import { catchError, mapTo, mergeMap, switchMap } from 'rxjs/operators';
+import { ProjectCollection } from '../shared/models/ProjectData';
 import ProjectDataService from './ProjectDataService';
 
 export interface ProjectDataState {
+  projects: ProjectCollection | undefined;
   isAddingProject: boolean;
 }
 
@@ -28,6 +30,10 @@ export const addProjectSuccessAction = createAction(
 export const addProjectFailureAction = createAction(
   'projectData/addProjectFailure'
 );
+
+export const readProjectDataDoneAction = createAction(
+  'read/readProjectDataDone'
+).withPayload<ProjectCollection>();
 
 // Epics
 
@@ -52,11 +58,24 @@ const addProjectEpic: ProjectDataEpic = (
     )
   );
 
-export const projectDataEpic: ProjectDataEpic = combineEpics(addProjectEpic);
+const readProjectDataEpic: ProjectDataEpic = (
+  action$,
+  state$,
+  { projectDataService }
+) =>
+  projectDataService
+    .readProjectData$()
+    .pipe(mergeMap(response => of(readProjectDataDoneAction(response))));
+
+export const projectDataEpic: ProjectDataEpic = combineEpics(
+  addProjectEpic,
+  readProjectDataEpic
+);
 
 // Reducer
 
 const initialProjectDataState: ProjectDataState = {
+  projects: undefined,
   isAddingProject: false,
 };
 
@@ -76,5 +95,10 @@ export default chainReducers(
   onAction(addProjectFailureAction, state => ({
     ...state,
     isAddingProject: false,
+  })),
+
+  onAction(readProjectDataDoneAction, (state, action) => ({
+    ...state,
+    projects: action.payload,
   }))
 );
