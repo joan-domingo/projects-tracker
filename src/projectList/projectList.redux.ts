@@ -1,3 +1,4 @@
+import _ from 'lodash';
 import { combineEpics, Epic, ofType } from 'redux-observable';
 import {
   chainReducers,
@@ -18,8 +19,11 @@ export interface ProjectDataState {
 // Selectors
 
 interface State {
-  project: ProjectDataState;
+  projectData: ProjectDataState;
 }
+
+export const selectProjectList = (state: State) =>
+  _.values(state.projectData.projects);
 
 // Actions
 
