@@ -1,0 +1,8 @@
+{
+    "loadingPage": {
+        "label": "Loading..."
+    },
+    "loginPage": {
+        "loginButton": "Log In"
+    }
+}
