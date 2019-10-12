@@ -27,8 +27,18 @@ interface State {
   projectData: ProjectDataState;
 }
 
-export const selectProjectList = (state: State) =>
-  _.values(state.projectData.projects);
+export const selectProjectsNewestUpdateList = (state: State) =>
+  _.chain(state.projectData.projects)
+    .values()
+    .map((p: Project) => selectNewestProjectUpdate(p))
+    .value();
+
+export const selectNewestProjectUpdate = (project: Project) =>
+  _.chain(project.updates)
+    .values()
+    .sortBy('timeMillis')
+    .first()
+    .value();
 
 // Actions
 
@@ -65,6 +75,7 @@ const addProjectEpic: ProjectDataEpic = (
         updateId: `${now}`,
         projectName: 'test',
         timeMillis: now,
+        projectId: `test${now}`,
       };
       const project: Project = {
         projectId: `test${now}`,

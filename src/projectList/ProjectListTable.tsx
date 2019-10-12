@@ -3,10 +3,10 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import EditIcon from '@material-ui/icons/Edit';
 import React, { FC } from 'react';
 import Table from '../shared/components/Table';
-import { Project } from '../shared/models/ProjectData';
+import { ProjectUpdate } from '../shared/models/ProjectData';
 
 interface Props {
-  data: Project[];
+  data: ProjectUpdate[];
   onAddProject: () => void;
 }
 
@@ -47,8 +47,8 @@ const getTableActions = (props: Props) => {
 };
 
 const columns = [
-  { field: 'name', title: 'Project Name' },
-  { field: 'description', title: 'Project Description' },
+  { field: 'timeMillis', title: 'Last Update' },
+  { field: 'projectName', title: 'Project Name' },
 ];
 
 export default ProjectListTable;

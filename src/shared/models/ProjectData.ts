@@ -13,6 +13,7 @@ export interface ProjectUpdateCollection {
 
 export interface ProjectUpdate {
   updateId: string;
+  projectId: string;
   projectName: string;
   timeMillis: number;
 }
