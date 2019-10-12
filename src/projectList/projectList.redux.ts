@@ -1,4 +1,5 @@
 import _ from 'lodash';
+import * as moment from 'moment';
 import { combineEpics, Epic, ofType } from 'redux-observable';
 import {
   chainReducers,
@@ -54,12 +55,16 @@ const addProjectEpic: ProjectDataEpic = (
 ) =>
   action$.pipe(
     ofType(addProjectAction.type),
-    switchMap(() =>
-      projectDataService.addNewProject$().pipe(
+    switchMap(() => {
+      const projectData = {
+        id: 'test' + moment.now(),
+        name: 'test',
+      };
+      return projectDataService.addNewProject$(projectData).pipe(
         mapTo(addProjectSuccessAction()),
         catchError(() => of(addProjectFailureAction()))
-      )
-    )
+      );
+    })
   );
 
 const readProjectDataEpic: ProjectDataEpic = (
