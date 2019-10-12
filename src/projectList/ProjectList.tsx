@@ -3,8 +3,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { withRouter } from 'react-router';
 import styled from 'styled-components';
 import '../App.css';
-import { logoutAction } from '../auth/auth.redux';
-import Button from '../shared/components/Button';
 import { addProjectAction, selectProjectList } from './projectList.redux';
 import ProjectListTable from './ProjectListTable';
 
@@ -15,8 +13,6 @@ const ProjectList: FC = () => {
   const dispatch = useDispatch();
   return (
     <ProjectListContainer>
-      <p>You are now signed In!</p>
-      <Button onClick={handleOnClickLogout} label={'Log out'} />
       <ProjectListTable
         data={projectList}
         onAddProject={() => handleOnAddProject()}
@@ -26,10 +22,6 @@ const ProjectList: FC = () => {
 
   function handleOnAddProject() {
     dispatch(addProjectAction());
-  }
-
-  function handleOnClickLogout() {
-    dispatch(logoutAction());
   }
 };
 

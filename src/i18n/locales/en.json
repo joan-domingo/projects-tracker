@@ -4,5 +4,9 @@
     },
     "loginPage": {
         "loginButton": "Log In"
+    },
+    "userBar": {
+        "logoutButton": "Log Out",
+        "welcomeLabel": "Welcome {{displayName}}!"
     }
 }

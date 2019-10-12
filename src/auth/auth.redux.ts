@@ -1,4 +1,3 @@
-import { User } from 'firebase';
 import { combineEpics, Epic, ofType } from 'redux-observable';
 import {
   chainReducers,
@@ -8,12 +7,12 @@ import {
 } from 'redux-preboiled';
 import { of } from 'rxjs';
 import { ignoreElements, mergeMap, switchMap } from 'rxjs/operators';
-
+import { User } from '../shared/models/UserData';
 import AuthService from './AuthService';
 
 export interface AuthState {
   isAuthInitialized: boolean;
-  userId: string | undefined;
+  user: User | undefined;
 }
 
 // Selectors
@@ -25,13 +24,16 @@ interface State {
 export const selectIsAuthInitialized = (state: State) =>
   state.auth.isAuthInitialized;
 
-export const selectIsSignedIn = (state: State) => Boolean(state.auth.userId);
+export const selectIsSignedIn = (state: State) => Boolean(state.auth.user);
+
+export const selectDisplayName = (state: State) =>
+  !!state.auth.user ? state.auth.user.displayName : undefined;
 
 // Actions
 
 export const loginAction = createAction('auth/login');
 export const loginDoneAction = createAction('auth/loginDone').withPayload<
-  string
+  firebase.User
 >();
 
 export const logoutAction = createAction('auth/logout');
@@ -49,8 +51,8 @@ const onAuthStateChangedEpic: AuthEpic = (action$, state$, { authService }) =>
   authService
     .onAuthStateChanged$()
     .pipe(
-      mergeMap((user: User | null) =>
-        user ? of(loginDoneAction(user.email!)) : of(logoutDoneAction())
+      mergeMap((user: firebase.User | null) =>
+        user ? of(loginDoneAction(user)) : of(logoutDoneAction())
       )
     );
 
@@ -78,7 +80,7 @@ export const authEpic: AuthEpic = combineEpics(
 
 const initialAuthState: AuthState = {
   isAuthInitialized: false,
-  userId: undefined,
+  user: undefined,
 };
 
 export default chainReducers(
@@ -86,8 +88,11 @@ export default chainReducers(
 
   onAction(loginDoneAction, (state, action) => ({
     ...state,
-    userId: action.payload,
     isAuthInitialized: true,
+    user: {
+      email: action.payload.email!,
+      displayName: action.payload.displayName!,
+    },
   })),
 
   onAction(logoutDoneAction, state => ({

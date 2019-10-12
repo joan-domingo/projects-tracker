@@ -1,8 +1,8 @@
 import styled from 'styled-components';
 
 const PageContainer = styled.div`
-  display: flex;
-  padding: 0.5rem 2rem;
+  padding: 0rem 2rem 0.5rem 2rem;
+  width: 80rem;
 `;
 
 export default PageContainer;
