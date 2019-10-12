@@ -9,7 +9,11 @@ import {
 } from 'redux-preboiled';
 import { of } from 'rxjs';
 import { catchError, mapTo, mergeMap, switchMap } from 'rxjs/operators';
-import { ProjectCollection } from '../shared/models/ProjectData';
+import {
+  Project,
+  ProjectCollection,
+  ProjectUpdate,
+} from '../shared/models/ProjectData';
 import ProjectDataService from './ProjectDataService';
 
 export interface ProjectDataState {
@@ -56,11 +60,17 @@ const addProjectEpic: ProjectDataEpic = (
   action$.pipe(
     ofType(addProjectAction.type),
     switchMap(() => {
-      const projectData = {
-        id: 'test' + moment.now(),
-        name: 'test',
+      const now = moment.now();
+      const firstUpdate: ProjectUpdate = {
+        updateId: `${now}`,
+        projectName: 'test',
+        timeMillis: now,
       };
-      return projectDataService.addNewProject$(projectData).pipe(
+      const project: Project = {
+        projectId: `test${now}`,
+        updates: { [firstUpdate.updateId]: firstUpdate },
+      };
+      return projectDataService.addNewProject$(project).pipe(
         mapTo(addProjectSuccessAction()),
         catchError(() => of(addProjectFailureAction()))
       );

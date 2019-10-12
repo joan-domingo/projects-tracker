@@ -53,8 +53,8 @@ export default class FirebaseService {
     );
 
   // *** Database API ***
-  public addNewProject = (projectId: string, projectData: Project) =>
-    this.database.ref('/projects/' + projectId).set(projectData);
+  public addNewProject = (project: Project) =>
+    this.database.ref('/projects/' + project.projectId).set(project);
 
   public getProjectData$ = () =>
     Observable.create((observer: Observer<ProjectCollection>) =>

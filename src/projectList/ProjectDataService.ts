@@ -10,7 +10,7 @@ export default class ProjectDataService {
   }
 
   public addNewProject$(project: Project): Observable<any> {
-    return from(this.firebaseService.addNewProject(project.id, project));
+    return from(this.firebaseService.addNewProject(project));
   }
 
   public readProjectData$(): Observable<ProjectCollection> {
