@@ -38,7 +38,8 @@ const columns = [
   {
     field: 'timeMillis',
     title: i18n.t('projectList.table.lastUpdate'),
-    render: (timeMillis: number) => moment(timeMillis).fromNow(),
+    render: (projectUpdate: ProjectUpdate) =>
+      moment(projectUpdate.timeMillis).fromNow(),
   },
   { field: 'projectName', title: i18n.t('projectList.table.projectName') },
 ];
