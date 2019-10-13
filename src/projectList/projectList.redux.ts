@@ -76,6 +76,7 @@ const addProjectEpic: ProjectDataEpic = (
         projectName: 'test',
         timeMillis: now,
         projectId: `test${now}`,
+        projectLocation: ['Berlin'],
       };
       const project: Project = {
         projectId: `test${now}`,
