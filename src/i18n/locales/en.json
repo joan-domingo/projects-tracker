@@ -5,6 +5,15 @@
     "loginPage": {
         "loginButton": "Log In"
     },
+    "projectList": {
+        "addProject": "Add project",
+        "table": {
+            "lastUpdate": "Last Update",
+            "projectName": "Project Name",
+            "title": "Projects"
+            
+        }
+    },
     "userBar": {
         "logoutButton": "Log Out",
         "welcomeLabel": "Welcome {{displayName}}!"
