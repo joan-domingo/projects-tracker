@@ -1,9 +1,7 @@
 import AddIcon from '@material-ui/icons/AddCircle';
-import { createBrowserHistory } from 'history';
 import moment from 'moment';
 import React, { FC } from 'react';
 import i18n from '../i18n/i18n';
-import { newProjectPath } from '../routing/routes';
 import Table from '../shared/components/Table';
 import { ProjectUpdate } from '../shared/models/ProjectData';
 
@@ -11,8 +9,6 @@ interface Props {
   data: ProjectUpdate[];
   onAddProject: () => void;
 }
-
-const history = createBrowserHistory();
 
 const ProjectListTable: FC<Props> = props => {
   return (
@@ -32,7 +28,7 @@ const getTableActions = (props: Props) => {
     {
       icon: () => <AddIcon />,
       tooltip: i18n.t('projectList.addProject'),
-      onClick: () => history.push(newProjectPath()),
+      onClick: props.onAddProject,
       isFreeAction: true,
     },
   ];

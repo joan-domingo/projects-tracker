@@ -4,12 +4,13 @@ import styled from 'styled-components';
 import { logoutAction, selectDisplayName } from '../../auth/auth.redux';
 import i18n from '../../i18n/i18n';
 import { darkGray } from '../styles/colors';
+import { small } from '../styles/dimensions';
 import Button from './Button';
 
 const UserBarContainer = styled.div`
   height: 5rem;
   background-color: ${darkGray};
-  margin-bottom: 0.5rem;
+  margin-bottom: ${small};
   display: flex;
   align-items: center;
   padding: 0 1rem;

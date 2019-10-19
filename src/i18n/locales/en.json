@@ -5,6 +5,18 @@
     "loginPage": {
         "loginButton": "Log In"
     },
+    "project": {
+        "health": {
+
+        },
+        "members": {
+
+        },
+        "overview": {
+            "name": "Project Name",
+            "goal": "Project Goal"
+        }
+    },
     "projectList": {
         "addProject": "Add project",
         "table": {
@@ -13,6 +25,9 @@
             "title": "Projects"
             
         }
+    },
+    "shared": {
+        "submit": "Submit"
     },
     "userBar": {
         "logoutButton": "Log Out",
