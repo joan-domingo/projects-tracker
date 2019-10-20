@@ -13,6 +13,7 @@ import { Project, ProjectUpdate } from '../shared/models/ProjectData';
 
 export interface NewProjectState {
   isSavingProject: boolean;
+  isProjectSaved: boolean;
   projectName?: string;
   projectGoal?: string;
 }
@@ -23,11 +24,14 @@ interface State {
   newProject: NewProjectState;
 }
 
-export const selectNewProjectName = (state: State) =>
-  state.newProject.projectName;
+export const selectNewProjectName = (state: State): string =>
+  state.newProject.projectName || '';
 
-export const selectNewProjectGoal = (state: State) =>
-  state.newProject.projectGoal;
+export const selectNewProjectGoal = (state: State): string =>
+  state.newProject.projectGoal || '';
+
+export const selectIsProjectSaved = (state: State): boolean =>
+  state.newProject.isProjectSaved;
 
 // Actions
 
@@ -99,6 +103,7 @@ export const newProjectEpic: NewProjectEpic = combineEpics(saveProjectEpic);
 
 const initialNewProjectState: NewProjectState = {
   isSavingProject: false,
+  isProjectSaved: false,
 };
 
 export default chainReducers(
@@ -107,11 +112,13 @@ export default chainReducers(
   onAction(saveProjectAction, state => ({
     ...state,
     isSavingProject: true,
+    isProjectSaved: false,
   })),
 
   onAction(saveProjectSuccessAction, state => ({
     ...state,
     isSavingProject: false,
+    isProjectSaved: true,
   })),
 
   onAction(saveProjectFailureAction, state => ({
