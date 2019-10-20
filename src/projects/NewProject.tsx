@@ -3,7 +3,6 @@ import CardContent from '@material-ui/core/CardContent';
 import TextField from '@material-ui/core/TextField';
 import React, { FC } from 'react';
 import { useDispatch } from 'react-redux';
-import { withRouter } from 'react-router';
 import styled from 'styled-components';
 import i18n from '../i18n/i18n';
 import { addProjectAction } from '../projectList/projectList.redux';
@@ -58,4 +57,4 @@ const NewProject: FC = () => {
   );
 };
 
-export default withRouter(NewProject);
+export default NewProject;
