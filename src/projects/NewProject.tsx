@@ -4,9 +4,9 @@ import React, { FC } from 'react';
 import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
 import i18n from '../i18n/i18n';
-import { addProjectAction } from '../projectList/projectList.redux';
 import Button from '../shared/components/Button';
 import { small } from '../shared/styles/dimensions';
+import { saveProjectAction } from './newProject.redux';
 import ProjectOverview from './ProjectOverview';
 
 const NewProjectContainer = styled.div``;
@@ -42,7 +42,7 @@ const NewProject: FC = () => {
       <ProjectHealth />
       <Button
         label={i18n.t('shared.submit')}
-        onClick={() => dispatch(addProjectAction())}
+        onClick={() => dispatch(saveProjectAction())}
       />
     </NewProjectContainer>
   );

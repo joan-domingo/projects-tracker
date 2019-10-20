@@ -21,6 +21,7 @@
         "addProject": "Add project",
         "table": {
             "lastUpdate": "Last Update",
+            "projectGoal": "Project Goal",
             "projectName": "Project Name",
             "title": "Projects"
             

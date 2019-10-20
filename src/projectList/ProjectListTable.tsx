@@ -41,7 +41,14 @@ const columns = [
     render: (projectUpdate: ProjectUpdate) =>
       moment(projectUpdate.timeMillis).fromNow(),
   },
-  { field: 'projectName', title: i18n.t('projectList.table.projectName') },
+  {
+    field: 'projectOverview.projectName',
+    title: i18n.t('projectList.table.projectName'),
+  },
+  {
+    field: 'projectOverview.projectGoal',
+    title: i18n.t('projectList.table.projectGoal'),
+  },
 ];
 
 export default ProjectListTable;

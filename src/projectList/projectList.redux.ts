@@ -1,6 +1,5 @@
 import _ from 'lodash';
-import * as moment from 'moment';
-import { combineEpics, Epic, ofType } from 'redux-observable';
+import { combineEpics, Epic } from 'redux-observable';
 import {
   chainReducers,
   createAction,
@@ -8,17 +7,12 @@ import {
   withInitialState,
 } from 'redux-preboiled';
 import { of } from 'rxjs';
-import { catchError, mapTo, mergeMap, switchMap } from 'rxjs/operators';
-import {
-  Project,
-  ProjectCollection,
-  ProjectUpdate,
-} from '../shared/models/ProjectData';
+import { mergeMap } from 'rxjs/operators';
+import { Project, ProjectCollection } from '../shared/models/ProjectData';
 import ProjectDataService from './ProjectDataService';
 
 export interface ProjectDataState {
   projects: ProjectCollection | undefined;
-  isAddingProject: boolean;
 }
 
 // Selectors
@@ -42,14 +36,6 @@ export const selectNewestProjectUpdate = (project: Project) =>
 
 // Actions
 
-export const addProjectAction = createAction('projectData/addProject');
-export const addProjectSuccessAction = createAction(
-  'projectData/addProjectSuccess'
-);
-export const addProjectFailureAction = createAction(
-  'projectData/addProjectFailure'
-);
-
 export const readProjectDataDoneAction = createAction(
   'projectData/readProjectDataDone'
 ).withPayload<ProjectCollection>();
@@ -62,36 +48,6 @@ export interface ProjectDataDependencies {
 
 type ProjectDataEpic = Epic<any, any, any, ProjectDataDependencies>;
 
-const addProjectEpic: ProjectDataEpic = (
-  action$,
-  state$,
-  { projectDataService }
-) =>
-  action$.pipe(
-    ofType(addProjectAction.type),
-    switchMap(() => {
-      const now = moment.now();
-      const firstUpdate: ProjectUpdate = {
-        updateId: `${now}`,
-        timeMillis: now,
-        projectId: `test${now}`,
-        projectLocation: ['Berlin'],
-        projectOverview: {
-          projectName: 'test',
-          projectGoal: 'goal',
-        },
-      };
-      const project: Project = {
-        projectId: `test${now}`,
-        updates: { [firstUpdate.updateId]: firstUpdate },
-      };
-      return projectDataService.addNewProject$(project).pipe(
-        mapTo(addProjectSuccessAction()),
-        catchError(() => of(addProjectFailureAction()))
-      );
-    })
-  );
-
 const readProjectDataEpic: ProjectDataEpic = (
   action$,
   state$,
@@ -102,7 +58,6 @@ const readProjectDataEpic: ProjectDataEpic = (
     .pipe(mergeMap(response => of(readProjectDataDoneAction(response))));
 
 export const projectDataEpic: ProjectDataEpic = combineEpics(
-  addProjectEpic,
   readProjectDataEpic
 );
 
@@ -110,26 +65,10 @@ export const projectDataEpic: ProjectDataEpic = combineEpics(
 
 const initialProjectDataState: ProjectDataState = {
   projects: undefined,
-  isAddingProject: false,
 };
 
 export default chainReducers(
   withInitialState(initialProjectDataState),
-
-  onAction(addProjectAction, state => ({
-    ...state,
-    isAddingProject: true,
-  })),
-
-  onAction(addProjectSuccessAction, state => ({
-    ...state,
-    isAddingProject: false,
-  })),
-
-  onAction(addProjectFailureAction, state => ({
-    ...state,
-    isAddingProject: false,
-  })),
 
   onAction(readProjectDataDoneAction, (state, action) => ({
     ...state,
