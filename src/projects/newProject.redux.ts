@@ -43,6 +43,10 @@ export const saveProjectFailureAction = createAction(
   'newProject/saveProjectFailure'
 );
 
+export const initializeNewProjectAction = createAction(
+  'newProject/initializeNewProject'
+);
+
 export const setProjectNameAction = createAction(
   'newProject/setProjectName'
 ).withPayload<string>();
@@ -124,6 +128,10 @@ export default chainReducers(
   onAction(saveProjectFailureAction, state => ({
     ...state,
     isSavingProject: false,
+  })),
+
+  onAction(initializeNewProjectAction, state => ({
+    ...initialNewProjectState,
   })),
 
   onAction(setProjectNameAction, (state, action) => ({

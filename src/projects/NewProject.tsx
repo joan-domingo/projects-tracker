@@ -1,12 +1,17 @@
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
-import React, { FC } from 'react';
-import { useDispatch } from 'react-redux';
+import React, { FC, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
 import i18n from '../i18n/i18n';
 import Button from '../shared/components/Button';
 import { small } from '../shared/styles/dimensions';
-import { saveProjectAction } from './newProject.redux';
+import {
+  initializeNewProjectAction,
+  saveProjectAction,
+  selectIsProjectSaved,
+} from './newProject.redux';
 import ProjectOverview from './ProjectOverview';
 
 const NewProjectContainer = styled.div``;
@@ -32,6 +37,20 @@ const ProjectHealth = () => (
 
 const NewProject: FC = () => {
   const dispatch = useDispatch();
+  const history = useHistory();
+  const isProjectSaved = useSelector(selectIsProjectSaved);
+
+  useEffect(() => {
+    dispatch(initializeNewProjectAction());
+  }, [dispatch]);
+
+  useEffect(() => {
+    if (isProjectSaved) {
+      history.goBack();
+      dispatch(initializeNewProjectAction());
+    }
+  }, [history, isProjectSaved, dispatch]);
+
   return (
     <NewProjectContainer>
       <CardContainer>
