@@ -19,6 +19,10 @@ const ProjectListTable: FC<Props> = props => {
       actions={getTableActions(props)}
       // tslint:disable-next-line: no-empty
       onRowClick={() => {}}
+      options={{
+        pageSize: 15,
+        pageSizeOptions: [15, 30, 50],
+      }}
     />
   );
 };
