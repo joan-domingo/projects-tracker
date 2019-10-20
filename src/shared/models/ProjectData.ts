@@ -24,7 +24,12 @@ export type Location =
 export interface ProjectUpdate {
   updateId: string;
   projectId: string;
-  projectName: string;
   timeMillis: number;
+  projectOverview: ProjectOverview;
   projectLocation: Location[];
+}
+
+export interface ProjectOverview {
+  projectName: string;
+  projectGoal: string;
 }

@@ -5,21 +5,27 @@ import projectDataReducer, {
   projectDataEpic,
   ProjectDataState,
 } from './projectList/projectList.redux';
+import newProjectReducer, {
+  newProjectEpic,
+  NewProjectState,
+} from './projects/newProject.redux';
 
 // State
 
 export interface State {
   auth: AuthState;
+  newProject: NewProjectState;
   projectData: ProjectDataState;
 }
 
 // Epic
 
-export const rootEpic = combineEpics(authEpic, projectDataEpic);
+export const rootEpic = combineEpics(authEpic, newProjectEpic, projectDataEpic);
 
 // Reducer
 
 export default combineReducers({
   auth: authReducer,
+  newProject: newProjectReducer,
   projectData: projectDataReducer,
 });

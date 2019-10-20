@@ -73,10 +73,13 @@ const addProjectEpic: ProjectDataEpic = (
       const now = moment.now();
       const firstUpdate: ProjectUpdate = {
         updateId: `${now}`,
-        projectName: 'test',
         timeMillis: now,
         projectId: `test${now}`,
         projectLocation: ['Berlin'],
+        projectOverview: {
+          projectName: 'test',
+          projectGoal: 'goal',
+        },
       };
       const project: Project = {
         projectId: `test${now}`,
