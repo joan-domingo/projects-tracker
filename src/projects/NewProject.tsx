@@ -7,12 +7,12 @@ import styled from 'styled-components';
 import i18n from '../i18n/i18n';
 import Button from '../shared/components/Button';
 import { small } from '../shared/styles/dimensions';
+import EditableProjectOverview from './components/EditableProjectOverview';
 import {
   initializeNewProjectAction,
   saveProjectAction,
   selectIsProjectSaved,
 } from './newProject.redux';
-import ProjectOverview from './ProjectOverview';
 
 const NewProjectContainer = styled.div``;
 const CardContainer = styled.div`
@@ -54,7 +54,7 @@ const NewProject: FC = () => {
   return (
     <NewProjectContainer>
       <CardContainer>
-        <ProjectOverview />
+        <EditableProjectOverview />
       </CardContainer>
 
       <ProjectMembersModule />

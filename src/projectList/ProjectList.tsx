@@ -19,7 +19,7 @@ const ProjectList: FC = () => {
   );
 
   function handleOnAddProject() {
-    history.push(newProjectPath());
+    history.push(newProjectPath);
   }
 };
 

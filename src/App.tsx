@@ -10,7 +10,12 @@ import { Store } from 'redux';
 import AuthContainer from './auth/AuthContainer';
 import ProjectList from './projectList/ProjectList';
 import NewProject from './projects/NewProject';
-import { dashboardPath, newProjectPath } from './routing/routes';
+import ProjectView from './projects/ProjectView';
+import {
+  dashboardPath,
+  newProjectPath,
+  projectViewPath,
+} from './routing/routes';
 import AppContainer from './shared/components/AppContainer';
 import PageContainer from './shared/components/PageContainer';
 import UserBar from './shared/components/UserBar';
@@ -28,9 +33,10 @@ const App: FC<Props> = ({ store }) => {
             <UserBar />
             <Router>
               <Switch>
-                <Route path={dashboardPath()} component={ProjectList} />
-                <Route path={newProjectPath()} component={NewProject} />
-                <Redirect to={dashboardPath()} />
+                <Route path={dashboardPath} component={ProjectList} />
+                <Route path={newProjectPath} component={NewProject} />
+                <Route path={projectViewPath} component={ProjectView} />
+                <Redirect to={dashboardPath} />
               </Switch>
             </Router>
           </AuthContainer>

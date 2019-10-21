@@ -2,7 +2,9 @@ import AddIcon from '@material-ui/icons/AddCircle';
 import moment from 'moment';
 import React, { FC } from 'react';
 import { useSelector } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 import i18n from '../i18n/i18n';
+import { generateProjectViewPath } from '../routing/routes';
 import Table from '../shared/components/Table';
 import { ProjectUpdate } from '../shared/models/ProjectData';
 import { selectIsLoadingProjects } from './projectList.redux';
@@ -13,6 +15,7 @@ interface Props {
 }
 
 const ProjectListTable: FC<Props> = props => {
+  const history = useHistory();
   const isLoadingProjects = useSelector(selectIsLoadingProjects);
   return (
     <Table
@@ -20,8 +23,9 @@ const ProjectListTable: FC<Props> = props => {
       columns={columns}
       data={props.data}
       actions={getTableActions(props)}
-      // tslint:disable-next-line: no-empty
-      onRowClick={() => {}}
+      onRowClick={(e, rowData) =>
+        history.push(generateProjectViewPath(rowData.projectId))
+      }
       options={{
         pageSize: 15,
         pageSizeOptions: [15, 30, 50],

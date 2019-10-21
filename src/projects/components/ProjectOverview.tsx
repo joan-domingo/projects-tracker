@@ -10,13 +10,13 @@ import moment from 'moment';
 import React, { FC } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
-import i18n from '../i18n/i18n';
+import i18n from '../../i18n/i18n';
 import {
   selectNewProjectGoal,
   selectNewProjectName,
   setProjectGoalAction,
   setProjectNameAction,
-} from './newProject.redux';
+} from '../newProject.redux';
 
 const TimeOverviewContainer = styled.div``;
 
