@@ -13,6 +13,7 @@ import ProjectDataService from './ProjectDataService';
 
 export interface ProjectDataState {
   projects: ProjectCollection | undefined;
+  isLoadingProjects: boolean;
 }
 
 // Selectors
@@ -33,6 +34,9 @@ export const selectNewestProjectUpdate = (project: Project) =>
     .sortBy('timeMillis')
     .first()
     .value();
+
+export const selectIsLoadingProjects = (state: State) =>
+  state.projectData.isLoadingProjects;
 
 // Actions
 
@@ -65,6 +69,7 @@ export const projectDataEpic: ProjectDataEpic = combineEpics(
 
 const initialProjectDataState: ProjectDataState = {
   projects: undefined,
+  isLoadingProjects: true,
 };
 
 export default chainReducers(
@@ -73,5 +78,6 @@ export default chainReducers(
   onAction(readProjectDataDoneAction, (state, action) => ({
     ...state,
     projects: action.payload,
+    isLoadingProjects: false,
   }))
 );

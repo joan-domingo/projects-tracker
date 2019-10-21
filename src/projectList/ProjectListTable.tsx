@@ -1,9 +1,11 @@
 import AddIcon from '@material-ui/icons/AddCircle';
 import moment from 'moment';
 import React, { FC } from 'react';
+import { useSelector } from 'react-redux';
 import i18n from '../i18n/i18n';
 import Table from '../shared/components/Table';
 import { ProjectUpdate } from '../shared/models/ProjectData';
+import { selectIsLoadingProjects } from './projectList.redux';
 
 interface Props {
   data: ProjectUpdate[];
@@ -11,6 +13,7 @@ interface Props {
 }
 
 const ProjectListTable: FC<Props> = props => {
+  const isLoadingProjects = useSelector(selectIsLoadingProjects);
   return (
     <Table
       title={i18n.t('projectList.table.title')}
@@ -23,6 +26,7 @@ const ProjectListTable: FC<Props> = props => {
         pageSize: 15,
         pageSizeOptions: [15, 30, 50],
       }}
+      isLoading={isLoadingProjects}
     />
   );
 };
