@@ -11,6 +11,7 @@ import React, { FC } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 import i18n from '../../i18n/i18n';
+import { Project } from '../../shared/models/ProjectData';
 import {
   selectNewProjectGoal,
   selectNewProjectName,
@@ -20,7 +21,11 @@ import {
 
 const TimeOverviewContainer = styled.div``;
 
-const ProjectOverview: FC = () => {
+interface Props {
+  project: Project | undefined;
+}
+
+const ProjectOverview: FC<Props> = () => {
   const dispatch = useDispatch();
   const projectName = useSelector(selectNewProjectName);
   const projectGoal = useSelector(selectNewProjectGoal);

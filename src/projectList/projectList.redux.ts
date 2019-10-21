@@ -38,6 +38,9 @@ export const selectNewestProjectUpdate = (project: Project) =>
 export const selectIsLoadingProjects = (state: State) =>
   state.projectData.isLoadingProjects;
 
+export const selectProject = (state: State, projectId: string) =>
+  state.projectData.projects && state.projectData.projects[projectId];
+
 // Actions
 
 export const readProjectDataDoneAction = createAction(
