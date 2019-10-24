@@ -8,27 +8,17 @@ import {
 import 'date-fns';
 import moment from 'moment';
 import React, { FC } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 import i18n from '../../i18n/i18n';
-import { Project } from '../../shared/models/ProjectData';
-import {
-  selectNewProjectGoal,
-  selectNewProjectName,
-  setProjectGoalAction,
-  setProjectNameAction,
-} from '../newProject.redux';
+import { ProjectOverview } from '../../shared/models/ProjectData';
 
 const TimeOverviewContainer = styled.div``;
 
 interface Props {
-  project: Project | undefined;
+  data: ProjectOverview;
 }
 
-const ProjectOverview: FC<Props> = () => {
-  const dispatch = useDispatch();
-  const projectName = useSelector(selectNewProjectName);
-  const projectGoal = useSelector(selectNewProjectGoal);
+const ProjectOverviewCard: FC<Props> = ({ data }) => {
   return (
     <Card>
       <CardContent style={{ display: 'flex', flexDirection: 'column' }}>
@@ -36,14 +26,14 @@ const ProjectOverview: FC<Props> = () => {
         <TextField
           required
           label={i18n.t('project.overview.name')}
-          onChange={handleOnChangeProjectName}
-          value={projectName}
+          value={data.projectName}
+          disabled
         />
         <TextField
           required
           label={i18n.t('project.overview.goal')}
-          onChange={handleOnChangeProjectGoal}
-          value={projectGoal}
+          value={data.projectGoal}
+          disabled
         />
         <TimeOverviewContainer>
           <MuiPickersUtilsProvider utils={DateFnsUtils}>
@@ -70,14 +60,6 @@ const ProjectOverview: FC<Props> = () => {
       </CardContent>
     </Card>
   );
-
-  function handleOnChangeProjectName(e: React.ChangeEvent<HTMLInputElement>) {
-    dispatch(setProjectNameAction(e.target.value));
-  }
-
-  function handleOnChangeProjectGoal(e: React.ChangeEvent<HTMLInputElement>) {
-    dispatch(setProjectGoalAction(e.target.value));
-  }
 };
 
-export default ProjectOverview;
+export default ProjectOverviewCard;

@@ -8,7 +8,11 @@ import {
 } from 'redux-preboiled';
 import { of } from 'rxjs';
 import { mergeMap } from 'rxjs/operators';
-import { Project, ProjectCollection } from '../shared/models/ProjectData';
+import {
+  Project,
+  ProjectCollection,
+  ProjectUpdate,
+} from '../shared/models/ProjectData';
 import ProjectDataService from './ProjectDataService';
 
 export interface ProjectDataState {
@@ -38,8 +42,24 @@ export const selectNewestProjectUpdate = (project: Project) =>
 export const selectIsLoadingProjects = (state: State) =>
   state.projectData.isLoadingProjects;
 
-export const selectProject = (state: State, projectId: string) =>
+export const selectProject = (
+  state: State,
+  projectId: string
+): Project | undefined =>
   state.projectData.projects && state.projectData.projects[projectId];
+
+export const selectLastProjectUpdate = (
+  state: State,
+  projectId: string
+): ProjectUpdate | undefined => {
+  if (
+    state.projectData.projects &&
+    _.values(state.projectData.projects[projectId].updates).length > 0
+  ) {
+    return _.last(_.values(state.projectData.projects[projectId].updates));
+  }
+  return undefined;
+};
 
 // Actions
 
