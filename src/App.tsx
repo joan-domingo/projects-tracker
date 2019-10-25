@@ -17,8 +17,8 @@ import {
   projectViewPath,
 } from './routing/routes';
 import AppContainer from './shared/components/AppContainer';
+import NavigationBar from './shared/components/NavigationBar';
 import PageContainer from './shared/components/PageContainer';
-import UserBar from './shared/components/UserBar';
 
 interface Props {
   store: Store;
@@ -30,7 +30,7 @@ const App: FC<Props> = ({ store }) => {
       <AppContainer>
         <PageContainer>
           <AuthContainer>
-            <UserBar />
+            <NavigationBar />
             <Router>
               <Switch>
                 <Route path={dashboardPath} component={ProjectList} />
