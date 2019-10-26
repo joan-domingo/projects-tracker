@@ -1,15 +1,10 @@
 import { Card, CardContent } from '@material-ui/core';
 import 'date-fns';
 import React, { FC } from 'react';
-import styled from 'styled-components';
 import i18n from '../../i18n/i18n';
 import LabeledText from '../../shared/components/LabeledText';
+import SectionTitle from '../../shared/components/SectionTitle';
 import { ProjectOverview } from '../../shared/models/ProjectData';
-
-const SectionTitle = styled.div`
-  font-size: 1.5rem;
-  padding: 0.5rem 0;
-`;
 
 interface Props {
   data: ProjectOverview;

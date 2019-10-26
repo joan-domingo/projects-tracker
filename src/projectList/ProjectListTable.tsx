@@ -5,6 +5,7 @@ import { useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import i18n from '../i18n/i18n';
 import { generateProjectViewPath } from '../routing/routes';
+import SectionTitle from '../shared/components/SectionTitle';
 import Table from '../shared/components/Table';
 import { ProjectUpdate } from '../shared/models/ProjectData';
 import { selectIsLoadingProjects } from './projectList.redux';
@@ -19,7 +20,7 @@ const ProjectListTable: FC<Props> = props => {
   const isLoadingProjects = useSelector(selectIsLoadingProjects);
   return (
     <Table
-      title={i18n.t('projectList.table.title')}
+      title={<SectionTitle>{i18n.t('projectList.table.title')}</SectionTitle>}
       columns={columns}
       data={props.data}
       actions={getTableActions(props)}
