@@ -11,6 +11,8 @@ import React, { FC } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 import i18n from '../../i18n/i18n';
+import SectionTitle from '../../shared/components/SectionTitle';
+import { ProjectOverview } from '../../shared/models/ProjectData';
 import {
   selectNewProjectGoal,
   selectNewProjectName,
@@ -20,25 +22,35 @@ import {
 
 const TimeOverviewContainer = styled.div``;
 
-const EditableProjectOverview: FC = () => {
+interface Props {
+  overview?: ProjectOverview;
+}
+
+const EditableProjectOverview: FC<Props> = ({ overview }) => {
   const dispatch = useDispatch();
   const projectName = useSelector(selectNewProjectName);
   const projectGoal = useSelector(selectNewProjectGoal);
   return (
     <Card>
       <CardContent style={{ display: 'flex', flexDirection: 'column' }}>
-        <div>Project Overview</div>
+        <SectionTitle>{i18n.t('project.overview.label')}</SectionTitle>
         <TextField
           required
           label={i18n.t('project.overview.name')}
           onChange={handleOnChangeProjectName}
-          value={projectName}
+          value={defineTextFieldValue(
+            projectName,
+            overview && overview.projectName
+          )}
         />
         <TextField
           required
           label={i18n.t('project.overview.goal')}
           onChange={handleOnChangeProjectGoal}
-          value={projectGoal}
+          value={defineTextFieldValue(
+            projectGoal,
+            overview && overview.projectGoal
+          )}
         />
         <TimeOverviewContainer>
           <MuiPickersUtilsProvider utils={DateFnsUtils}>
@@ -72,6 +84,19 @@ const EditableProjectOverview: FC = () => {
 
   function handleOnChangeProjectGoal(e: React.ChangeEvent<HTMLInputElement>) {
     dispatch(setProjectGoalAction(e.target.value));
+  }
+
+  function defineTextFieldValue(
+    enteredValue: string | undefined,
+    propsValue: string | undefined
+  ): string {
+    if (enteredValue) {
+      return enteredValue;
+    }
+    if (propsValue) {
+      return propsValue;
+    }
+    return '';
   }
 };
 

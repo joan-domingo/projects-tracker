@@ -7,7 +7,7 @@ import {
   withInitialState,
 } from 'redux-preboiled';
 import { of } from 'rxjs';
-import { catchError, mapTo, switchMap } from 'rxjs/operators';
+import { catchError, mapTo, switchMap, mergeMap } from 'rxjs/operators';
 import { Project, ProjectUpdate } from '../../shared/models/ProjectData';
 import ProjectDataService from '../ProjectDataService';
 
@@ -24,23 +24,33 @@ interface State {
   newProject: NewProjectState;
 }
 
-export const selectNewProjectName = (state: State): string =>
-  state.newProject.projectName || '';
+export const selectNewProjectName = (state: State) =>
+  state.newProject.projectName;
 
-export const selectNewProjectGoal = (state: State): string =>
-  state.newProject.projectGoal || '';
+export const selectNewProjectGoal = (state: State) =>
+  state.newProject.projectGoal;
 
 export const selectIsProjectSaved = (state: State): boolean =>
   state.newProject.isProjectSaved;
 
 // Actions
 
-export const saveProjectAction = createAction('newProject/saveProjectAction');
+export const saveProjectAction = createAction('newProject/saveProject');
 export const saveProjectSuccessAction = createAction(
   'newProject/saveProjectSuccess'
 );
 export const saveProjectFailureAction = createAction(
   'newProject/saveProjectFailure'
+);
+
+export const saveUpdateAction = createAction(
+  'newUpdate/saveUpdate'
+).withPayload<string>();
+export const saveUpdateSuccessAction = createAction(
+  'newUpdate/saveUpdateSuccess'
+);
+export const saveUpdateFailureAction = createAction(
+  'newUpdate/saveUpdateFailure'
 );
 
 export const initializeNewProjectAction = createAction(
@@ -81,7 +91,7 @@ const saveProjectEpic: NewProjectEpic = (
 
 function convertFormDataToProjectData(newProject: NewProjectState): Project {
   const now = moment.now();
-  const projectId = `${newProject.projectName!}-${now}`;
+  const projectId = `${newProject.projectName!.replace(/\s+/g, '')}-${now}`;
 
   const projectOverview = {
     projectName: newProject.projectName!,
@@ -101,7 +111,52 @@ function convertFormDataToProjectData(newProject: NewProjectState): Project {
   };
 }
 
-export const newProjectEpic: NewProjectEpic = combineEpics(saveProjectEpic);
+const saveUpdateEpic: NewProjectEpic = (
+  action$,
+  state$,
+  { projectDataService }
+) =>
+  action$.pipe(
+    ofType(saveUpdateAction.type),
+    switchMap(action => {
+      const projectId = action.payload;
+      const update = convertFormDataToUpdateData(
+        state$.value.newProject,
+        projectId
+      );
+      return projectDataService.addNewUpdate$(update).pipe(
+        mergeMap(() => of(saveUpdateSuccessAction())),
+        catchError(e => {
+          console.log(e);
+          return of(saveUpdateFailureAction());
+        })
+      );
+    })
+  );
+
+function convertFormDataToUpdateData(
+  newProject: NewProjectState,
+  projectId: string
+): ProjectUpdate {
+  const now = moment.now();
+
+  const projectOverview = {
+    projectName: newProject.projectName!,
+    projectGoal: newProject.projectGoal!,
+  };
+  return {
+    updateId: `${now}`,
+    timeMillis: now,
+    projectId,
+    projectLocation: [],
+    projectOverview,
+  };
+}
+
+export const newProjectEpic: NewProjectEpic = combineEpics(
+  saveProjectEpic,
+  saveUpdateEpic
+);
 
 // Reducer
 

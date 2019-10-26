@@ -10,8 +10,9 @@
 
         },
         "overview": {
-            "name": "Project Name",
-            "goal": "Project Goal"
+            "goal": "Project Goal",
+            "label": "Project Overview",
+            "name": "Project Name"
         }
     },
     "projectList": {
