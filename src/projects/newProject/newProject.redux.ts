@@ -7,7 +7,7 @@ import {
   withInitialState,
 } from 'redux-preboiled';
 import { of } from 'rxjs';
-import { catchError, mapTo, switchMap, mergeMap } from 'rxjs/operators';
+import { catchError, mapTo, mergeMap, switchMap } from 'rxjs/operators';
 import { Project, ProjectUpdate } from '../../shared/models/ProjectData';
 import ProjectDataService from '../ProjectDataService';
 
@@ -91,7 +91,10 @@ const saveProjectEpic: NewProjectEpic = (
 
 function convertFormDataToProjectData(newProject: NewProjectState): Project {
   const now = moment.now();
-  const projectId = `${newProject.projectName!.replace(/\s+/g, '')}-${now}`;
+  const projectId = `${newProject.projectName!.replace(
+    /[^a-zA-Z]/g,
+    ''
+  )}-${now}`;
 
   const projectOverview = {
     projectName: newProject.projectName!,
@@ -126,10 +129,7 @@ const saveUpdateEpic: NewProjectEpic = (
       );
       return projectDataService.addNewUpdate$(update).pipe(
         mergeMap(() => of(saveUpdateSuccessAction())),
-        catchError(e => {
-          console.log(e);
-          return of(saveUpdateFailureAction());
-        })
+        catchError(e => of(saveUpdateFailureAction()))
       );
     })
   );
