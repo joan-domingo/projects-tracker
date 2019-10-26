@@ -7,15 +7,12 @@ import i18n from '../../i18n/i18n';
 import { State } from '../../root.redux';
 import { generateNewProjectUpdatePath } from '../../routing/routes';
 import Button from '../../shared/components/Button';
+import CardContainer from '../../shared/components/CardContainer';
 import LoadingPage from '../../shared/components/LoadingPage';
-import { small } from '../../shared/styles/dimensions';
 import { selectLastProjectUpdate } from '../projectData.redux';
 import ProjectOverviewCard from './ProjectOverviewCard';
 
 const ProjectViewContainer = styled.div``;
-const CardContainer = styled.div`
-  margin-bottom: ${small};
-`;
 const ButtonsContainer = styled.div`
   display: flex;
   justify-content: end;

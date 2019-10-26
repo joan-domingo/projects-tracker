@@ -6,7 +6,7 @@ import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
 import i18n from '../../i18n/i18n';
 import Button from '../../shared/components/Button';
-import { small } from '../../shared/styles/dimensions';
+import CardContainer from '../../shared/components/CardContainer';
 import EditableProjectOverview from './EditableProjectOverview';
 import {
   initializeNewProjectAction,
@@ -15,9 +15,6 @@ import {
 } from './newProject.redux';
 
 const NewProjectContainer = styled.div``;
-const CardContainer = styled.div`
-  margin-bottom: ${small};
-`;
 
 const ProjectMembersModule = () => (
   <CardContainer>

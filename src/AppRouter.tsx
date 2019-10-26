@@ -20,10 +20,10 @@ const AppRouter: FC = () => {
   return (
     <Router>
       <Switch>
-        <Route path={dashboardPath} component={ProjectList} />
-        <Route path={newProjectPath} component={NewProject} />
-        <Route path={projectViewPath} component={ProjectView} />
-        <Route path={newProjectUpdatePath} component={NewUpdate} />
+        <Route exact path={dashboardPath} component={ProjectList} />
+        <Route exact path={newProjectPath} component={NewProject} />
+        <Route exact path={projectViewPath} component={ProjectView} />
+        <Route exact path={newProjectUpdatePath} component={NewUpdate} />
         <Redirect to={dashboardPath} />
       </Switch>
     </Router>
