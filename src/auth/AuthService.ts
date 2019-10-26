@@ -2,7 +2,7 @@ import { User } from 'firebase';
 import { from, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import FirebaseService from '../Firebase/FirebaseService';
+import FirebaseService from '../firebase/FirebaseService';
 
 export interface UserCredentials {
   email: string;
