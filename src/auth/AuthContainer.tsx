@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 import { useSelector } from 'react-redux';
+import LoadingPage from '../shared/components/LoadingPage';
 import { selectIsAuthInitialized, selectIsSignedIn } from './auth.redux';
-import LoadingPage from './LoadingPage';
 import LoginPage from './LoginPage';
 
 const AuthContainer: FC = ({ children }) => {

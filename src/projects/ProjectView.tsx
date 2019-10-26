@@ -4,6 +4,7 @@ import { RouteComponentProps } from 'react-router';
 import styled from 'styled-components';
 import { selectLastProjectUpdate } from '../projectList/projectList.redux';
 import { State } from '../root.redux';
+import LoadingPage from '../shared/components/LoadingPage';
 import { small } from '../shared/styles/dimensions';
 import ProjectOverviewCard from './components/ProjectOverviewCard';
 
@@ -24,8 +25,7 @@ const ProjectView: FC<Props> = props => {
     selectLastProjectUpdate(state, projectId)
   );
   if (!projectUpdate) {
-    // TODO loading animation
-    return null;
+    return <LoadingPage />;
   }
   return (
     <ProjectViewContainer>
