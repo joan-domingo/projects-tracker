@@ -16,7 +16,7 @@ import {
   selectNewProjectName,
   setProjectGoalAction,
   setProjectNameAction,
-} from '../newProject.redux';
+} from './newProject.redux';
 
 const TimeOverviewContainer = styled.div``;
 

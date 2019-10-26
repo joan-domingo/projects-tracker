@@ -8,8 +8,8 @@ import {
 } from 'redux-preboiled';
 import { of } from 'rxjs';
 import { catchError, mapTo, switchMap } from 'rxjs/operators';
-import ProjectDataService from '../projectList/ProjectDataService';
-import { Project, ProjectUpdate } from '../shared/models/ProjectData';
+import { Project, ProjectUpdate } from '../../shared/models/ProjectData';
+import ProjectDataService from '../ProjectDataService';
 
 export interface NewProjectState {
   isSavingProject: boolean;

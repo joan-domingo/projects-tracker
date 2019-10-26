@@ -2,9 +2,8 @@ import React, { FC } from 'react';
 import { useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
-import '../App.css';
-import { newProjectPath } from '../routing/routes';
-import { selectProjectsNewestUpdateList } from './projectList.redux';
+import { newProjectPath } from '../../routing/routes';
+import { selectProjectsNewestUpdateList } from '../projectData.redux';
 import ProjectListTable from './ProjectListTable';
 
 const ProjectListContainer = styled.div``;

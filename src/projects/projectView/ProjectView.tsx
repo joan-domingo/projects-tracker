@@ -2,11 +2,11 @@ import React, { FC } from 'react';
 import { useSelector } from 'react-redux';
 import { RouteComponentProps } from 'react-router';
 import styled from 'styled-components';
-import { selectLastProjectUpdate } from '../projectList/projectList.redux';
-import { State } from '../root.redux';
-import LoadingPage from '../shared/components/LoadingPage';
-import { small } from '../shared/styles/dimensions';
-import ProjectOverviewCard from './components/ProjectOverviewCard';
+import { State } from '../../root.redux';
+import LoadingPage from '../../shared/components/LoadingPage';
+import { small } from '../../shared/styles/dimensions';
+import { selectLastProjectUpdate } from '../projectData.redux';
+import ProjectOverviewCard from './ProjectOverviewCard';
 
 const ProjectViewContainer = styled.div``;
 const CardContainer = styled.div`

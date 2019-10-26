@@ -8,9 +8,9 @@ import {
 } from 'react-router-dom';
 import { Store } from 'redux';
 import AuthContainer from './auth/AuthContainer';
-import ProjectList from './projectList/ProjectList';
-import NewProject from './projects/NewProject';
-import ProjectView from './projects/ProjectView';
+import NewProject from './projects/newProject/NewProject';
+import ProjectList from './projects/projectListView/ProjectList';
+import ProjectView from './projects/projectView/ProjectView';
 import {
   dashboardPath,
   newProjectPath,

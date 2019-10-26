@@ -1,14 +1,14 @@
 import { combineReducers } from 'redux';
 import { combineEpics } from 'redux-observable';
 import authReducer, { authEpic, AuthState } from './auth/auth.redux';
-import projectDataReducer, {
-  projectDataEpic,
-  ProjectDataState,
-} from './projectList/projectList.redux';
 import newProjectReducer, {
   newProjectEpic,
   NewProjectState,
-} from './projects/newProject.redux';
+} from './projects/newProject/newProject.redux';
+import projectDataReducer, {
+  projectDataEpic,
+  ProjectDataState,
+} from './projects/projectData.redux';
 
 // State
 

@@ -3,7 +3,7 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 import { createEpicMiddleware } from 'redux-observable';
 
 import { AuthDependencies } from './auth/auth.redux';
-import { ProjectDataDependencies } from './projectList/projectList.redux';
+import { ProjectDataDependencies } from './projects/projectData.redux';
 import rootReducer, { rootEpic } from './root.redux';
 import { authService, projectDataService } from './services';
 

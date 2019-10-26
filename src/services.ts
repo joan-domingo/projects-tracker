@@ -1,6 +1,6 @@
 import AuthService from './auth/AuthService';
 import FirebaseService from './Firebase/FirebaseService';
-import ProjectDataService from './projectList/ProjectDataService';
+import ProjectDataService from './projects/ProjectDataService';
 
 export const firebaseService = new FirebaseService();
 

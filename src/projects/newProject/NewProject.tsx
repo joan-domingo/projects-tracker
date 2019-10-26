@@ -4,10 +4,10 @@ import React, { FC, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
-import i18n from '../i18n/i18n';
-import Button from '../shared/components/Button';
-import { small } from '../shared/styles/dimensions';
-import EditableProjectOverview from './components/EditableProjectOverview';
+import i18n from '../../i18n/i18n';
+import Button from '../../shared/components/Button';
+import { small } from '../../shared/styles/dimensions';
+import EditableProjectOverview from './EditableProjectOverview';
 import {
   initializeNewProjectAction,
   saveProjectAction,

@@ -3,12 +3,12 @@ import moment from 'moment';
 import React, { FC } from 'react';
 import { useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import i18n from '../i18n/i18n';
-import { generateProjectViewPath } from '../routing/routes';
-import SectionTitle from '../shared/components/SectionTitle';
-import Table from '../shared/components/Table';
-import { ProjectUpdate } from '../shared/models/ProjectData';
-import { selectIsLoadingProjects } from './projectList.redux';
+import i18n from '../../i18n/i18n';
+import { generateProjectViewPath } from '../../routing/routes';
+import SectionTitle from '../../shared/components/SectionTitle';
+import Table from '../../shared/components/Table';
+import { ProjectUpdate } from '../../shared/models/ProjectData';
+import { selectIsLoadingProjects } from '../projectData.redux';
 
 interface Props {
   data: ProjectUpdate[];
