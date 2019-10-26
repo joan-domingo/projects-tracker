@@ -36,7 +36,7 @@ export const selectNewestProjectUpdate = (project: Project) =>
   _.chain(project.updates)
     .values()
     .sortBy('timeMillis')
-    .first()
+    .last()
     .value();
 
 export const selectIsLoadingProjects = (state: State) =>

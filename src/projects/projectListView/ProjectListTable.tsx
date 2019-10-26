@@ -30,6 +30,7 @@ const ProjectListTable: FC<Props> = props => {
       options={{
         pageSize: 15,
         pageSizeOptions: [15, 30, 50],
+        sorting: true,
       }}
       isLoading={isLoadingProjects}
     />
@@ -53,6 +54,7 @@ const columns = [
     title: i18n.t('projectList.table.lastUpdate'),
     render: (projectUpdate: ProjectUpdate) =>
       moment(projectUpdate.timeMillis).fromNow(),
+    defaultSort: 'desc' as ('asc' | 'desc'),
   },
   {
     field: 'projectOverview.projectName',
