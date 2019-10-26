@@ -24,6 +24,9 @@
             
         }
     },
+    "projectView": {
+        "newUpdate": "New Update"
+    },
     "shared": {
         "submit": "Submit"
     },

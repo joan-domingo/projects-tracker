@@ -1,21 +1,8 @@
 import React, { FC } from 'react';
 import { Provider } from 'react-redux';
-import {
-  BrowserRouter as Router,
-  Redirect,
-  Route,
-  Switch,
-} from 'react-router-dom';
 import { Store } from 'redux';
+import AppRouter from './AppRouter';
 import AuthContainer from './auth/AuthContainer';
-import NewProject from './projects/newProject/NewProject';
-import ProjectList from './projects/projectListView/ProjectList';
-import ProjectView from './projects/projectView/ProjectView';
-import {
-  dashboardPath,
-  newProjectPath,
-  projectViewPath,
-} from './routing/routes';
 import AppContainer from './shared/components/AppContainer';
 import NavigationBar from './shared/components/NavigationBar';
 import PageContainer from './shared/components/PageContainer';
@@ -31,14 +18,7 @@ const App: FC<Props> = ({ store }) => {
         <PageContainer>
           <AuthContainer>
             <NavigationBar />
-            <Router>
-              <Switch>
-                <Route path={dashboardPath} component={ProjectList} />
-                <Route path={newProjectPath} component={NewProject} />
-                <Route path={projectViewPath} component={ProjectView} />
-                <Redirect to={dashboardPath} />
-              </Switch>
-            </Router>
+            <AppRouter />
           </AuthContainer>
         </PageContainer>
       </AppContainer>
