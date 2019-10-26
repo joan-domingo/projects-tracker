@@ -1,5 +1,5 @@
 import { from, Observable } from 'rxjs';
-import FirebaseService from '../firebase/FirebaseService';
+import FirebaseService from '../Firebase/FirebaseService';
 import { Project, ProjectCollection } from '../shared/models/ProjectData';
 
 export default class ProjectDataService {
