@@ -42,6 +42,13 @@ const EditableProjectOverview: FC<Props> = ({ overview }) => {
             projectName,
             overview && overview.projectName
           )}
+          onBlur={() =>
+            handleOnBlurTextField(
+              projectName,
+              overview && overview.projectName,
+              setProjectNameAction
+            )
+          }
         />
         <TextField
           required
@@ -82,21 +89,28 @@ const EditableProjectOverview: FC<Props> = ({ overview }) => {
     dispatch(setProjectNameAction(e.target.value));
   }
 
+  function handleOnBlurTextField(
+    enteredValue: string | undefined,
+    defaultValue: string | undefined,
+    actionToDispatch: (value: string) => void
+  ) {
+    return (
+      !enteredValue && overview && dispatch(actionToDispatch(defaultValue!))
+    );
+  }
+
   function handleOnChangeProjectGoal(e: React.ChangeEvent<HTMLInputElement>) {
     dispatch(setProjectGoalAction(e.target.value));
   }
 
   function defineTextFieldValue(
     enteredValue: string | undefined,
-    propsValue: string | undefined
+    defaultValue: string | undefined
   ): string {
-    if (enteredValue) {
+    if (enteredValue || enteredValue === '') {
       return enteredValue;
     }
-    if (propsValue) {
-      return propsValue;
-    }
-    return '';
+    return defaultValue || '';
   }
 };
 

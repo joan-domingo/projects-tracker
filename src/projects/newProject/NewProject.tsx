@@ -8,6 +8,7 @@ import i18n from '../../i18n/i18n';
 import { dashboardPath } from '../../routing/routes';
 import Button from '../../shared/components/Button';
 import CardContainer from '../../shared/components/CardContainer';
+import LoadingPage from '../../shared/components/LoadingPage';
 import NavigationButtonsContainer from '../../shared/components/NavigationButtonsContainer';
 import EditableProjectOverview from './EditableProjectOverview';
 import {
@@ -17,7 +18,6 @@ import {
   selectIsSavingProject,
 } from './newProject.redux';
 import NewProjectBreadcrumbs from './NewProjectBreadcrumbs';
-import LoadingPage from '../../shared/components/LoadingPage';
 
 const NewProjectContainer = styled.div``;
 
@@ -73,14 +73,6 @@ const NewProject: FC = () => {
 
       <ProjectMembersModule />
       <ProjectHealth />
-      <NavigationButtonsContainer
-        buttons={
-          <Button
-            label={i18n.t('shared.submit')}
-            onClick={() => dispatch(saveProjectAction())}
-          />
-        }
-      />
     </NewProjectContainer>
   );
 };

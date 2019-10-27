@@ -188,6 +188,23 @@ export default chainReducers(
     isSavingProject: false,
   })),
 
+  onAction(saveUpdateAction, state => ({
+    ...state,
+    isSavingProject: true,
+    isProjectSaved: false,
+  })),
+
+  onAction(saveUpdateSuccessAction, state => ({
+    ...state,
+    isSavingProject: false,
+    isProjectSaved: true,
+  })),
+
+  onAction(saveUpdateFailureAction, state => ({
+    ...state,
+    isSavingProject: false,
+  })),
+
   onAction(initializeNewProjectAction, state => ({
     ...initialNewProjectState,
   })),
