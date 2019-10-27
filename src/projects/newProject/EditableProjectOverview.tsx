@@ -49,9 +49,11 @@ const EditableProjectOverview: FC<Props> = ({ overview }) => {
   const projectClientUrl = useSelector(selectNewProjectClientUrl);
 
   useEffect(() => {
-    dispatch(setNewProjectStartDateAction(moment().valueOf()));
-    dispatch(setNewProjectEndDateAction(moment().valueOf()));
-  }, [dispatch]);
+    if (!overview) {
+      dispatch(setNewProjectStartDateAction(moment().valueOf()));
+      dispatch(setNewProjectEndDateAction(moment().valueOf()));
+    }
+  }, [dispatch, overview]);
 
   return (
     <Card>
