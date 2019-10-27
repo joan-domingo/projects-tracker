@@ -26,7 +26,8 @@
         "title": "Projects"
     },
     "projectView": {
-        "newUpdate": "New Update"
+        "newUpdate": "New Update",
+        "history": "Updates history"
     },
     "shared": {
         "submit": "Submit"

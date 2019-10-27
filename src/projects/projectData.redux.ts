@@ -12,6 +12,7 @@ import {
   Project,
   ProjectCollection,
   ProjectUpdate,
+  ProjectUpdateCollection,
 } from '../shared/models/ProjectData';
 import ProjectDataService from './ProjectDataService';
 
@@ -60,6 +61,14 @@ export const selectLastProjectUpdate = (
   }
   return undefined;
 };
+
+export const selectProjectUpdates = (
+  state: State,
+  projectId: string
+): ProjectUpdateCollection | undefined =>
+  state.projectData.projects &&
+  state.projectData.projects[projectId] &&
+  state.projectData.projects[projectId].updates;
 
 // Actions
 

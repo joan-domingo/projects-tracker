@@ -12,6 +12,7 @@ import LoadingPage from '../../shared/components/LoadingPage';
 import NavigationButtonsContainer from '../../shared/components/NavigationButtonsContainer';
 import { selectLastProjectUpdate } from '../projectData.redux';
 import ProjectOverviewCard from './ProjectOverviewCard';
+import ProjectUpdateHistory from './ProjectUpdateHistory';
 import ProjectViewBreadcrumbs from './ProjectViewBreadcrumbs';
 
 const ProjectViewContainer = styled.div``;
@@ -49,6 +50,7 @@ const ProjectView: FC<Props> = props => {
       <CardContainer>
         <ProjectOverviewCard data={projectUpdate.projectOverview} />
       </CardContainer>
+      <ProjectUpdateHistory projectId={projectId} />
     </ProjectViewContainer>
   );
 
