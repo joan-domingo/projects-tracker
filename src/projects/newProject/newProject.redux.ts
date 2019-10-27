@@ -9,6 +9,7 @@ import {
 import { of } from 'rxjs';
 import { catchError, mapTo, mergeMap, switchMap } from 'rxjs/operators';
 import { Project, ProjectUpdate } from '../../shared/models/ProjectData';
+import { selectLastProjectUpdate } from '../projectData.redux';
 import ProjectDataService from '../ProjectDataService';
 
 export interface NewProjectState {
@@ -128,6 +129,7 @@ const saveUpdateEpic: NewProjectEpic = (
       const projectId = action.payload;
       const update = convertFormDataToUpdateData(
         state$.value.newProject,
+        selectLastProjectUpdate(state$.value, projectId)!,
         projectId
       );
       return projectDataService.addNewUpdate$(update).pipe(
@@ -138,14 +140,17 @@ const saveUpdateEpic: NewProjectEpic = (
   );
 
 function convertFormDataToUpdateData(
-  newProject: NewProjectState,
+  newUpdate: NewProjectState,
+  lastUpdate: ProjectUpdate,
   projectId: string
 ): ProjectUpdate {
   const now = moment.now();
 
   const projectOverview = {
-    projectName: newProject.projectName!,
-    projectGoal: newProject.projectGoal!,
+    projectName:
+      newUpdate.projectName || lastUpdate.projectOverview.projectName,
+    projectGoal:
+      newUpdate.projectGoal || lastUpdate.projectOverview.projectGoal,
   };
   return {
     updateId: `${now}`,

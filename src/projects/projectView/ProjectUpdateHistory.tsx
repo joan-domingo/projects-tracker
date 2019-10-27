@@ -18,9 +18,12 @@ interface Props {
 }
 
 const ProjectUpdateHistory: FC<Props> = ({ projectId }) => {
-  const projectUpdates = _.values(
+  const projectUpdates = _.chain(
     useSelector((state: State) => selectProjectUpdates(state, projectId))
-  );
+  )
+    .sortBy('timeMillis')
+    .reverse()
+    .value();
   return (
     <ProjectUpdateHistoryContainer>
       <CardContainer>
