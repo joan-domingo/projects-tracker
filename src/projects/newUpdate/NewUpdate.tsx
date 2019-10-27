@@ -10,7 +10,7 @@ import Button from '../../shared/components/Button';
 import CardContainer from '../../shared/components/CardContainer';
 import LoadingPage from '../../shared/components/LoadingPage';
 import NavigationButtonsContainer from '../../shared/components/NavigationButtonsContainer';
-import EditableProjectOverview from '../newProject/EditableProjectOverview';
+import EditableProjectOverviewCard from '../newProject/EditableProjectOverviewCard';
 import {
   initializeNewProjectAction,
   saveUpdateAction,
@@ -68,7 +68,7 @@ const NewUpdate: FC<Props> = props => {
         }
       />
       <CardContainer>
-        <EditableProjectOverview overview={projectUpdate.projectOverview} />
+        <EditableProjectOverviewCard overview={projectUpdate.projectOverview} />
       </CardContainer>
     </NewUpdateContainer>
   );

@@ -10,7 +10,7 @@ import Button from '../../shared/components/Button';
 import CardContainer from '../../shared/components/CardContainer';
 import LoadingPage from '../../shared/components/LoadingPage';
 import NavigationButtonsContainer from '../../shared/components/NavigationButtonsContainer';
-import EditableProjectOverview from './EditableProjectOverview';
+import EditableProjectOverviewCard from './EditableProjectOverviewCard';
 import {
   initializeNewProjectAction,
   saveProjectAction,
@@ -68,7 +68,7 @@ const NewProject: FC = () => {
         breadCrumbs={<NewProjectBreadcrumbs />}
       />
       <CardContainer>
-        <EditableProjectOverview />
+        <EditableProjectOverviewCard />
       </CardContainer>
 
       <ProjectMembersModule />

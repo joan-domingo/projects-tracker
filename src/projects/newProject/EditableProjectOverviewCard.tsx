@@ -39,7 +39,7 @@ interface Props {
   overview?: ProjectOverview;
 }
 
-const EditableProjectOverview: FC<Props> = ({ overview }) => {
+const EditableProjectOverviewCard: FC<Props> = ({ overview }) => {
   const dispatch = useDispatch();
   const projectName = useSelector(selectNewProjectName);
   const projectGoal = useSelector(selectNewProjectGoal);
@@ -97,7 +97,10 @@ const EditableProjectOverview: FC<Props> = ({ overview }) => {
                 required
                 label={i18n.t('project.overview.startDate')}
                 format="dd/MM/yyyy"
-                value={moment(projectStartDate)}
+                value={defineDate(
+                  projectStartDate,
+                  overview && overview.projectStartDate
+                )}
                 onChange={date =>
                   handleDateChange(date, setNewProjectStartDateAction)
                 }
@@ -107,7 +110,10 @@ const EditableProjectOverview: FC<Props> = ({ overview }) => {
                 required
                 label={i18n.t('project.overview.endDate')}
                 format="dd/MM/yyyy"
-                value={moment(projectEndDate)}
+                value={defineDate(
+                  projectEndDate,
+                  overview && overview.projectEndDate
+                )}
                 onChange={date =>
                   handleDateChange(date, setNewProjectEndDateAction)
                 }
@@ -182,6 +188,16 @@ const EditableProjectOverview: FC<Props> = ({ overview }) => {
       dispatch(actionToDispatch(date.getTime()));
     }
   }
+
+  function defineDate(
+    enteredDate: number | undefined,
+    defaultDate: number | undefined
+  ) {
+    if (enteredDate) {
+      return moment(enteredDate);
+    }
+    return moment(defaultDate);
+  }
 };
 
-export default EditableProjectOverview;
+export default EditableProjectOverviewCard;
