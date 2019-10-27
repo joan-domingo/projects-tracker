@@ -1,9 +1,10 @@
 import React, { FC } from 'react';
 import styled from 'styled-components';
 import * as colors from '../styles/colors';
+import { small } from '../styles/dimensions';
 
 const LabeledTextContainer = styled.div`
-  padding 0.5rem 0;
+  padding: ${small} 0;
 `;
 const Label = styled.div`
   font-size: 1rem;

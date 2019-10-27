@@ -22,6 +22,10 @@ export interface ProjectUpdate {
 export interface ProjectOverview {
   projectName: string;
   projectGoal: string;
+  projectStartDate: number;
+  projectEndDate: number;
+  projectBudgetUrl: string;
+  projectClientUrl: string;
 }
 
 export type Location =

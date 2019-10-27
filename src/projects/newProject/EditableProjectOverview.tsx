@@ -7,20 +7,33 @@ import {
 } from '@material-ui/pickers';
 import 'date-fns';
 import moment from 'moment';
-import React, { FC } from 'react';
+import React, { ChangeEvent, FC, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 import i18n from '../../i18n/i18n';
+import Flex from '../../shared/components/Flex';
 import SectionTitle from '../../shared/components/SectionTitle';
+import TextFieldContainer from '../../shared/components/TextFieldContainer';
 import { ProjectOverview } from '../../shared/models/ProjectData';
+import { large } from '../../shared/styles/dimensions';
 import {
+  selectNewProjectBudgetUrl,
+  selectNewProjectClientUrl,
+  selectNewProjectEndDate,
   selectNewProjectGoal,
   selectNewProjectName,
-  setProjectGoalAction,
-  setProjectNameAction,
+  selectNewProjectStartDate,
+  setNewProjectBudgetUrlAction,
+  setNewProjectClientUrlAction,
+  setNewProjectEndDateAction,
+  setNewProjectGoalAction,
+  setNewProjectNameAction,
+  setNewProjectStartDateAction,
 } from './newProject.redux';
 
-const TimeOverviewContainer = styled.div``;
+const DatePickerSeparator = styled.div`
+  width: ${large};
+`;
 
 interface Props {
   overview?: ProjectOverview;
@@ -30,63 +43,113 @@ const EditableProjectOverview: FC<Props> = ({ overview }) => {
   const dispatch = useDispatch();
   const projectName = useSelector(selectNewProjectName);
   const projectGoal = useSelector(selectNewProjectGoal);
+  const projectStartDate = useSelector(selectNewProjectStartDate);
+  const projectEndDate = useSelector(selectNewProjectEndDate);
+  const projectBudgetUrl = useSelector(selectNewProjectBudgetUrl);
+  const projectClientUrl = useSelector(selectNewProjectClientUrl);
+
+  useEffect(() => {
+    dispatch(setNewProjectStartDateAction(moment().valueOf()));
+    dispatch(setNewProjectEndDateAction(moment().valueOf()));
+  }, [dispatch]);
+
   return (
     <Card>
       <CardContent style={{ display: 'flex', flexDirection: 'column' }}>
         <SectionTitle>{i18n.t('project.overview.label')}</SectionTitle>
-        <TextField
-          required
-          label={i18n.t('project.overview.name')}
-          onChange={handleOnChangeProjectName}
-          value={defineTextFieldValue(
-            projectName,
-            overview && overview.projectName
-          )}
-          onBlur={() =>
-            handleOnBlurTextField(
+        <TextFieldContainer>
+          <TextField
+            required
+            fullWidth
+            label={i18n.t('project.overview.name')}
+            onChange={e => handleOnChangeTextField(e, setNewProjectNameAction)}
+            value={defineTextFieldValue(
               projectName,
-              overview && overview.projectName,
-              setProjectNameAction
-            )
-          }
-        />
-        <TextField
-          required
-          label={i18n.t('project.overview.goal')}
-          onChange={handleOnChangeProjectGoal}
-          value={defineTextFieldValue(
-            projectGoal,
-            overview && overview.projectGoal
-          )}
-        />
-        <TimeOverviewContainer>
+              overview && overview.projectName
+            )}
+            onBlur={() =>
+              handleOnBlurTextField(
+                projectName,
+                overview && overview.projectName,
+                setNewProjectNameAction
+              )
+            }
+          />
+        </TextFieldContainer>
+        <TextFieldContainer>
+          <TextField
+            required
+            fullWidth
+            label={i18n.t('project.overview.goal')}
+            onChange={e => handleOnChangeTextField(e, setNewProjectGoalAction)}
+            value={defineTextFieldValue(
+              projectGoal,
+              overview && overview.projectGoal
+            )}
+          />
+        </TextFieldContainer>
+        <TextFieldContainer>
           <MuiPickersUtilsProvider utils={DateFnsUtils}>
-            <KeyboardDatePicker
-              disableToolbar
-              variant="inline"
-              format="dd/MM/yyyy"
-              label="Date picker inline"
-              value={moment()}
-              /* tslint:disable-next-line:no-empty */
-              onChange={() => {}}
-            />
-            <KeyboardDatePicker
-              disableToolbar
-              variant="inline"
-              format="dd/MM/yyyy"
-              label="Date picker inline"
-              value={moment()}
-              /* tslint:disable-next-line:no-empty */
-              onChange={() => {}}
-            />
+            <Flex direction="row">
+              <KeyboardDatePicker
+                required
+                label={i18n.t('project.overview.startDate')}
+                format="dd/MM/yyyy"
+                value={moment(projectStartDate)}
+                onChange={date =>
+                  handleDateChange(date, setNewProjectStartDateAction)
+                }
+              />
+              <DatePickerSeparator />
+              <KeyboardDatePicker
+                required
+                label={i18n.t('project.overview.endDate')}
+                format="dd/MM/yyyy"
+                value={moment(projectEndDate)}
+                onChange={date =>
+                  handleDateChange(date, setNewProjectEndDateAction)
+                }
+              />
+            </Flex>
           </MuiPickersUtilsProvider>
-        </TimeOverviewContainer>
+        </TextFieldContainer>
+        <TextFieldContainer>
+          <TextField
+            required
+            fullWidth
+            label={i18n.t('project.overview.budget')}
+            onChange={e =>
+              handleOnChangeTextField(e, setNewProjectBudgetUrlAction)
+            }
+            value={defineTextFieldValue(
+              projectBudgetUrl,
+              overview && overview.projectBudgetUrl
+            )}
+          />
+        </TextFieldContainer>
+        <TextFieldContainer>
+          <TextField
+            required
+            fullWidth
+            label={i18n.t('project.overview.client')}
+            onChange={e =>
+              handleOnChangeTextField(e, setNewProjectClientUrlAction)
+            }
+            value={defineTextFieldValue(
+              projectClientUrl,
+              overview && overview.projectClientUrl
+            )}
+          />
+        </TextFieldContainer>
       </CardContent>
     </Card>
   );
 
-  function handleOnChangeProjectName(e: React.ChangeEvent<HTMLInputElement>) {
-    dispatch(setProjectNameAction(e.target.value));
+  function handleOnChangeTextField(
+    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+    actionToDispatch: (value: string) => void
+  ) {
+    dispatch(actionToDispatch(e.target.value));
   }
 
   function handleOnBlurTextField(
@@ -99,10 +162,6 @@ const EditableProjectOverview: FC<Props> = ({ overview }) => {
     );
   }
 
-  function handleOnChangeProjectGoal(e: React.ChangeEvent<HTMLInputElement>) {
-    dispatch(setProjectGoalAction(e.target.value));
-  }
-
   function defineTextFieldValue(
     enteredValue: string | undefined,
     defaultValue: string | undefined
@@ -111,6 +170,15 @@ const EditableProjectOverview: FC<Props> = ({ overview }) => {
       return enteredValue;
     }
     return defaultValue || '';
+  }
+
+  function handleDateChange(
+    date: Date | null,
+    actionToDispatch: (value: number) => void
+  ) {
+    if (date) {
+      dispatch(actionToDispatch(date.getTime()));
+    }
   }
 };
 

@@ -10,9 +10,14 @@
 
         },
         "overview": {
+            "budget": "Budget Link",
+            "client": "Client Link",
+            "endDate": "End Date",
             "goal": "Project Goal",
             "label": "Project Overview",
-            "name": "Project Name"
+            "name": "Project Name",
+            "startDate": "Start Date"
+            
         }
     },
     "dashboard": {

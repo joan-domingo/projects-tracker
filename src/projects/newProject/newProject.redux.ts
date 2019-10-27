@@ -17,6 +17,10 @@ export interface NewProjectState {
   isProjectSaved: boolean;
   projectName?: string;
   projectGoal?: string;
+  projectStartDate?: number;
+  projectEndDate?: number;
+  projectBudgetUrl?: string;
+  projectClientUrl?: string;
 }
 
 // Selectors
@@ -25,17 +29,29 @@ interface State {
   newProject: NewProjectState;
 }
 
+export const selectIsProjectSaved = (state: State): boolean =>
+  state.newProject.isProjectSaved;
+
+export const selectIsSavingProject = (state: State): boolean =>
+  state.newProject.isSavingProject;
+
 export const selectNewProjectName = (state: State) =>
   state.newProject.projectName;
 
 export const selectNewProjectGoal = (state: State) =>
   state.newProject.projectGoal;
 
-export const selectIsProjectSaved = (state: State): boolean =>
-  state.newProject.isProjectSaved;
+export const selectNewProjectStartDate = (state: State) =>
+  state.newProject.projectStartDate;
 
-export const selectIsSavingProject = (state: State): boolean =>
-  state.newProject.isSavingProject;
+export const selectNewProjectEndDate = (state: State) =>
+  state.newProject.projectEndDate;
+
+export const selectNewProjectBudgetUrl = (state: State) =>
+  state.newProject.projectBudgetUrl;
+
+export const selectNewProjectClientUrl = (state: State) =>
+  state.newProject.projectClientUrl;
 
 // Actions
 
@@ -61,12 +77,28 @@ export const initializeNewProjectAction = createAction(
   'newProject/initializeNewProject'
 );
 
-export const setProjectNameAction = createAction(
+export const setNewProjectNameAction = createAction(
   'newProject/setProjectName'
 ).withPayload<string>();
 
-export const setProjectGoalAction = createAction(
+export const setNewProjectGoalAction = createAction(
   'newProject/setProjectGoal'
+).withPayload<string>();
+
+export const setNewProjectStartDateAction = createAction(
+  'newProject/setProjectStartDate'
+).withPayload<number>();
+
+export const setNewProjectEndDateAction = createAction(
+  'newProject/setProjectEndDate'
+).withPayload<number>();
+
+export const setNewProjectBudgetUrlAction = createAction(
+  'newProject/setProjectBudgetUrl'
+).withPayload<string>();
+
+export const setNewProjectClientUrlAction = createAction(
+  'newProject/setProjectClientUrl'
 ).withPayload<string>();
 
 // Epics
@@ -103,6 +135,10 @@ function convertFormDataToProjectData(newProject: NewProjectState): Project {
   const projectOverview = {
     projectName: newProject.projectName!,
     projectGoal: newProject.projectGoal!,
+    projectStartDate: newProject.projectStartDate!,
+    projectEndDate: newProject.projectEndDate!,
+    projectBudgetUrl: newProject.projectBudgetUrl!,
+    projectClientUrl: newProject.projectClientUrl!,
   };
 
   const firstUpdate: ProjectUpdate = {
@@ -151,6 +187,14 @@ function convertFormDataToUpdateData(
       newUpdate.projectName || lastUpdate.projectOverview.projectName,
     projectGoal:
       newUpdate.projectGoal || lastUpdate.projectOverview.projectGoal,
+    projectStartDate:
+      newUpdate.projectStartDate || lastUpdate.projectOverview.projectStartDate,
+    projectEndDate:
+      newUpdate.projectEndDate || lastUpdate.projectOverview.projectEndDate,
+    projectBudgetUrl:
+      newUpdate.projectBudgetUrl || lastUpdate.projectOverview.projectBudgetUrl,
+    projectClientUrl:
+      newUpdate.projectClientUrl || lastUpdate.projectOverview.projectClientUrl,
   };
   return {
     updateId: `${now}`,
@@ -214,13 +258,33 @@ export default chainReducers(
     ...initialNewProjectState,
   })),
 
-  onAction(setProjectNameAction, (state, action) => ({
+  onAction(setNewProjectNameAction, (state, action) => ({
     ...state,
     projectName: action.payload,
   })),
 
-  onAction(setProjectGoalAction, (state, action) => ({
+  onAction(setNewProjectGoalAction, (state, action) => ({
     ...state,
     projectGoal: action.payload,
+  })),
+
+  onAction(setNewProjectStartDateAction, (state, action) => ({
+    ...state,
+    projectStartDate: action.payload,
+  })),
+
+  onAction(setNewProjectEndDateAction, (state, action) => ({
+    ...state,
+    projectEndDate: action.payload,
+  })),
+
+  onAction(setNewProjectClientUrlAction, (state, action) => ({
+    ...state,
+    projectClientUrl: action.payload,
+  })),
+
+  onAction(setNewProjectBudgetUrlAction, (state, action) => ({
+    ...state,
+    projectBudgetUrl: action.payload,
   }))
 );
