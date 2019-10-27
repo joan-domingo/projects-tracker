@@ -6,6 +6,7 @@ import styled from 'styled-components';
 import i18n from '../../i18n/i18n';
 import Flex from '../../shared/components/Flex';
 import LabeledText from '../../shared/components/LabeledText';
+import LabeledUrl from '../../shared/components/LabeledUrl';
 import SectionTitle from '../../shared/components/SectionTitle';
 import { ProjectOverview } from '../../shared/models/ProjectData';
 import { large } from '../../shared/styles/dimensions';
@@ -42,13 +43,13 @@ const ProjectOverviewCard: FC<Props> = ({ data }) => {
             text={moment(data.projectEndDate).format('DD/MM/YYYY')}
           />
         </Flex>
-        <LabeledText
+        <LabeledUrl
           label={i18n.t('project.overview.budget')}
-          text={data.projectBudgetUrl}
+          url={data.projectBudgetUrl}
         />
-        <LabeledText
+        <LabeledUrl
           label={i18n.t('project.overview.client')}
-          text={data.projectClientUrl}
+          url={data.projectClientUrl}
         />
       </CardContent>
     </Card>
