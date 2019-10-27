@@ -33,6 +33,9 @@ export const selectNewProjectGoal = (state: State) =>
 export const selectIsProjectSaved = (state: State): boolean =>
   state.newProject.isProjectSaved;
 
+export const selectIsSavingProject = (state: State): boolean =>
+  state.newProject.isSavingProject;
+
 // Actions
 
 export const saveProjectAction = createAction('newProject/saveProject');

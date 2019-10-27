@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
 import i18n from '../../i18n/i18n';
+import { dashboardPath } from '../../routing/routes';
 import Button from '../../shared/components/Button';
 import CardContainer from '../../shared/components/CardContainer';
 import NavigationButtonsContainer from '../../shared/components/NavigationButtonsContainer';
@@ -13,8 +14,10 @@ import {
   initializeNewProjectAction,
   saveProjectAction,
   selectIsProjectSaved,
+  selectIsSavingProject,
 } from './newProject.redux';
 import NewProjectBreadcrumbs from './NewProjectBreadcrumbs';
+import LoadingPage from '../../shared/components/LoadingPage';
 
 const NewProjectContainer = styled.div``;
 
@@ -38,17 +41,20 @@ const NewProject: FC = () => {
   const dispatch = useDispatch();
   const history = useHistory();
   const isProjectSaved = useSelector(selectIsProjectSaved);
-
-  useEffect(() => {
-    dispatch(initializeNewProjectAction());
-  }, [dispatch]);
+  const isSavingProject = useSelector(selectIsSavingProject);
 
   useEffect(() => {
     if (isProjectSaved) {
-      history.goBack();
-      dispatch(initializeNewProjectAction());
+      history.replace(dashboardPath);
     }
+    return function resetState() {
+      dispatch(initializeNewProjectAction());
+    };
   }, [history, isProjectSaved, dispatch]);
+
+  if (isSavingProject) {
+    return <LoadingPage />;
+  }
 
   return (
     <NewProjectContainer>
