@@ -34,12 +34,12 @@ const ProjectOverviewCard: FC<Props> = ({ data }) => {
         <Flex direction="row">
           <LabeledText
             label={i18n.t('project.overview.startDate')}
-            text={moment(data.projectStartDate).format('L')}
+            text={moment(data.projectStartDate).format('DD/MM/YYYY')}
           />
           <DateSeparator />
           <LabeledText
             label={i18n.t('project.overview.endDate')}
-            text={moment(data.projectEndDate).format('L')}
+            text={moment(data.projectEndDate).format('DD/MM/YYYY')}
           />
         </Flex>
         <LabeledText
