@@ -3,7 +3,7 @@ import { generatePath } from 'react-router';
 export const dashboardPath = '/dashboard';
 export const newProjectPath = '/projects/new';
 export const projectViewPath = '/projects/:projectId';
-export const newProjectUpdatePath = '/projects/:projectId/newUpdate';
+export const newProjectUpdatePath = '/projects/:projectId/updates/new';
 
 export const generateProjectViewPath = (projectId: string) =>
   generatePath(projectViewPath, { projectId });

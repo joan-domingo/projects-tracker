@@ -7,6 +7,7 @@ import styled from 'styled-components';
 import i18n from '../../i18n/i18n';
 import Button from '../../shared/components/Button';
 import CardContainer from '../../shared/components/CardContainer';
+import NavigationButtonsContainer from '../../shared/components/NavigationButtonsContainer';
 import EditableProjectOverview from './EditableProjectOverview';
 import {
   initializeNewProjectAction,
@@ -50,16 +51,24 @@ const NewProject: FC = () => {
 
   return (
     <NewProjectContainer>
+      <NavigationButtonsContainer>
+        <Button
+          label={i18n.t('shared.submit')}
+          onClick={() => dispatch(saveProjectAction())}
+        />
+      </NavigationButtonsContainer>
       <CardContainer>
         <EditableProjectOverview />
       </CardContainer>
 
       <ProjectMembersModule />
       <ProjectHealth />
-      <Button
-        label={i18n.t('shared.submit')}
-        onClick={() => dispatch(saveProjectAction())}
-      />
+      <NavigationButtonsContainer>
+        <Button
+          label={i18n.t('shared.submit')}
+          onClick={() => dispatch(saveProjectAction())}
+        />
+      </NavigationButtonsContainer>
     </NewProjectContainer>
   );
 };

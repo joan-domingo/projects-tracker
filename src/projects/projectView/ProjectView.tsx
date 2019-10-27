@@ -9,14 +9,11 @@ import { generateNewProjectUpdatePath } from '../../routing/routes';
 import Button from '../../shared/components/Button';
 import CardContainer from '../../shared/components/CardContainer';
 import LoadingPage from '../../shared/components/LoadingPage';
+import NavigationButtonsContainer from '../../shared/components/NavigationButtonsContainer';
 import { selectLastProjectUpdate } from '../projectData.redux';
 import ProjectOverviewCard from './ProjectOverviewCard';
 
 const ProjectViewContainer = styled.div``;
-const ButtonsContainer = styled.div`
-  display: flex;
-  justify-content: end;
-`;
 
 interface ProjectViewRouteParams {
   projectId: string;
@@ -35,12 +32,12 @@ const ProjectView: FC<Props> = props => {
   }
   return (
     <ProjectViewContainer>
-      <ButtonsContainer>
+      <NavigationButtonsContainer>
         <Button
           onClick={handleClickNewUpdate}
           label={i18n.t('projectView.newUpdate')}
         />
-      </ButtonsContainer>
+      </NavigationButtonsContainer>
       <CardContainer>
         <ProjectOverviewCard data={projectUpdate.projectOverview} />
       </CardContainer>

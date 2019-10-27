@@ -1,4 +1,3 @@
-import AddIcon from '@material-ui/icons/AddCircle';
 import moment from 'moment';
 import React, { FC } from 'react';
 import { useSelector } from 'react-redux';
@@ -12,7 +11,6 @@ import { selectIsLoadingProjects } from '../projectData.redux';
 
 interface Props {
   data: ProjectUpdate[];
-  onAddProject: () => void;
 }
 
 const ProjectListTable: FC<Props> = props => {
@@ -23,29 +21,17 @@ const ProjectListTable: FC<Props> = props => {
       title={<SectionTitle>{i18n.t('projectList.table.title')}</SectionTitle>}
       columns={columns}
       data={props.data}
-      actions={getTableActions(props)}
       onRowClick={(e, rowData) =>
         history.push(generateProjectViewPath(rowData.projectId))
       }
       options={{
-        pageSize: 15,
-        pageSizeOptions: [15, 30, 50],
+        pageSize: 10,
+        pageSizeOptions: [10, 25, 50],
         sorting: true,
       }}
       isLoading={isLoadingProjects}
     />
   );
-};
-
-const getTableActions = (props: Props) => {
-  return [
-    {
-      icon: () => <AddIcon />,
-      tooltip: i18n.t('projectList.addProject'),
-      onClick: props.onAddProject,
-      isFreeAction: true,
-    },
-  ];
 };
 
 const columns = [
