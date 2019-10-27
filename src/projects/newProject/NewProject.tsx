@@ -14,6 +14,7 @@ import {
   saveProjectAction,
   selectIsProjectSaved,
 } from './newProject.redux';
+import NewProjectBreadcrumbs from './NewProjectBreadcrumbs';
 
 const NewProjectContainer = styled.div``;
 
@@ -51,24 +52,29 @@ const NewProject: FC = () => {
 
   return (
     <NewProjectContainer>
-      <NavigationButtonsContainer>
-        <Button
-          label={i18n.t('shared.submit')}
-          onClick={() => dispatch(saveProjectAction())}
-        />
-      </NavigationButtonsContainer>
+      <NavigationButtonsContainer
+        buttons={
+          <Button
+            label={i18n.t('shared.submit')}
+            onClick={() => dispatch(saveProjectAction())}
+          />
+        }
+        breadCrumbs={<NewProjectBreadcrumbs />}
+      />
       <CardContainer>
         <EditableProjectOverview />
       </CardContainer>
 
       <ProjectMembersModule />
       <ProjectHealth />
-      <NavigationButtonsContainer>
-        <Button
-          label={i18n.t('shared.submit')}
-          onClick={() => dispatch(saveProjectAction())}
-        />
-      </NavigationButtonsContainer>
+      <NavigationButtonsContainer
+        buttons={
+          <Button
+            label={i18n.t('shared.submit')}
+            onClick={() => dispatch(saveProjectAction())}
+          />
+        }
+      />
     </NewProjectContainer>
   );
 };

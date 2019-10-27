@@ -15,15 +15,15 @@
             "name": "Project Name"
         }
     },
-    "projectList": {
-        "addProject": "Add project",
+    "dashboard": {
+        "newProject": "New project",
         "table": {
             "lastUpdate": "Last Update",
             "projectGoal": "Project Goal",
-            "projectName": "Project Name",
-            "title": "Projects"
+            "projectName": "Project Name"
             
-        }
+        },
+        "title": "Projects"
     },
     "projectView": {
         "newUpdate": "New Update"

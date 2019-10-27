@@ -16,12 +16,14 @@ const ProjectList: FC = () => {
   const updatesList = useSelector(selectProjectsNewestUpdateList);
   return (
     <ProjectListContainer>
-      <NavigationButtonsContainer>
-        <Button
-          onClick={handleCreateNewProject}
-          label={i18n.t('projectList.addProject')}
-        />
-      </NavigationButtonsContainer>
+      <NavigationButtonsContainer
+        buttons={
+          <Button
+            onClick={handleCreateNewProject}
+            label={i18n.t('dashboard.newProject')}
+          />
+        }
+      />
       <ProjectListTable data={updatesList} />
     </ProjectListContainer>
   );

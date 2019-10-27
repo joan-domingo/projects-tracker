@@ -18,7 +18,7 @@ const ProjectListTable: FC<Props> = props => {
   const isLoadingProjects = useSelector(selectIsLoadingProjects);
   return (
     <Table
-      title={<SectionTitle>{i18n.t('projectList.table.title')}</SectionTitle>}
+      title={<SectionTitle>{i18n.t('dashboard.title')}</SectionTitle>}
       columns={columns}
       data={props.data}
       onRowClick={(e, rowData) =>
@@ -37,18 +37,18 @@ const ProjectListTable: FC<Props> = props => {
 const columns = [
   {
     field: 'timeMillis',
-    title: i18n.t('projectList.table.lastUpdate'),
+    title: i18n.t('dashboard.table.lastUpdate'),
     render: (projectUpdate: ProjectUpdate) =>
       moment(projectUpdate.timeMillis).fromNow(),
     defaultSort: 'desc' as ('asc' | 'desc'),
   },
   {
     field: 'projectOverview.projectName',
-    title: i18n.t('projectList.table.projectName'),
+    title: i18n.t('dashboard.table.projectName'),
   },
   {
     field: 'projectOverview.projectGoal',
-    title: i18n.t('projectList.table.projectGoal'),
+    title: i18n.t('dashboard.table.projectGoal'),
   },
 ];
 

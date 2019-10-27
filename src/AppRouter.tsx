@@ -7,7 +7,7 @@ import {
 } from 'react-router-dom';
 import NewProject from './projects/newProject/NewProject';
 import NewUpdate from './projects/newUpdate/NewUpdate';
-import ProjectList from './projects/projectListView/ProjectList';
+import Dashboard from './projects/projectListView/Dashboard';
 import ProjectView from './projects/projectView/ProjectView';
 import {
   dashboardPath,
@@ -20,7 +20,7 @@ const AppRouter: FC = () => {
   return (
     <Router>
       <Switch>
-        <Route exact path={dashboardPath} component={ProjectList} />
+        <Route exact path={dashboardPath} component={Dashboard} />
         <Route exact path={newProjectPath} component={NewProject} />
         <Route exact path={projectViewPath} component={ProjectView} />
         <Route exact path={newProjectUpdatePath} component={NewUpdate} />

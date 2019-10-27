@@ -1,8 +1,33 @@
+import React, { FC, ReactNode } from 'react';
 import styled from 'styled-components';
 
-const NavigationButtonsContainer = styled.div`
+const Container = styled.div`
   display: flex;
+  padding-left: 1rem;
+`;
+const LeftContainer = styled.div`
+  display: flex;
+  flex-grow: 1;
+  align-items: center;
+`;
+const RightContainer = styled.div`
+  display: flex;
+  flex-grow: 1;
   justify-content: end;
 `;
+
+interface Props {
+  breadCrumbs?: ReactNode;
+  buttons: ReactNode;
+}
+
+const NavigationButtonsContainer: FC<Props> = props => {
+  return (
+    <Container>
+      <LeftContainer>{props.breadCrumbs}</LeftContainer>
+      <RightContainer>{props.buttons}</RightContainer>
+    </Container>
+  );
+};
 
 export default NavigationButtonsContainer;

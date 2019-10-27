@@ -12,6 +12,7 @@ import LoadingPage from '../../shared/components/LoadingPage';
 import NavigationButtonsContainer from '../../shared/components/NavigationButtonsContainer';
 import { selectLastProjectUpdate } from '../projectData.redux';
 import ProjectOverviewCard from './ProjectOverviewCard';
+import ProjectViewBreadcrumbs from './ProjectViewBreadcrumbs';
 
 const ProjectViewContainer = styled.div``;
 
@@ -32,12 +33,19 @@ const ProjectView: FC<Props> = props => {
   }
   return (
     <ProjectViewContainer>
-      <NavigationButtonsContainer>
-        <Button
-          onClick={handleClickNewUpdate}
-          label={i18n.t('projectView.newUpdate')}
-        />
-      </NavigationButtonsContainer>
+      <NavigationButtonsContainer
+        breadCrumbs={
+          <ProjectViewBreadcrumbs
+            projectName={projectUpdate.projectOverview.projectName}
+          />
+        }
+        buttons={
+          <Button
+            onClick={handleClickNewUpdate}
+            label={i18n.t('projectView.newUpdate')}
+          />
+        }
+      />
       <CardContainer>
         <ProjectOverviewCard data={projectUpdate.projectOverview} />
       </CardContainer>

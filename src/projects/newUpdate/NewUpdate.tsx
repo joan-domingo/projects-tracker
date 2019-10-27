@@ -11,6 +11,7 @@ import NavigationButtonsContainer from '../../shared/components/NavigationButton
 import EditableProjectOverview from '../newProject/EditableProjectOverview';
 import { saveUpdateAction } from '../newProject/newProject.redux';
 import { selectLastProjectUpdate } from '../projectData.redux';
+import NewUpdateBreadcrumbs from './NewUpdateBreadcrumbs';
 
 const NewUpdateContainer = styled.div``;
 
@@ -31,12 +32,20 @@ const NewUpdate: FC<Props> = props => {
   }
   return (
     <NewUpdateContainer>
-      <NavigationButtonsContainer>
-        <Button
-          onClick={handleSubmitNewUpdate}
-          label={i18n.t('shared.submit')}
-        />
-      </NavigationButtonsContainer>
+      <NavigationButtonsContainer
+        buttons={
+          <Button
+            onClick={handleSubmitNewUpdate}
+            label={i18n.t('shared.submit')}
+          />
+        }
+        breadCrumbs={
+          <NewUpdateBreadcrumbs
+            projectName={projectUpdate.projectOverview.projectName}
+            projectId={projectId}
+          />
+        }
+      />
       <CardContainer>
         <EditableProjectOverview overview={projectUpdate.projectOverview} />
       </CardContainer>
