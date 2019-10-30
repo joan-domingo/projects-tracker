@@ -16,7 +16,7 @@ export interface ProjectUpdate {
   projectId: string;
   timeMillis: number;
   projectOverview: ProjectOverview;
-  projectLocation: Location[];
+  projectTeam: ProjectTeam;
 }
 
 export interface ProjectOverview {
@@ -26,6 +26,21 @@ export interface ProjectOverview {
   projectEndDate: number;
   projectBudgetUrl: string;
   projectClientUrl: string;
+}
+
+export interface ProjectTeam {
+  projectMembers: ProjectMemberCollection;
+  projectLocation: Location[];
+  clientLocation: string;
+}
+
+export interface ProjectMemberCollection {
+  [key: string]: ProjectMember;
+}
+
+export interface ProjectMember {
+  fullName: string;
+  role: string;
 }
 
 export type Location =

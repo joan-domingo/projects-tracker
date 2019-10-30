@@ -141,12 +141,18 @@ function convertFormDataToProjectData(newProject: NewProjectState): Project {
     projectClientUrl: newProject.projectClientUrl!,
   };
 
+  const projectTeam = {
+    projectMembers: {},
+    projectLocation: [],
+    clientLocation: '',
+  };
+
   const firstUpdate: ProjectUpdate = {
     updateId: `${now}`,
     timeMillis: now,
     projectId,
-    projectLocation: [],
     projectOverview,
+    projectTeam,
   };
   return {
     projectId,
@@ -196,12 +202,19 @@ function convertFormDataToUpdateData(
     projectClientUrl:
       newUpdate.projectClientUrl || lastUpdate.projectOverview.projectClientUrl,
   };
+
+  const projectTeam = {
+    projectMembers: {},
+    projectLocation: [],
+    clientLocation: '',
+  };
+
   return {
     updateId: `${now}`,
     timeMillis: now,
     projectId,
-    projectLocation: [],
     projectOverview,
+    projectTeam,
   };
 }
 
