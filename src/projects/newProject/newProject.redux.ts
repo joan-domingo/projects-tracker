@@ -15,12 +15,15 @@ import ProjectDataService from '../ProjectDataService';
 export interface NewProjectState {
   isSavingProject: boolean;
   isProjectSaved: boolean;
+  // Project overview
   projectName?: string;
   projectGoal?: string;
   projectStartDate?: number;
   projectEndDate?: number;
   projectBudgetUrl?: string;
   projectClientUrl?: string;
+  // Team
+  clientLocation?: string;
 }
 
 // Selectors
@@ -52,6 +55,9 @@ export const selectNewProjectBudgetUrl = (state: State) =>
 
 export const selectNewProjectClientUrl = (state: State) =>
   state.newProject.projectClientUrl;
+
+export const selectNewProjectClientLocation = (state: State) =>
+  state.newProject.clientLocation;
 
 // Actions
 
@@ -101,6 +107,10 @@ export const setNewProjectClientUrlAction = createAction(
   'newProject/setProjectClientUrl'
 ).withPayload<string>();
 
+export const setNewProjectClientLocationAction = createAction(
+  'newProject/setClientLocation'
+).withPayload<string>();
+
 // Epics
 
 export interface NewProjectDependencies {
@@ -133,18 +143,18 @@ function convertFormDataToProjectData(newProject: NewProjectState): Project {
   )}-${now}`;
 
   const projectOverview = {
-    projectName: newProject.projectName!,
-    projectGoal: newProject.projectGoal!,
-    projectStartDate: newProject.projectStartDate!,
-    projectEndDate: newProject.projectEndDate!,
-    projectBudgetUrl: newProject.projectBudgetUrl!,
-    projectClientUrl: newProject.projectClientUrl!,
+    projectName: newProject.projectName || '',
+    projectGoal: newProject.projectGoal || '',
+    projectStartDate: newProject.projectStartDate || moment().valueOf(),
+    projectEndDate: newProject.projectEndDate || moment().valueOf(),
+    projectBudgetUrl: newProject.projectBudgetUrl || '',
+    projectClientUrl: newProject.projectClientUrl || '',
   };
 
   const projectTeam = {
-    projectMembers: {},
+    projectMembers: [],
     projectLocation: [],
-    clientLocation: '',
+    clientLocation: newProject.clientLocation || '',
   };
 
   const firstUpdate: ProjectUpdate = {
@@ -204,7 +214,7 @@ function convertFormDataToUpdateData(
   };
 
   const projectTeam = {
-    projectMembers: {},
+    projectMembers: [],
     projectLocation: [],
     clientLocation: '',
   };
@@ -299,5 +309,10 @@ export default chainReducers(
   onAction(setNewProjectBudgetUrlAction, (state, action) => ({
     ...state,
     projectBudgetUrl: action.payload,
+  })),
+
+  onAction(setNewProjectClientLocationAction, (state, action) => ({
+    ...state,
+    clientLocation: action.payload,
   }))
 );

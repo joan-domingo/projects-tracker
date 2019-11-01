@@ -11,6 +11,7 @@ import React, { ChangeEvent, FC, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 import i18n from '../../i18n/i18n';
+import CardContainer from '../../shared/components/CardContainer';
 import Flex from '../../shared/components/Flex';
 import SectionTitle from '../../shared/components/SectionTitle';
 import TextFieldContainer from '../../shared/components/TextFieldContainer';
@@ -56,101 +57,107 @@ const EditableProjectOverviewCard: FC<Props> = ({ overview }) => {
   }, [dispatch, overview]);
 
   return (
-    <Card>
-      <CardContent style={{ display: 'flex', flexDirection: 'column' }}>
-        <SectionTitle>{i18n.t('project.overview.label')}</SectionTitle>
-        <TextFieldContainer>
-          <TextField
-            required
-            fullWidth
-            label={i18n.t('project.overview.name')}
-            onChange={e => handleOnChangeTextField(e, setNewProjectNameAction)}
-            value={defineTextFieldValue(
-              projectName,
-              overview && overview.projectName
-            )}
-            onBlur={() =>
-              handleOnBlurTextField(
+    <CardContainer>
+      <Card>
+        <CardContent style={{ display: 'flex', flexDirection: 'column' }}>
+          <SectionTitle>{i18n.t('project.overview.label')}</SectionTitle>
+          <TextFieldContainer>
+            <TextField
+              required
+              fullWidth
+              label={i18n.t('project.overview.name')}
+              onChange={e =>
+                handleOnChangeTextField(e, setNewProjectNameAction)
+              }
+              value={defineTextFieldValue(
                 projectName,
-                overview && overview.projectName,
-                setNewProjectNameAction
-              )
-            }
-          />
-        </TextFieldContainer>
-        <TextFieldContainer>
-          <TextField
-            required
-            fullWidth
-            label={i18n.t('project.overview.goal')}
-            onChange={e => handleOnChangeTextField(e, setNewProjectGoalAction)}
-            value={defineTextFieldValue(
-              projectGoal,
-              overview && overview.projectGoal
-            )}
-          />
-        </TextFieldContainer>
-        <TextFieldContainer>
-          <MuiPickersUtilsProvider utils={DateFnsUtils}>
-            <Flex direction="row">
-              <KeyboardDatePicker
-                required
-                label={i18n.t('project.overview.startDate')}
-                format="dd/MM/yyyy"
-                value={defineDate(
-                  projectStartDate,
-                  overview && overview.projectStartDate
-                )}
-                onChange={date =>
-                  handleDateChange(date, setNewProjectStartDateAction)
-                }
-              />
-              <DatePickerSeparator />
-              <KeyboardDatePicker
-                required
-                label={i18n.t('project.overview.endDate')}
-                format="dd/MM/yyyy"
-                value={defineDate(
-                  projectEndDate,
-                  overview && overview.projectEndDate
-                )}
-                onChange={date =>
-                  handleDateChange(date, setNewProjectEndDateAction)
-                }
-              />
-            </Flex>
-          </MuiPickersUtilsProvider>
-        </TextFieldContainer>
-        <TextFieldContainer>
-          <TextField
-            required
-            fullWidth
-            label={i18n.t('project.overview.budget')}
-            onChange={e =>
-              handleOnChangeTextField(e, setNewProjectBudgetUrlAction)
-            }
-            value={defineTextFieldValue(
-              projectBudgetUrl,
-              overview && overview.projectBudgetUrl
-            )}
-          />
-        </TextFieldContainer>
-        <TextFieldContainer>
-          <TextField
-            required
-            fullWidth
-            label={i18n.t('project.overview.client')}
-            onChange={e =>
-              handleOnChangeTextField(e, setNewProjectClientUrlAction)
-            }
-            value={defineTextFieldValue(
-              projectClientUrl,
-              overview && overview.projectClientUrl
-            )}
-          />
-        </TextFieldContainer>
-      </CardContent>
-    </Card>
+                overview && overview.projectName
+              )}
+              onBlur={() =>
+                handleOnBlurTextField(
+                  projectName,
+                  overview && overview.projectName,
+                  setNewProjectNameAction
+                )
+              }
+            />
+          </TextFieldContainer>
+          <TextFieldContainer>
+            <TextField
+              required
+              fullWidth
+              label={i18n.t('project.overview.goal')}
+              onChange={e =>
+                handleOnChangeTextField(e, setNewProjectGoalAction)
+              }
+              value={defineTextFieldValue(
+                projectGoal,
+                overview && overview.projectGoal
+              )}
+            />
+          </TextFieldContainer>
+          <TextFieldContainer>
+            <MuiPickersUtilsProvider utils={DateFnsUtils}>
+              <Flex direction="row">
+                <KeyboardDatePicker
+                  required
+                  label={i18n.t('project.overview.startDate')}
+                  format="dd/MM/yyyy"
+                  value={defineDate(
+                    projectStartDate,
+                    overview && overview.projectStartDate
+                  )}
+                  onChange={date =>
+                    handleDateChange(date, setNewProjectStartDateAction)
+                  }
+                />
+                <DatePickerSeparator />
+                <KeyboardDatePicker
+                  required
+                  label={i18n.t('project.overview.endDate')}
+                  format="dd/MM/yyyy"
+                  value={defineDate(
+                    projectEndDate,
+                    overview && overview.projectEndDate
+                  )}
+                  onChange={date =>
+                    handleDateChange(date, setNewProjectEndDateAction)
+                  }
+                />
+              </Flex>
+            </MuiPickersUtilsProvider>
+          </TextFieldContainer>
+          <TextFieldContainer>
+            <TextField
+              required
+              fullWidth
+              label={i18n.t('project.overview.budget')}
+              onChange={e =>
+                handleOnChangeTextField(e, setNewProjectBudgetUrlAction)
+              }
+              value={defineTextFieldValue(
+                projectBudgetUrl,
+                overview && overview.projectBudgetUrl
+              )}
+            />
+          </TextFieldContainer>
+          <TextFieldContainer>
+            <TextField
+              required
+              fullWidth
+              label={i18n.t('project.overview.client')}
+              onChange={e =>
+                handleOnChangeTextField(e, setNewProjectClientUrlAction)
+              }
+              value={defineTextFieldValue(
+                projectClientUrl,
+                overview && overview.projectClientUrl
+              )}
+            />
+          </TextFieldContainer>
+        </CardContent>
+      </Card>
+    </CardContainer>
   );
 
   function handleOnChangeTextField(

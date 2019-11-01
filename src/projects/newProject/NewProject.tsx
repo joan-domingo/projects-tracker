@@ -11,6 +11,7 @@ import CardContainer from '../../shared/components/CardContainer';
 import LoadingPage from '../../shared/components/LoadingPage';
 import NavigationButtonsContainer from '../../shared/components/NavigationButtonsContainer';
 import EditableProjectOverviewCard from './EditableProjectOverviewCard';
+import EditableProjectTeamCard from './EditableProjectTeamCard';
 import {
   initializeNewProjectAction,
   saveProjectAction,
@@ -20,14 +21,6 @@ import {
 import NewProjectBreadcrumbs from './NewProjectBreadcrumbs';
 
 const NewProjectContainer = styled.div``;
-
-const ProjectMembersModule = () => (
-  <CardContainer>
-    <Card>
-      <CardContent>Project Members</CardContent>
-    </Card>
-  </CardContainer>
-);
 
 const ProjectHealth = () => (
   <CardContainer>
@@ -67,11 +60,8 @@ const NewProject: FC = () => {
         }
         breadCrumbs={<NewProjectBreadcrumbs />}
       />
-      <CardContainer>
-        <EditableProjectOverviewCard />
-      </CardContainer>
-
-      <ProjectMembersModule />
+      <EditableProjectOverviewCard />
+      <EditableProjectTeamCard />
       <ProjectHealth />
     </NewProjectContainer>
   );

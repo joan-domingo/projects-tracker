@@ -4,10 +4,15 @@
     },
     "project": {
         "health": {
-
         },
-        "members": {
-
+        "team": {
+            "clientLocation": "Client Location",
+            "label": "Team",
+            "members": {
+                "name": "Name",
+                "label": "Members",
+                "role": "Role"
+            }
         },
         "overview": {
             "budget": "Budget Link",

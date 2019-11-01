@@ -1,8 +1,8 @@
 import styled from 'styled-components';
-import { small } from '../styles/dimensions';
+import { normal } from '../styles/dimensions';
 
 const CardContainer = styled.div`
-  margin-bottom: ${small};
+  margin-bottom: ${normal};
 `;
 
 export default CardContainer;

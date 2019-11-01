@@ -29,13 +29,9 @@ export interface ProjectOverview {
 }
 
 export interface ProjectTeam {
-  projectMembers: ProjectMemberCollection;
+  projectMembers: ProjectMember[];
   projectLocation: Location[];
   clientLocation: string;
-}
-
-export interface ProjectMemberCollection {
-  [key: string]: ProjectMember;
 }
 
 export interface ProjectMember {
