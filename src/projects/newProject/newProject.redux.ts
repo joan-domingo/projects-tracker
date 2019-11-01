@@ -8,7 +8,11 @@ import {
 } from 'redux-preboiled';
 import { of } from 'rxjs';
 import { catchError, mapTo, mergeMap, switchMap } from 'rxjs/operators';
-import { Project, ProjectUpdate } from '../../shared/models/ProjectData';
+import {
+  NewProjectMember,
+  Project,
+  ProjectUpdate,
+} from '../../shared/models/ProjectData';
 import { selectLastProjectUpdate } from '../projectData.redux';
 import ProjectDataService from '../ProjectDataService';
 
@@ -24,6 +28,7 @@ export interface NewProjectState {
   projectClientUrl?: string;
   // Team
   clientLocation?: string;
+  projectMembers: NewProjectMember[];
 }
 
 // Selectors
@@ -58,6 +63,9 @@ export const selectNewProjectClientUrl = (state: State) =>
 
 export const selectNewProjectClientLocation = (state: State) =>
   state.newProject.clientLocation;
+
+export const selectNewProjectMembers = (state: State): NewProjectMember[] =>
+  state.newProject.projectMembers;
 
 // Actions
 
@@ -110,6 +118,10 @@ export const setNewProjectClientUrlAction = createAction(
 export const setNewProjectClientLocationAction = createAction(
   'newProject/setClientLocation'
 ).withPayload<string>();
+
+export const setNewProjectMembersAction = createAction(
+  'newProject/setNewProjectMembers'
+).withPayload<NewProjectMember[]>();
 
 // Epics
 
@@ -238,6 +250,7 @@ export const newProjectEpic: NewProjectEpic = combineEpics(
 const initialNewProjectState: NewProjectState = {
   isSavingProject: false,
   isProjectSaved: false,
+  projectMembers: [],
 };
 
 export default chainReducers(
@@ -314,5 +327,10 @@ export default chainReducers(
   onAction(setNewProjectClientLocationAction, (state, action) => ({
     ...state,
     clientLocation: action.payload,
+  })),
+
+  onAction(setNewProjectMembersAction, (state, action) => ({
+    ...state,
+    projectMembers: action.payload,
   }))
 );

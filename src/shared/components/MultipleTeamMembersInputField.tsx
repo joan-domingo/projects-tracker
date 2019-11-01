@@ -2,9 +2,10 @@ import { IconButton } from '@material-ui/core';
 import TextField from '@material-ui/core/TextField';
 import AddIcon from '@material-ui/icons/Add';
 import RemoveIcon from '@material-ui/icons/Remove';
-import React, { FC, useState } from 'react';
+import React, { FC, useCallback } from 'react';
 import styled from 'styled-components';
 import i18n from '../../i18n/i18n';
+import { NewProjectMember } from '../models/ProjectData';
 import { darkGray } from '../styles/colors';
 import { normal } from '../styles/dimensions';
 import Flex from './Flex';
@@ -27,93 +28,110 @@ const textFieldStyle = {
 };
 
 interface Props {
-  onDataChange: () => void;
+  members: NewProjectMember[];
+  onDataChange: (members: NewProjectMember[]) => void;
 }
 
-interface NewProjectMember {
-  fullName?: string;
-  role?: string;
-}
+const MultipleTeamMembersInputField: FC<Props> = ({
+  members,
+  onDataChange,
+}) => {
+  const handleDataChange = useCallback(
+    (text: string, key: keyof NewProjectMember, index: number) => {
+      const newMembers = members.slice();
+      if (newMembers[index] === undefined) {
+        newMembers.push({ [key]: text });
+      } else {
+        newMembers[index][key] = text;
+      }
+      onDataChange(newMembers);
+    },
+    [members, onDataChange]
+  );
 
-const MultipleTeamMembersInputField: FC = () => {
-  const [members, setMembers] = useState<NewProjectMember[]>([]);
+  const handleAddNewMember = useCallback(() => {
+    const newMembers = members.slice();
+    newMembers.push({ fullName: '', role: '' });
+    onDataChange(newMembers);
+  }, [members, onDataChange]);
+
+  const handleRemoveNewMember = useCallback(
+    (index: number) => {
+      const newMembers = members
+        .slice(0, index)
+        .concat(members.slice(index + 1, members.length));
+      onDataChange(newMembers);
+    },
+    [members, onDataChange]
+  );
+
+  const AddTeamMemberButton = (
+    <IconButton aria-label="add team member" onClick={handleAddNewMember}>
+      <AddIcon />
+    </IconButton>
+  );
+
+  const removeTeamMemberButton = (index: number) => (
+    <IconButton
+      aria-label="remove team member"
+      onClick={() => handleRemoveNewMember(index)}
+    >
+      <RemoveIcon />
+    </IconButton>
+  );
+
   return (
     <MultipleTeamMembersInputFieldContainer>
       <Title>{i18n.t('project.team.members.label')}</Title>
-      {members.map((member: NewProjectMember, index) => (
-        <TextFieldContainer key={index}>
+      {members.length < 2 ? (
+        <TextFieldContainer>
           <Flex direction="row" alignItems="center">
             <TextField
               style={textFieldStyle}
               label={i18n.t('project.team.members.name')}
-              onChange={e =>
-                handleDataChange(e.target.value, 'fullName', true, index)
-              }
+              value={members[0] ? members[0].fullName : ''}
+              onChange={e => handleDataChange(e.target.value, 'fullName', 0)}
             />
             <TextField
               style={textFieldStyle}
               label={i18n.t('project.team.members.role')}
+              value={members[0] ? members[0].role : ''}
+              onChange={e => handleDataChange(e.target.value, 'role', 0)}
             />
-            <IconButton
-              aria-label="remove team member"
-              onClick={() => handleRemoveMember(index)}
-            >
-              <RemoveIcon />
-            </IconButton>
+            {AddTeamMemberButton}
           </Flex>
         </TextFieldContainer>
-      ))}
-      <TextFieldContainer>
-        <Flex direction="row" alignItems="center">
-          <TextField
-            style={textFieldStyle}
-            label={i18n.t('project.team.members.name')}
-            onChange={e => handleDataChange(e.target.value, 'fullName', true)}
-          />
-          <TextField
-            style={textFieldStyle}
-            label={i18n.t('project.team.members.role')}
-            onChange={e => handleDataChange(e.target.value, 'role', true)}
-          />
-          <IconButton aria-label="add team member" onClick={handleAddNewMember}>
-            <AddIcon />
-          </IconButton>
-        </Flex>
-      </TextFieldContainer>
+      ) : (
+        <>
+          {members.map((member: NewProjectMember, index) => (
+            <TextFieldContainer key={index}>
+              <Flex direction="row" alignItems="center">
+                <TextField
+                  style={textFieldStyle}
+                  label={i18n.t('project.team.members.name')}
+                  value={members[index].fullName}
+                  onChange={e =>
+                    handleDataChange(e.target.value, 'fullName', index)
+                  }
+                />
+                <TextField
+                  style={textFieldStyle}
+                  label={i18n.t('project.team.members.role')}
+                  value={members[index].role}
+                  onChange={e =>
+                    handleDataChange(e.target.value, 'role', index)
+                  }
+                />
+                {members.length === index + 1
+                  ? AddTeamMemberButton
+                  : removeTeamMemberButton(index)}
+              </Flex>
+            </TextFieldContainer>
+          ))}
+        </>
+      )}
     </MultipleTeamMembersInputFieldContainer>
   );
-
-  // TODO does not work yet
-  function handleDataChange(
-    changedText: string,
-    key: keyof NewProjectMember,
-    newMember: boolean,
-    index: number = members.length
-  ) {
-    const newObjectMembers: NewProjectMember[] = members;
-    if (newMember) {
-      if (newObjectMembers[index] === undefined) {
-        newObjectMembers.push({ [key]: changedText });
-      } else {
-        newObjectMembers[index][key] = changedText;
-      }
-    } else {
-      newObjectMembers[index][key] = changedText;
-    }
-    setMembers(newObjectMembers);
-  }
-
-  function handleAddNewMember() {
-    const newMember: NewProjectMember = { fullName: '', role: '' };
-    setMembers(members.concat(newMember));
-  }
-
-  function handleRemoveMember(index: number) {
-    const newMembers = members
-      .slice(0, index)
-      .concat(members.slice(index + 1, members.length));
-    setMembers(newMembers);
-  }
 };
 
 export default MultipleTeamMembersInputField;

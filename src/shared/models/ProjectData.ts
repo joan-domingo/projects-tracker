@@ -39,6 +39,11 @@ export interface ProjectMember {
   role: string;
 }
 
+export interface NewProjectMember {
+  fullName?: string;
+  role?: string;
+}
+
 export type Location =
   | 'Berlin'
   | 'Helsinki'

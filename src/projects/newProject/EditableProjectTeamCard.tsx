@@ -1,17 +1,19 @@
 import { Card, CardContent } from '@material-ui/core';
 import TextField from '@material-ui/core/TextField';
 import 'date-fns';
-import React, { ChangeEvent, FC } from 'react';
+import React, { ChangeEvent, FC, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import i18n from '../../i18n/i18n';
 import CardContainer from '../../shared/components/CardContainer';
 import MultipleTeamMembersInputField from '../../shared/components/MultipleTeamMembersInputField';
 import SectionTitle from '../../shared/components/SectionTitle';
 import TextFieldContainer from '../../shared/components/TextFieldContainer';
-import { ProjectTeam } from '../../shared/models/ProjectData';
+import { NewProjectMember, ProjectTeam } from '../../shared/models/ProjectData';
 import {
   selectNewProjectClientLocation,
+  selectNewProjectMembers,
   setNewProjectClientLocationAction,
+  setNewProjectMembersAction,
 } from './newProject.redux';
 
 interface Props {
@@ -21,6 +23,14 @@ interface Props {
 const EditableProjectTeamCard: FC<Props> = ({ team }) => {
   const dispatch = useDispatch();
   const clientLocation = useSelector(selectNewProjectClientLocation);
+  const projectMembers = useSelector(selectNewProjectMembers);
+
+  const handleOnMembersDataChange = useCallback(
+    (members: NewProjectMember[]) => {
+      dispatch(setNewProjectMembersAction(members));
+    },
+    [dispatch]
+  );
 
   return (
     <CardContainer>
@@ -49,7 +59,10 @@ const EditableProjectTeamCard: FC<Props> = ({ team }) => {
             />
           </TextFieldContainer>
           <TextFieldContainer>
-            <MultipleTeamMembersInputField />
+            <MultipleTeamMembersInputField
+              members={projectMembers}
+              onDataChange={handleOnMembersDataChange}
+            />
           </TextFieldContainer>
         </CardContent>
       </Card>
