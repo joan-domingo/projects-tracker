@@ -9,6 +9,7 @@ import {
 import { of } from 'rxjs';
 import { catchError, mapTo, mergeMap, switchMap } from 'rxjs/operators';
 import {
+  Location,
   NewProjectMember,
   Project,
   ProjectUpdate,
@@ -29,6 +30,7 @@ export interface NewProjectState {
   // Team
   clientLocation?: string;
   projectMembers: NewProjectMember[];
+  location: Location[];
 }
 
 // Selectors
@@ -64,8 +66,11 @@ export const selectNewProjectClientUrl = (state: State) =>
 export const selectNewProjectClientLocation = (state: State) =>
   state.newProject.clientLocation;
 
-export const selectNewProjectMembers = (state: State): NewProjectMember[] =>
+export const selectNewProjectMembers = (state: State) =>
   state.newProject.projectMembers;
+
+export const selectNewProjectLocation = (state: State) =>
+  state.newProject.location;
 
 // Actions
 
@@ -122,6 +127,10 @@ export const setNewProjectClientLocationAction = createAction(
 export const setNewProjectMembersAction = createAction(
   'newProject/setNewProjectMembers'
 ).withPayload<NewProjectMember[]>();
+
+export const setNewProjectLocationAction = createAction(
+  'newProject/setNewProjectLocation'
+).withPayload<Location[]>();
 
 // Epics
 
@@ -251,6 +260,7 @@ const initialNewProjectState: NewProjectState = {
   isSavingProject: false,
   isProjectSaved: false,
   projectMembers: [],
+  location: [],
 };
 
 export default chainReducers(
@@ -332,5 +342,10 @@ export default chainReducers(
   onAction(setNewProjectMembersAction, (state, action) => ({
     ...state,
     projectMembers: action.payload,
+  })),
+
+  onAction(setNewProjectLocationAction, (state, action) => ({
+    ...state,
+    location: action.payload,
   }))
 );

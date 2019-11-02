@@ -53,3 +53,14 @@ export type Location =
   | 'Stockholm'
   | 'Stuttgart'
   | 'Tampere';
+
+export const officeLocations: Location[] = [
+  'Berlin',
+  'Helsinki',
+  'London',
+  'Munich',
+  'Oslo',
+  'Stockholm',
+  'Stuttgart',
+  'Tampere',
+];

@@ -5,6 +5,7 @@ import React, { ChangeEvent, FC, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import i18n from '../../i18n/i18n';
 import CardContainer from '../../shared/components/CardContainer';
+import LocationCheckboxInput from '../../shared/components/LocationCheckboxInput';
 import MultipleTeamMembersInputField from '../../shared/components/MultipleTeamMembersInputField';
 import SectionTitle from '../../shared/components/SectionTitle';
 import TextFieldContainer from '../../shared/components/TextFieldContainer';
@@ -38,6 +39,15 @@ const EditableProjectTeamCard: FC<Props> = ({ team }) => {
         <CardContent style={{ display: 'flex', flexDirection: 'column' }}>
           <SectionTitle>{i18n.t('project.team.label')}</SectionTitle>
           <TextFieldContainer>
+            <MultipleTeamMembersInputField
+              members={projectMembers}
+              onDataChange={handleOnMembersDataChange}
+            />
+          </TextFieldContainer>
+          <TextFieldContainer>
+            <LocationCheckboxInput />
+          </TextFieldContainer>
+          <TextFieldContainer>
             <TextField
               required
               fullWidth
@@ -56,12 +66,6 @@ const EditableProjectTeamCard: FC<Props> = ({ team }) => {
                   setNewProjectClientLocationAction
                 )
               }
-            />
-          </TextFieldContainer>
-          <TextFieldContainer>
-            <MultipleTeamMembersInputField
-              members={projectMembers}
-              onDataChange={handleOnMembersDataChange}
             />
           </TextFieldContainer>
         </CardContent>
