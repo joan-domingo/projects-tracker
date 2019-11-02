@@ -14,6 +14,7 @@ import {
   Project,
   ProjectUpdate,
 } from '../../shared/models/ProjectData';
+import { convertNewProjectMembers } from '../../shared/utils/ProjectDataUtils';
 import { selectLastProjectUpdate } from '../projectData.redux';
 import ProjectDataService from '../ProjectDataService';
 
@@ -30,7 +31,7 @@ export interface NewProjectState {
   // Team
   clientLocation?: string;
   projectMembers: NewProjectMember[];
-  location: Location[];
+  projectLocation: Location[];
 }
 
 // Selectors
@@ -70,7 +71,7 @@ export const selectNewProjectMembers = (state: State) =>
   state.newProject.projectMembers;
 
 export const selectNewProjectLocation = (state: State) =>
-  state.newProject.location;
+  state.newProject.projectLocation;
 
 // Actions
 
@@ -173,8 +174,8 @@ function convertFormDataToProjectData(newProject: NewProjectState): Project {
   };
 
   const projectTeam = {
-    projectMembers: [],
-    projectLocation: [],
+    projectMembers: convertNewProjectMembers(newProject.projectMembers),
+    projectLocation: newProject.projectLocation,
     clientLocation: newProject.clientLocation || '',
   };
 
@@ -260,7 +261,7 @@ const initialNewProjectState: NewProjectState = {
   isSavingProject: false,
   isProjectSaved: false,
   projectMembers: [],
-  location: [],
+  projectLocation: [],
 };
 
 export default chainReducers(
@@ -346,6 +347,6 @@ export default chainReducers(
 
   onAction(setNewProjectLocationAction, (state, action) => ({
     ...state,
-    location: action.payload,
+    projectLocation: action.payload,
   }))
 );

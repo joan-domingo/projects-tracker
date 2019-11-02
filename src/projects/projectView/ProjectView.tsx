@@ -7,11 +7,11 @@ import i18n from '../../i18n/i18n';
 import { State } from '../../root.redux';
 import { generateNewProjectUpdatePath } from '../../routing/routes';
 import Button from '../../shared/components/Button';
-import CardContainer from '../../shared/components/CardContainer';
 import LoadingPage from '../../shared/components/LoadingPage';
 import NavigationButtonsContainer from '../../shared/components/NavigationButtonsContainer';
 import { selectLastProjectUpdate } from '../projectData.redux';
 import ProjectOverviewCard from './ProjectOverviewCard';
+import ProjectTeamCard from './ProjectTeamCard';
 import ProjectUpdateHistory from './ProjectUpdateHistory';
 import ProjectViewBreadcrumbs from './ProjectViewBreadcrumbs';
 
@@ -47,9 +47,8 @@ const ProjectView: FC<Props> = props => {
           />
         }
       />
-      <CardContainer>
-        <ProjectOverviewCard data={projectUpdate.projectOverview} />
-      </CardContainer>
+      <ProjectOverviewCard data={projectUpdate.projectOverview} />
+      <ProjectTeamCard data={projectUpdate.projectTeam || {}} />
       <ProjectUpdateHistory projectId={projectId} />
     </ProjectViewContainer>
   );
