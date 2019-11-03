@@ -24,11 +24,20 @@
             "name": "Project Name",
             "startDate": "Start Date"
             
+        },
+        "risksOpportunities": {
+            "actionNeeded": "Action needed",
+            "helpNeeded": "Help needed",
+            "label": "Risks and opportunities",
+            "opportunities": "Opportunities",
+            "risks": "Risks"
         }
     },
     "dashboard": {
         "newProject": "New project",
         "table": {
+            "actionNeeded": "Action",
+            "helpNeeded": "Help",
             "lastUpdate": "Last Update",
             "projectGoal": "Project Goal",
             "projectName": "Project Name",

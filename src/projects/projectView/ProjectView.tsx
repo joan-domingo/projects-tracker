@@ -11,6 +11,7 @@ import LoadingPage from '../../shared/components/LoadingPage';
 import NavigationButtonsContainer from '../../shared/components/NavigationButtonsContainer';
 import { selectLastProjectUpdate } from '../projectData.redux';
 import ProjectOverviewCard from './ProjectOverviewCard';
+import ProjectRisksOpportunitiesCard from './ProjectRisksOpportunitiesCard';
 import ProjectTeamCard from './ProjectTeamCard';
 import ProjectUpdateHistory from './ProjectUpdateHistory';
 import ProjectViewBreadcrumbs from './ProjectViewBreadcrumbs';
@@ -32,24 +33,33 @@ const ProjectView: FC<Props> = props => {
   if (!projectUpdate) {
     return <LoadingPage />;
   }
+
+  const NavigationBar = (
+    <NavigationButtonsContainer
+      breadCrumbs={
+        <ProjectViewBreadcrumbs
+          projectName={projectUpdate.projectOverview.projectName}
+        />
+      }
+      buttons={
+        <Button
+          onClick={handleClickNewUpdate}
+          label={i18n.t('projectView.newUpdate')}
+        />
+      }
+    />
+  );
+
   return (
     <ProjectViewContainer>
-      <NavigationButtonsContainer
-        breadCrumbs={
-          <ProjectViewBreadcrumbs
-            projectName={projectUpdate.projectOverview.projectName}
-          />
-        }
-        buttons={
-          <Button
-            onClick={handleClickNewUpdate}
-            label={i18n.t('projectView.newUpdate')}
-          />
-        }
-      />
+      {NavigationBar}
       <ProjectOverviewCard data={projectUpdate.projectOverview} />
       <ProjectTeamCard data={projectUpdate.projectTeam} />
+      <ProjectRisksOpportunitiesCard
+        data={projectUpdate.projectRisksOpportunities}
+      />
       <ProjectUpdateHistory projectId={projectId} />
+      {NavigationBar}
     </ProjectViewContainer>
   );
 

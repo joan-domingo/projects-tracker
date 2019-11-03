@@ -12,6 +12,7 @@ import {
   Location,
   NewProjectMember,
   Project,
+  ProjectRisksOpportunities,
   ProjectUpdate,
 } from '../../shared/models/ProjectData';
 import { convertNewProjectMembers } from '../../shared/utils/ProjectDataUtils';
@@ -31,6 +32,11 @@ export interface NewProjectState {
   clientLocation?: string;
   projectMembers: NewProjectMember[];
   projectLocation: Location[];
+  // Risks & opportunities
+  isActionNeeded: boolean;
+  isHelpNeeded: boolean;
+  projectOpportunities?: string;
+  projectRisks?: string;
 }
 
 // Selectors
@@ -71,6 +77,18 @@ export const selectNewProjectMembers = (state: State) =>
 
 export const selectNewProjectLocation = (state: State) =>
   state.newProject.projectLocation || [];
+
+export const selectNewProjectIsHelpNeeded = (state: State) =>
+  state.newProject.isHelpNeeded;
+
+export const selectNewProjectIsActionNeeded = (state: State) =>
+  state.newProject.isActionNeeded;
+
+export const selectNewProjectOpportunities = (state: State) =>
+  state.newProject.projectOpportunities;
+
+export const selectNewProjectRisks = (state: State) =>
+  state.newProject.projectRisks;
 
 // Actions
 
@@ -132,6 +150,22 @@ export const setNewProjectLocationAction = createAction(
   'newProject/setNewProjectLocation'
 ).withPayload<Location[]>();
 
+export const setNewProjectIsActionNeededAction = createAction(
+  'newProject/setNewProjectIsActionNeeded'
+).withPayload<boolean>();
+
+export const setNewProjectIsHelpNeededAction = createAction(
+  'newProject/setNewProjectIsHelpNeeded'
+).withPayload<boolean>();
+
+export const setNewProjectOpportunitiesAction = createAction(
+  'newProject/setNewProjectOpportunities'
+).withPayload<string>();
+
+export const setNewProjectRisksAction = createAction(
+  'newProject/setNewProjectRisks'
+).withPayload<string>();
+
 // Epics
 
 export interface NewProjectDependencies {
@@ -174,8 +208,15 @@ function convertFormDataToProjectData(newProject: NewProjectState): Project {
 
   const projectTeam = {
     projectMembers: convertNewProjectMembers(newProject.projectMembers),
-    projectLocation: newProject.projectLocation,
+    projectLocation: newProject.projectLocation || [],
     clientLocation: newProject.clientLocation || '',
+  };
+
+  const projectRisksOpportunities: ProjectRisksOpportunities = {
+    isActionNeeded: newProject.isActionNeeded,
+    isHelpNeeded: newProject.isHelpNeeded,
+    projectOpportunities: newProject.projectOpportunities || '',
+    projectRisks: newProject.projectRisks || '',
   };
 
   const firstUpdate: ProjectUpdate = {
@@ -184,6 +225,7 @@ function convertFormDataToProjectData(newProject: NewProjectState): Project {
     projectId,
     projectOverview,
     projectTeam,
+    projectRisksOpportunities,
   };
   return {
     projectId,
@@ -228,8 +270,15 @@ function convertFormDataToUpdateData(
 
   const projectTeam = {
     projectMembers: convertNewProjectMembers(newUpdate.projectMembers),
-    projectLocation: newUpdate.projectLocation,
+    projectLocation: newUpdate.projectLocation || [],
     clientLocation: newUpdate.clientLocation || '',
+  };
+
+  const projectRisksOpportunities: ProjectRisksOpportunities = {
+    isActionNeeded: newUpdate.isActionNeeded,
+    isHelpNeeded: newUpdate.isHelpNeeded,
+    projectOpportunities: newUpdate.projectOpportunities || '',
+    projectRisks: newUpdate.projectRisks || '',
   };
 
   return {
@@ -238,6 +287,7 @@ function convertFormDataToUpdateData(
     projectId,
     projectOverview,
     projectTeam,
+    projectRisksOpportunities,
   };
 }
 
@@ -253,6 +303,8 @@ const initialNewProjectState: NewProjectState = {
   isProjectSaved: false,
   projectMembers: [],
   projectLocation: [],
+  isActionNeeded: false,
+  isHelpNeeded: false,
 };
 
 export default chainReducers(
@@ -339,5 +391,25 @@ export default chainReducers(
   onAction(setNewProjectLocationAction, (state, action) => ({
     ...state,
     projectLocation: action.payload,
+  })),
+
+  onAction(setNewProjectIsActionNeededAction, (state, action) => ({
+    ...state,
+    isActionNeeded: action.payload,
+  })),
+
+  onAction(setNewProjectIsHelpNeededAction, (state, action) => ({
+    ...state,
+    isHelpNeeded: action.payload,
+  })),
+
+  onAction(setNewProjectRisksAction, (state, action) => ({
+    ...state,
+    projectRisks: action.payload,
+  })),
+
+  onAction(setNewProjectOpportunitiesAction, (state, action) => ({
+    ...state,
+    projectOpportunities: action.payload,
   }))
 );

@@ -13,6 +13,7 @@ const Label = styled.div`
 `;
 const Text = styled.div`
   font-size: 1rem;
+  white-space: pre-line;
 `;
 
 interface Props {

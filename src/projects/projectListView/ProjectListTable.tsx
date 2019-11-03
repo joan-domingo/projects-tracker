@@ -1,3 +1,5 @@
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Radio from '@material-ui/core/Radio';
 import moment from 'moment';
 import React, { FC } from 'react';
 import { useSelector } from 'react-redux';
@@ -47,7 +49,6 @@ const columns = [
     title: i18n.t('dashboard.table.projectName'),
   },
   {
-    field: 'projectOverview.projectTeam.projectMembers',
     title: i18n.t('dashboard.table.teamSize'),
     render: (projectUpdate: ProjectUpdate) => {
       const { projectTeam } = projectUpdate;
@@ -55,6 +56,45 @@ const columns = [
         return projectUpdate.projectTeam.projectMembers.length;
       }
       return 0;
+    },
+  },
+  {
+    title: i18n.t('dashboard.table.actionNeeded'),
+    render: (projectUpdate: ProjectUpdate) => {
+      const { projectRisksOpportunities } = projectUpdate;
+      return (
+        <FormControlLabel
+          control={<Radio color="primary" />}
+          label={undefined}
+          checked={
+            projectRisksOpportunities &&
+            projectRisksOpportunities.isActionNeeded
+          }
+          disabled={
+            !projectRisksOpportunities ||
+            !projectRisksOpportunities.isActionNeeded
+          }
+        />
+      );
+    },
+  },
+  {
+    title: i18n.t('dashboard.table.helpNeeded'),
+    render: (projectUpdate: ProjectUpdate) => {
+      const { projectRisksOpportunities } = projectUpdate;
+      return (
+        <FormControlLabel
+          control={<Radio />}
+          label={undefined}
+          checked={
+            projectRisksOpportunities && projectRisksOpportunities.isHelpNeeded
+          }
+          disabled={
+            !projectRisksOpportunities ||
+            !projectRisksOpportunities.isHelpNeeded
+          }
+        />
+      );
     },
   },
 ];

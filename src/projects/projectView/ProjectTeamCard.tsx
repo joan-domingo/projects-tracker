@@ -1,5 +1,4 @@
 import { Card, CardContent } from '@material-ui/core';
-import 'date-fns';
 import React, { FC } from 'react';
 import styled from 'styled-components';
 import i18n from '../../i18n/i18n';

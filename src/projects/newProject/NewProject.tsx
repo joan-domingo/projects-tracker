@@ -11,6 +11,7 @@ import CardContainer from '../../shared/components/CardContainer';
 import LoadingPage from '../../shared/components/LoadingPage';
 import NavigationButtonsContainer from '../../shared/components/NavigationButtonsContainer';
 import EditableProjectOverviewCard from './EditableProjectOverviewCard';
+import EditableProjectRisksOpportunitiesCard from './EditableProjectRisksOpportunitiesCard';
 import EditableProjectTeamCard from './EditableProjectTeamCard';
 import {
   initializeNewProjectAction,
@@ -70,6 +71,7 @@ const NewProject: FC = () => {
       <EditableProjectOverviewCard />
       <EditableProjectTeamCard />
       <ProjectHealth />
+      <EditableProjectRisksOpportunitiesCard />
       {NavigationBar}
     </NewProjectContainer>
   );

@@ -10,6 +10,7 @@ import Button from '../../shared/components/Button';
 import LoadingPage from '../../shared/components/LoadingPage';
 import NavigationButtonsContainer from '../../shared/components/NavigationButtonsContainer';
 import EditableProjectOverviewCard from '../newProject/EditableProjectOverviewCard';
+import EditableProjectRisksOpportunitiesCard from '../newProject/EditableProjectRisksOpportunitiesCard';
 import EditableProjectTeamCard from '../newProject/EditableProjectTeamCard';
 import {
   initializeNewProjectAction,
@@ -51,24 +52,32 @@ const NewUpdate: FC<Props> = props => {
     return <LoadingPage />;
   }
 
+  const NavigationBar = (
+    <NavigationButtonsContainer
+      buttons={
+        <Button
+          onClick={handleSubmitNewUpdate}
+          label={i18n.t('shared.submit')}
+        />
+      }
+      breadCrumbs={
+        <NewUpdateBreadcrumbs
+          projectName={projectUpdate.projectOverview.projectName}
+          projectId={projectId}
+        />
+      }
+    />
+  );
+
   return (
     <NewUpdateContainer>
-      <NavigationButtonsContainer
-        buttons={
-          <Button
-            onClick={handleSubmitNewUpdate}
-            label={i18n.t('shared.submit')}
-          />
-        }
-        breadCrumbs={
-          <NewUpdateBreadcrumbs
-            projectName={projectUpdate.projectOverview.projectName}
-            projectId={projectId}
-          />
-        }
-      />
+      {NavigationBar}
       <EditableProjectOverviewCard overview={projectUpdate.projectOverview} />
       <EditableProjectTeamCard team={projectUpdate.projectTeam} />
+      <EditableProjectRisksOpportunitiesCard
+        data={projectUpdate.projectRisksOpportunities}
+      />
+      {NavigationBar}
     </NewUpdateContainer>
   );
 

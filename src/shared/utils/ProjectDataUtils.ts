@@ -7,6 +7,9 @@ import {
 export const convertNewProjectMembers = (
   newMembers: NewProjectMember[]
 ): ProjectMember[] => {
+  if (!newMembers) {
+    return [];
+  }
   return newMembers.map(m => ({
     fullName: m.fullName || '',
     role: m.role || '',
