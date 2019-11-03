@@ -48,7 +48,7 @@ const ProjectView: FC<Props> = props => {
         }
       />
       <ProjectOverviewCard data={projectUpdate.projectOverview} />
-      <ProjectTeamCard data={projectUpdate.projectTeam || {}} />
+      <ProjectTeamCard data={projectUpdate.projectTeam} />
       <ProjectUpdateHistory projectId={projectId} />
     </ProjectViewContainer>
   );
