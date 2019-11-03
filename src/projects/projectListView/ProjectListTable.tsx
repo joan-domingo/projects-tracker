@@ -47,8 +47,14 @@ const columns = [
     title: i18n.t('dashboard.table.projectName'),
   },
   {
-    field: 'projectOverview.projectGoal',
-    title: i18n.t('dashboard.table.projectGoal'),
+    field: 'projectOverview.projectTeam.projectMembers',
+    title: i18n.t('dashboard.table.teamSize'),
+    render: (projectUpdate: ProjectUpdate) => {
+      if (projectUpdate.projectTeam) {
+        return projectUpdate.projectTeam.projectMembers.length;
+      }
+      return 0;
+    },
   },
 ];
 

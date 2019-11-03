@@ -31,7 +31,8 @@
         "table": {
             "lastUpdate": "Last Update",
             "projectGoal": "Project Goal",
-            "projectName": "Project Name"
+            "projectName": "Project Name",
+            "teamSize": "Team Size"
             
         },
         "title": "Projects"
