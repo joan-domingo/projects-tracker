@@ -22,7 +22,9 @@ const LabeledList: FC<Props> = props => {
   return (
     <LabeledTextContainer>
       <Label>{props.label}</Label>
-      {props.items.map(item => item)}
+      {props.items.map((item, index) => (
+        <div key={index}>{item}</div>
+      ))}
     </LabeledTextContainer>
   );
 };

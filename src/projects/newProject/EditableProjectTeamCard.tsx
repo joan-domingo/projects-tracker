@@ -73,7 +73,7 @@ const EditableProjectTeamCard: FC<Props> = ({ team }) => {
                   setNewProjectClientLocationAction
                 )
               }
-              value={clientLocation}
+              value={clientLocation || ''}
             />
           </TextFieldContainer>
         </CardContent>

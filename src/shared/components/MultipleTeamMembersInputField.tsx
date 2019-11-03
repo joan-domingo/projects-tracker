@@ -51,6 +51,9 @@ const MultipleTeamMembersInputField: FC<Props> = ({
 
   const handleAddNewMember = useCallback(() => {
     const newMembers = members.slice();
+    if (newMembers.length === 0) {
+      newMembers.push({ fullName: '', role: '' });
+    }
     newMembers.push({ fullName: '', role: '' });
     onDataChange(newMembers);
   }, [members, onDataChange]);

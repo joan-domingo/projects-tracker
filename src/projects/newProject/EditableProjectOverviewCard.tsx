@@ -76,7 +76,7 @@ const EditableProjectOverviewCard: FC<Props> = ({ overview }) => {
               onChange={e =>
                 handleOnChangeTextField(e, setNewProjectNameAction)
               }
-              value={projectName}
+              value={projectName || ''}
             />
           </TextFieldContainer>
           <TextFieldContainer>
@@ -87,7 +87,7 @@ const EditableProjectOverviewCard: FC<Props> = ({ overview }) => {
               onChange={e =>
                 handleOnChangeTextField(e, setNewProjectGoalAction)
               }
-              value={projectGoal}
+              value={projectGoal || ''}
             />
           </TextFieldContainer>
           <TextFieldContainer>
@@ -123,7 +123,7 @@ const EditableProjectOverviewCard: FC<Props> = ({ overview }) => {
               onChange={e =>
                 handleOnChangeTextField(e, setNewProjectBudgetUrlAction)
               }
-              value={projectBudgetUrl}
+              value={projectBudgetUrl || ''}
             />
           </TextFieldContainer>
           <TextFieldContainer>
@@ -134,7 +134,7 @@ const EditableProjectOverviewCard: FC<Props> = ({ overview }) => {
               onChange={e =>
                 handleOnChangeTextField(e, setNewProjectClientUrlAction)
               }
-              value={projectClientUrl}
+              value={projectClientUrl || ''}
             />
           </TextFieldContainer>
         </CardContent>

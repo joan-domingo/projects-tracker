@@ -19,7 +19,6 @@ interface Props {
 }
 
 const ProjectTeamCard: FC<Props> = ({ data }) => {
-  console.log(data);
   if (!data) {
     return null;
   }
