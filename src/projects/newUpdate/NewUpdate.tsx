@@ -7,10 +7,10 @@ import i18n from '../../i18n/i18n';
 import { State } from '../../root.redux';
 import { generateProjectViewPath } from '../../routing/routes';
 import Button from '../../shared/components/Button';
-import CardContainer from '../../shared/components/CardContainer';
 import LoadingPage from '../../shared/components/LoadingPage';
 import NavigationButtonsContainer from '../../shared/components/NavigationButtonsContainer';
 import EditableProjectOverviewCard from '../newProject/EditableProjectOverviewCard';
+import EditableProjectTeamCard from '../newProject/EditableProjectTeamCard';
 import {
   initializeNewProjectAction,
   saveUpdateAction,
@@ -67,9 +67,8 @@ const NewUpdate: FC<Props> = props => {
           />
         }
       />
-      <CardContainer>
-        <EditableProjectOverviewCard overview={projectUpdate.projectOverview} />
-      </CardContainer>
+      <EditableProjectOverviewCard overview={projectUpdate.projectOverview} />
+      <EditableProjectTeamCard team={projectUpdate.projectTeam} />
     </NewUpdateContainer>
   );
 

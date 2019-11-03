@@ -15,7 +15,6 @@ import {
   ProjectUpdate,
 } from '../../shared/models/ProjectData';
 import { convertNewProjectMembers } from '../../shared/utils/ProjectDataUtils';
-import { selectLastProjectUpdate } from '../projectData.redux';
 import ProjectDataService from '../ProjectDataService';
 
 export interface NewProjectState {
@@ -203,7 +202,6 @@ const saveUpdateEpic: NewProjectEpic = (
       const projectId = action.payload;
       const update = convertFormDataToUpdateData(
         state$.value.newProject,
-        selectLastProjectUpdate(state$.value, projectId)!,
         projectId
       );
       return projectDataService.addNewUpdate$(update).pipe(
@@ -215,30 +213,23 @@ const saveUpdateEpic: NewProjectEpic = (
 
 function convertFormDataToUpdateData(
   newUpdate: NewProjectState,
-  lastUpdate: ProjectUpdate,
   projectId: string
 ): ProjectUpdate {
   const now = moment.now();
 
   const projectOverview = {
-    projectName:
-      newUpdate.projectName || lastUpdate.projectOverview.projectName,
-    projectGoal:
-      newUpdate.projectGoal || lastUpdate.projectOverview.projectGoal,
-    projectStartDate:
-      newUpdate.projectStartDate || lastUpdate.projectOverview.projectStartDate,
-    projectEndDate:
-      newUpdate.projectEndDate || lastUpdate.projectOverview.projectEndDate,
-    projectBudgetUrl:
-      newUpdate.projectBudgetUrl || lastUpdate.projectOverview.projectBudgetUrl,
-    projectClientUrl:
-      newUpdate.projectClientUrl || lastUpdate.projectOverview.projectClientUrl,
+    projectName: newUpdate.projectName || '',
+    projectGoal: newUpdate.projectGoal || '',
+    projectStartDate: newUpdate.projectStartDate || moment().valueOf(),
+    projectEndDate: newUpdate.projectEndDate || moment().valueOf(),
+    projectBudgetUrl: newUpdate.projectBudgetUrl || '',
+    projectClientUrl: newUpdate.projectClientUrl || '',
   };
 
   const projectTeam = {
-    projectMembers: [],
-    projectLocation: [],
-    clientLocation: '',
+    projectMembers: convertNewProjectMembers(newUpdate.projectMembers),
+    projectLocation: newUpdate.projectLocation,
+    clientLocation: newUpdate.clientLocation || '',
   };
 
   return {

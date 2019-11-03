@@ -50,7 +50,14 @@ const EditableProjectOverviewCard: FC<Props> = ({ overview }) => {
   const projectClientUrl = useSelector(selectNewProjectClientUrl);
 
   useEffect(() => {
-    if (!overview) {
+    if (overview) {
+      dispatch(setNewProjectNameAction(overview.projectName));
+      dispatch(setNewProjectNameAction(overview.projectGoal));
+      dispatch(setNewProjectStartDateAction(overview.projectStartDate));
+      dispatch(setNewProjectEndDateAction(overview.projectEndDate));
+      dispatch(setNewProjectNameAction(overview.projectBudgetUrl));
+      dispatch(setNewProjectNameAction(overview.projectClientUrl));
+    } else {
       dispatch(setNewProjectStartDateAction(moment().valueOf()));
       dispatch(setNewProjectEndDateAction(moment().valueOf()));
     }
@@ -69,17 +76,7 @@ const EditableProjectOverviewCard: FC<Props> = ({ overview }) => {
               onChange={e =>
                 handleOnChangeTextField(e, setNewProjectNameAction)
               }
-              value={defineTextFieldValue(
-                projectName,
-                overview && overview.projectName
-              )}
-              onBlur={() =>
-                handleOnBlurTextField(
-                  projectName,
-                  overview && overview.projectName,
-                  setNewProjectNameAction
-                )
-              }
+              value={projectName}
             />
           </TextFieldContainer>
           <TextFieldContainer>
@@ -90,10 +87,7 @@ const EditableProjectOverviewCard: FC<Props> = ({ overview }) => {
               onChange={e =>
                 handleOnChangeTextField(e, setNewProjectGoalAction)
               }
-              value={defineTextFieldValue(
-                projectGoal,
-                overview && overview.projectGoal
-              )}
+              value={projectGoal}
             />
           </TextFieldContainer>
           <TextFieldContainer>
@@ -103,10 +97,7 @@ const EditableProjectOverviewCard: FC<Props> = ({ overview }) => {
                   required
                   label={i18n.t('project.overview.startDate')}
                   format="dd/MM/yyyy"
-                  value={defineDate(
-                    projectStartDate,
-                    overview && overview.projectStartDate
-                  )}
+                  value={projectStartDate}
                   onChange={date =>
                     handleDateChange(date, setNewProjectStartDateAction)
                   }
@@ -116,10 +107,7 @@ const EditableProjectOverviewCard: FC<Props> = ({ overview }) => {
                   required
                   label={i18n.t('project.overview.endDate')}
                   format="dd/MM/yyyy"
-                  value={defineDate(
-                    projectEndDate,
-                    overview && overview.projectEndDate
-                  )}
+                  value={projectEndDate}
                   onChange={date =>
                     handleDateChange(date, setNewProjectEndDateAction)
                   }
@@ -135,10 +123,7 @@ const EditableProjectOverviewCard: FC<Props> = ({ overview }) => {
               onChange={e =>
                 handleOnChangeTextField(e, setNewProjectBudgetUrlAction)
               }
-              value={defineTextFieldValue(
-                projectBudgetUrl,
-                overview && overview.projectBudgetUrl
-              )}
+              value={projectBudgetUrl}
             />
           </TextFieldContainer>
           <TextFieldContainer>
@@ -149,10 +134,7 @@ const EditableProjectOverviewCard: FC<Props> = ({ overview }) => {
               onChange={e =>
                 handleOnChangeTextField(e, setNewProjectClientUrlAction)
               }
-              value={defineTextFieldValue(
-                projectClientUrl,
-                overview && overview.projectClientUrl
-              )}
+              value={projectClientUrl}
             />
           </TextFieldContainer>
         </CardContent>
@@ -167,26 +149,6 @@ const EditableProjectOverviewCard: FC<Props> = ({ overview }) => {
     dispatch(actionToDispatch(e.target.value));
   }
 
-  function handleOnBlurTextField(
-    enteredValue: string | undefined,
-    defaultValue: string | undefined,
-    actionToDispatch: (value: string) => void
-  ) {
-    return (
-      !enteredValue && overview && dispatch(actionToDispatch(defaultValue!))
-    );
-  }
-
-  function defineTextFieldValue(
-    enteredValue: string | undefined,
-    defaultValue: string | undefined
-  ): string {
-    if (enteredValue || enteredValue === '') {
-      return enteredValue;
-    }
-    return defaultValue || '';
-  }
-
   function handleDateChange(
     date: Date | null,
     actionToDispatch: (value: number) => void
@@ -194,16 +156,6 @@ const EditableProjectOverviewCard: FC<Props> = ({ overview }) => {
     if (date) {
       dispatch(actionToDispatch(date.getTime()));
     }
-  }
-
-  function defineDate(
-    enteredDate: number | undefined,
-    defaultDate: number | undefined
-  ) {
-    if (enteredDate) {
-      return moment(enteredDate);
-    }
-    return moment(defaultDate);
   }
 };
 
