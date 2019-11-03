@@ -64,7 +64,13 @@ const columns = [
       const { projectRisksOpportunities } = projectUpdate;
       return (
         <FormControlLabel
-          control={<Radio color="primary" />}
+          control={
+            <Radio
+              color="primary"
+              style={{ paddingTop: 0, paddingBottom: 0 }}
+              disableRipple
+            />
+          }
           label={undefined}
           checked={
             projectRisksOpportunities &&
@@ -84,7 +90,9 @@ const columns = [
       const { projectRisksOpportunities } = projectUpdate;
       return (
         <FormControlLabel
-          control={<Radio />}
+          control={
+            <Radio style={{ paddingTop: 0, paddingBottom: 0 }} disableRipple />
+          }
           label={undefined}
           checked={
             projectRisksOpportunities && projectRisksOpportunities.isHelpNeeded

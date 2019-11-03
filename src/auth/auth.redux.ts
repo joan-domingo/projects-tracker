@@ -13,6 +13,8 @@ import AuthService from './AuthService';
 export interface AuthState {
   isAuthInitialized: boolean;
   user: User | undefined;
+  isLoggingIn: boolean;
+  isLoggingOut: boolean;
 }
 
 // Selectors
@@ -28,6 +30,10 @@ export const selectIsSignedIn = (state: State) => Boolean(state.auth.user);
 
 export const selectDisplayName = (state: State) =>
   !!state.auth.user ? state.auth.user.displayName : undefined;
+
+export const selectIsLoggingIn = (state: State) => state.auth.isLoggingIn;
+
+export const selectIsLoggingOut = (state: State) => state.auth.isLoggingOut;
 
 // Actions
 
@@ -81,22 +87,36 @@ export const authEpic: AuthEpic = combineEpics(
 const initialAuthState: AuthState = {
   isAuthInitialized: false,
   user: undefined,
+  isLoggingIn: false,
+  isLoggingOut: false,
 };
 
 export default chainReducers(
   withInitialState(initialAuthState),
 
+  onAction(loginAction, state => ({
+    ...state,
+    isLoggingIn: true,
+  })),
+
   onAction(loginDoneAction, (state, action) => ({
     ...state,
     isAuthInitialized: true,
+    isLoggingIn: false,
     user: {
       email: action.payload.email!,
       displayName: action.payload.displayName!,
     },
   })),
 
-  onAction(logoutDoneAction, state => ({
+  onAction(logoutAction, state => ({
+    ...state,
+    isLoggingOut: true,
+  })),
+
+  onAction(logoutDoneAction, () => ({
     ...initialAuthState,
     isAuthInitialized: true,
+    isLoggingOut: false,
   }))
 );
