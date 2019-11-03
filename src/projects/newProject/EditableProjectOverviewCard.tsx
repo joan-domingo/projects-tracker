@@ -52,11 +52,11 @@ const EditableProjectOverviewCard: FC<Props> = ({ overview }) => {
   useEffect(() => {
     if (overview) {
       dispatch(setNewProjectNameAction(overview.projectName));
-      dispatch(setNewProjectNameAction(overview.projectGoal));
+      dispatch(setNewProjectGoalAction(overview.projectGoal));
       dispatch(setNewProjectStartDateAction(overview.projectStartDate));
       dispatch(setNewProjectEndDateAction(overview.projectEndDate));
-      dispatch(setNewProjectNameAction(overview.projectBudgetUrl));
-      dispatch(setNewProjectNameAction(overview.projectClientUrl));
+      dispatch(setNewProjectBudgetUrlAction(overview.projectBudgetUrl));
+      dispatch(setNewProjectClientUrlAction(overview.projectClientUrl));
     } else {
       dispatch(setNewProjectStartDateAction(moment().valueOf()));
       dispatch(setNewProjectEndDateAction(moment().valueOf()));
