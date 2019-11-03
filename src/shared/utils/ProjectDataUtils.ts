@@ -14,5 +14,8 @@ export const convertNewProjectMembers = (
 };
 
 export const convertLocationsToString = (locations: Location[]): string => {
+  if (!locations) {
+    return '';
+  }
   return locations.toString();
 };

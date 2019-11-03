@@ -15,16 +15,14 @@ const Label = styled.div`
 
 interface Props {
   label: string;
-  items: ReactNodeArray;
+  items: ReactNodeArray | undefined;
 }
 
-const LabeledList: FC<Props> = props => {
+const LabeledList: FC<Props> = ({ label, items }) => {
   return (
     <LabeledTextContainer>
-      <Label>{props.label}</Label>
-      {props.items.map((item, index) => (
-        <div key={index}>{item}</div>
-      ))}
+      <Label>{label}</Label>
+      {items && items.map((item, index) => <div key={index}>{item}</div>)}
     </LabeledTextContainer>
   );
 };

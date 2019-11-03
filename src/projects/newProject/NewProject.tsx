@@ -17,6 +17,7 @@ import {
   saveProjectAction,
   selectIsProjectSaved,
   selectIsSavingProject,
+  selectNewProjectName,
 } from './newProject.redux';
 import NewProjectBreadcrumbs from './NewProjectBreadcrumbs';
 
@@ -35,6 +36,7 @@ const NewProject: FC = () => {
   const history = useHistory();
   const isProjectSaved = useSelector(selectIsProjectSaved);
   const isSavingProject = useSelector(selectIsSavingProject);
+  const newProjectName = useSelector(selectNewProjectName);
 
   useEffect(() => {
     if (isProjectSaved) {
@@ -45,24 +47,30 @@ const NewProject: FC = () => {
     };
   }, [history, isProjectSaved, dispatch]);
 
+  const NavigationBar = (
+    <NavigationButtonsContainer
+      buttons={
+        <Button
+          label={i18n.t('shared.submit')}
+          onClick={() => dispatch(saveProjectAction())}
+          disabled={!newProjectName}
+        />
+      }
+      breadCrumbs={<NewProjectBreadcrumbs />}
+    />
+  );
+
   if (isSavingProject) {
     return <LoadingPage />;
   }
 
   return (
     <NewProjectContainer>
-      <NavigationButtonsContainer
-        buttons={
-          <Button
-            label={i18n.t('shared.submit')}
-            onClick={() => dispatch(saveProjectAction())}
-          />
-        }
-        breadCrumbs={<NewProjectBreadcrumbs />}
-      />
+      {NavigationBar}
       <EditableProjectOverviewCard />
       <EditableProjectTeamCard />
       <ProjectHealth />
+      {NavigationBar}
     </NewProjectContainer>
   );
 };

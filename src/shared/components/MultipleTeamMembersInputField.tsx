@@ -33,7 +33,7 @@ interface Props {
 }
 
 const MultipleTeamMembersInputField: FC<Props> = ({
-  members,
+  members = [],
   onDataChange,
 }) => {
   const handleDataChange = useCallback(

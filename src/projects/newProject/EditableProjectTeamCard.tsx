@@ -64,7 +64,6 @@ const EditableProjectTeamCard: FC<Props> = ({ team }) => {
           </TextFieldContainer>
           <TextFieldContainer>
             <TextField
-              required
               fullWidth
               label={i18n.t('project.team.clientLocation')}
               onChange={e =>

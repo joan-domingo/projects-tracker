@@ -81,7 +81,6 @@ const EditableProjectOverviewCard: FC<Props> = ({ overview }) => {
           </TextFieldContainer>
           <TextFieldContainer>
             <TextField
-              required
               fullWidth
               label={i18n.t('project.overview.goal')}
               onChange={e =>
@@ -94,7 +93,6 @@ const EditableProjectOverviewCard: FC<Props> = ({ overview }) => {
             <MuiPickersUtilsProvider utils={DateFnsUtils}>
               <Flex direction="row">
                 <KeyboardDatePicker
-                  required
                   label={i18n.t('project.overview.startDate')}
                   format="dd/MM/yyyy"
                   value={projectStartDate}
@@ -104,7 +102,6 @@ const EditableProjectOverviewCard: FC<Props> = ({ overview }) => {
                 />
                 <DatePickerSeparator />
                 <KeyboardDatePicker
-                  required
                   label={i18n.t('project.overview.endDate')}
                   format="dd/MM/yyyy"
                   value={projectEndDate}
@@ -117,7 +114,6 @@ const EditableProjectOverviewCard: FC<Props> = ({ overview }) => {
           </TextFieldContainer>
           <TextFieldContainer>
             <TextField
-              required
               fullWidth
               label={i18n.t('project.overview.budget')}
               onChange={e =>
@@ -128,7 +124,6 @@ const EditableProjectOverviewCard: FC<Props> = ({ overview }) => {
           </TextFieldContainer>
           <TextFieldContainer>
             <TextField
-              required
               fullWidth
               label={i18n.t('project.overview.client')}
               onChange={e =>

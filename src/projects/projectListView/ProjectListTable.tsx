@@ -50,7 +50,8 @@ const columns = [
     field: 'projectOverview.projectTeam.projectMembers',
     title: i18n.t('dashboard.table.teamSize'),
     render: (projectUpdate: ProjectUpdate) => {
-      if (projectUpdate.projectTeam) {
+      const { projectTeam } = projectUpdate;
+      if (projectTeam && projectTeam.projectMembers) {
         return projectUpdate.projectTeam.projectMembers.length;
       }
       return 0;

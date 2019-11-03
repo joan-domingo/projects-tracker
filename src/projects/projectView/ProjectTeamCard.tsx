@@ -29,11 +29,14 @@ const ProjectTeamCard: FC<Props> = ({ data }) => {
           <SectionTitle>{i18n.t('project.team.label')}</SectionTitle>
           <LabeledList
             label={i18n.t('project.team.members.label')}
-            items={data.projectMembers.map(m => (
-              <Text>
-                {m.fullName} - {m.role}
-              </Text>
-            ))}
+            items={
+              data.projectMembers &&
+              data.projectMembers.map(m => (
+                <Text>
+                  {m.fullName} - {m.role}
+                </Text>
+              ))
+            }
           />
           <LabeledText
             label={i18n.t('project.team.location')}

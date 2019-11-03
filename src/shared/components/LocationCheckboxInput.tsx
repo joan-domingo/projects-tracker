@@ -2,7 +2,6 @@ import Checkbox from '@material-ui/core/Checkbox';
 import FormControl from '@material-ui/core/FormControl';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormGroup from '@material-ui/core/FormGroup';
-import FormHelperText from '@material-ui/core/FormHelperText';
 import FormLabel from '@material-ui/core/FormLabel';
 import _ from 'lodash';
 import React, { FC, useCallback } from 'react';
@@ -33,7 +32,7 @@ const LocationCheckboxInput: FC = () => {
   );
 
   return (
-    <FormControl required>
+    <FormControl>
       <FormLabel component="legend">
         {i18n.t('project.team.location')}
       </FormLabel>
@@ -59,7 +58,6 @@ const LocationCheckboxInput: FC = () => {
           })}
         </Flex>
       </FormGroup>
-      <FormHelperText>You can display an error</FormHelperText>
     </FormControl>
   );
 };

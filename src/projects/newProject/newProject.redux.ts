@@ -67,10 +67,10 @@ export const selectNewProjectClientLocation = (state: State) =>
   state.newProject.clientLocation;
 
 export const selectNewProjectMembers = (state: State) =>
-  state.newProject.projectMembers;
+  state.newProject.projectMembers || [];
 
 export const selectNewProjectLocation = (state: State) =>
-  state.newProject.projectLocation;
+  state.newProject.projectLocation || [];
 
 // Actions
 
@@ -164,7 +164,7 @@ function convertFormDataToProjectData(newProject: NewProjectState): Project {
   )}-${now}`;
 
   const projectOverview = {
-    projectName: newProject.projectName || '',
+    projectName: newProject.projectName!,
     projectGoal: newProject.projectGoal || '',
     projectStartDate: newProject.projectStartDate || moment().valueOf(),
     projectEndDate: newProject.projectEndDate || moment().valueOf(),
