@@ -10,11 +10,7 @@ const LeftContainer = styled.div`
   flex-grow: 1;
   align-items: center;
 `;
-const RightContainer = styled.div`
-  display: flex;
-  flex-grow: 1;
-  justify-content: end;
-`;
+const RightContainer = styled.div``;
 
 interface Props {
   breadCrumbs?: ReactNode;

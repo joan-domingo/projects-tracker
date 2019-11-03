@@ -73,4 +73,13 @@ export default class FirebaseService {
           observer.next(snapshot.val() as ProjectCollection)
         )
     );
+
+  public getProjectDataOnce$ = () =>
+    Observable.create((observer: Observer<ProjectCollection>) =>
+      this.database
+        .ref('/projects')
+        .once('value', (snapshot: firebase.database.DataSnapshot) =>
+          observer.next(snapshot.val() as ProjectCollection)
+        )
+    );
 }

@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import { combineEpics, Epic } from 'redux-observable';
+import { combineEpics, Epic, ofType } from 'redux-observable';
 import {
   chainReducers,
   createAction,
@@ -8,6 +8,7 @@ import {
 } from 'redux-preboiled';
 import { of } from 'rxjs';
 import { mergeMap } from 'rxjs/operators';
+import { loginDoneAction } from '../auth/auth.redux';
 import {
   Project,
   ProjectCollection,
@@ -93,8 +94,23 @@ const readProjectDataEpic: ProjectDataEpic = (
     .readProjectData$()
     .pipe(mergeMap(response => of(readProjectDataDoneAction(response))));
 
+const readProjectDataAfterLoginEpic: ProjectDataEpic = (
+  action$,
+  state$,
+  { projectDataService }
+) =>
+  action$.pipe(
+    ofType(loginDoneAction.type),
+    mergeMap(() =>
+      projectDataService
+        .readProjectDataOnce$()
+        .pipe(mergeMap(response => of(readProjectDataDoneAction(response))))
+    )
+  );
+
 export const projectDataEpic: ProjectDataEpic = combineEpics(
-  readProjectDataEpic
+  readProjectDataEpic,
+  readProjectDataAfterLoginEpic
 );
 
 // Reducer

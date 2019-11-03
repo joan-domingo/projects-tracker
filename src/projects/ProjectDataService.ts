@@ -24,4 +24,8 @@ export default class ProjectDataService {
   public readProjectData$(): Observable<ProjectCollection> {
     return this.firebaseService.getProjectData$();
   }
+
+  public readProjectDataOnce$(): Observable<ProjectCollection> {
+    return this.firebaseService.getProjectDataOnce$();
+  }
 }
