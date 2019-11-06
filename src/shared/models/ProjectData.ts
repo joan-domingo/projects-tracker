@@ -17,6 +17,7 @@ export interface ProjectUpdate {
   timeMillis: number;
   projectOverview: ProjectOverview;
   projectTeam: ProjectTeam;
+  projectHealth: ProjectHealth;
   projectRisksOpportunities: ProjectRisksOpportunities;
 }
 
@@ -65,6 +66,13 @@ export const officeLocations: Location[] = [
   'Stuttgart',
   'Tampere',
 ];
+
+export interface ProjectHealth {
+  teamSatisfaction: number;
+  clientSatisfaction: number;
+  budgetHealth: number;
+  timelineHealth: number;
+}
 
 export interface ProjectRisksOpportunities {
   isActionNeeded: boolean;

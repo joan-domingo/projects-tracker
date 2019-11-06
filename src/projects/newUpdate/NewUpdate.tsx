@@ -9,6 +9,7 @@ import { generateProjectViewPath } from '../../routing/routes';
 import Button from '../../shared/components/Button';
 import LoadingPage from '../../shared/components/LoadingPage';
 import NavigationButtonsContainer from '../../shared/components/NavigationButtonsContainer';
+import EditableProjectHealthCard from '../newProject/EditableProjectHealthCard';
 import EditableProjectOverviewCard from '../newProject/EditableProjectOverviewCard';
 import EditableProjectRisksOpportunitiesCard from '../newProject/EditableProjectRisksOpportunitiesCard';
 import EditableProjectTeamCard from '../newProject/EditableProjectTeamCard';
@@ -74,6 +75,7 @@ const NewUpdate: FC<Props> = props => {
       {NavigationBar}
       <EditableProjectOverviewCard overview={projectUpdate.projectOverview} />
       <EditableProjectTeamCard team={projectUpdate.projectTeam} />
+      <EditableProjectHealthCard data={projectUpdate.projectHealth} />
       <EditableProjectRisksOpportunitiesCard
         data={projectUpdate.projectRisksOpportunities}
       />

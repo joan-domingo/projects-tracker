@@ -32,6 +32,11 @@ export interface NewProjectState {
   clientLocation?: string;
   projectMembers: NewProjectMember[];
   projectLocation: Location[];
+  // Project health
+  teamSatisfaction: number;
+  clientSatisfaction: number;
+  budgetHealth: number;
+  timelineHealth: number;
   // Risks & opportunities
   isActionNeeded: boolean;
   isHelpNeeded: boolean;
@@ -77,6 +82,18 @@ export const selectNewProjectMembers = (state: State) =>
 
 export const selectNewProjectLocation = (state: State) =>
   state.newProject.projectLocation || [];
+
+export const selectNewProjectTeamSatisfaction = (state: State) =>
+  state.newProject.teamSatisfaction;
+
+export const selectNewProjectClientSatisfaction = (state: State) =>
+  state.newProject.clientSatisfaction;
+
+export const selectNewProjectBugetHealth = (state: State) =>
+  state.newProject.budgetHealth;
+
+export const selectNewProjectTimelineHealth = (state: State) =>
+  state.newProject.timelineHealth;
 
 export const selectNewProjectIsHelpNeeded = (state: State) =>
   state.newProject.isHelpNeeded;
@@ -150,6 +167,22 @@ export const setNewProjectLocationAction = createAction(
   'newProject/setNewProjectLocation'
 ).withPayload<Location[]>();
 
+export const setNewProjectTeamSatisfactionAction = createAction(
+  'newProject/setNewProjectTeamSatisfactionAction'
+).withPayload<number>();
+
+export const setNewProjectClientSatisfactionAction = createAction(
+  'newProject/setNewProjectClientSatisfactionAction'
+).withPayload<number>();
+
+export const setNewProjectBudgetHealthAction = createAction(
+  'newProject/setNewProjectBudgetHealthAction'
+).withPayload<number>();
+
+export const setNewProjectTimelineHealthAction = createAction(
+  'newProject/setNewProjectTimelineHealth'
+).withPayload<number>();
+
 export const setNewProjectIsActionNeededAction = createAction(
   'newProject/setNewProjectIsActionNeeded'
 ).withPayload<boolean>();
@@ -212,6 +245,13 @@ function convertFormDataToProjectData(newProject: NewProjectState): Project {
     clientLocation: newProject.clientLocation || '',
   };
 
+  const projectHealth = {
+    clientSatisfaction: newProject.clientSatisfaction,
+    teamSatisfaction: newProject.teamSatisfaction,
+    budgetHealth: newProject.budgetHealth,
+    timelineHealth: newProject.timelineHealth,
+  };
+
   const projectRisksOpportunities: ProjectRisksOpportunities = {
     isActionNeeded: newProject.isActionNeeded,
     isHelpNeeded: newProject.isHelpNeeded,
@@ -225,6 +265,7 @@ function convertFormDataToProjectData(newProject: NewProjectState): Project {
     projectId,
     projectOverview,
     projectTeam,
+    projectHealth,
     projectRisksOpportunities,
   };
   return {
@@ -274,6 +315,13 @@ function convertFormDataToUpdateData(
     clientLocation: newUpdate.clientLocation || '',
   };
 
+  const projectHealth = {
+    clientSatisfaction: newUpdate.clientSatisfaction,
+    teamSatisfaction: newUpdate.teamSatisfaction,
+    budgetHealth: newUpdate.budgetHealth,
+    timelineHealth: newUpdate.timelineHealth,
+  };
+
   const projectRisksOpportunities: ProjectRisksOpportunities = {
     isActionNeeded: newUpdate.isActionNeeded,
     isHelpNeeded: newUpdate.isHelpNeeded,
@@ -287,6 +335,7 @@ function convertFormDataToUpdateData(
     projectId,
     projectOverview,
     projectTeam,
+    projectHealth,
     projectRisksOpportunities,
   };
 }
@@ -305,6 +354,10 @@ const initialNewProjectState: NewProjectState = {
   projectLocation: [],
   isActionNeeded: false,
   isHelpNeeded: false,
+  clientSatisfaction: 0,
+  teamSatisfaction: 0,
+  budgetHealth: 0,
+  timelineHealth: 0,
 };
 
 export default chainReducers(
@@ -391,6 +444,26 @@ export default chainReducers(
   onAction(setNewProjectLocationAction, (state, action) => ({
     ...state,
     projectLocation: action.payload,
+  })),
+
+  onAction(setNewProjectTeamSatisfactionAction, (state, action) => ({
+    ...state,
+    teamSatisfaction: action.payload,
+  })),
+
+  onAction(setNewProjectClientSatisfactionAction, (state, action) => ({
+    ...state,
+    clientSatisfaction: action.payload,
+  })),
+
+  onAction(setNewProjectBudgetHealthAction, (state, action) => ({
+    ...state,
+    budgetHealth: action.payload,
+  })),
+
+  onAction(setNewProjectTimelineHealthAction, (state, action) => ({
+    ...state,
+    timelineHealth: action.payload,
   })),
 
   onAction(setNewProjectIsActionNeededAction, (state, action) => ({

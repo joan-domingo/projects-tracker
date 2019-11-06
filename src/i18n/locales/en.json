@@ -4,6 +4,11 @@
     },
     "project": {
         "health": {
+            "budgetHealth": "Budget Health",
+            "clientSatisfaction": "Client satisfaction",
+            "label": "Health",
+            "teamSatisfaction": "Team satisfaction",
+            "timelineHealth": "Timeline health"
         },
         "team": {
             "clientLocation": "Client Location",
@@ -20,7 +25,7 @@
             "client": "Client Link",
             "endDate": "End Date",
             "goal": "Project Goal",
-            "label": "Project Overview",
+            "label": "Overview",
             "name": "Project Name",
             "startDate": "Start Date"
             
