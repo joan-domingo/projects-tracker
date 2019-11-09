@@ -15,8 +15,8 @@ const Label = styled.div`
 `;
 
 interface Props {
-  label: string;
-  name: string;
+  label?: string;
+  name?: string;
   value: number;
   onChange?: (value: number) => void;
 }
@@ -24,7 +24,7 @@ interface Props {
 const LabeledRating: FC<Props> = props => {
   return (
     <LabeledRatingContainer>
-      <Label>{props.label}</Label>
+      {props.label && <Label>{props.label}</Label>}
       <Rating
         name={props.name}
         value={props.value}

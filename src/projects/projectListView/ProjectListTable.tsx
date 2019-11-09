@@ -6,6 +6,7 @@ import { useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import i18n from '../../i18n/i18n';
 import { generateProjectViewPath } from '../../routing/routes';
+import LabeledRating from '../../shared/components/LabeledRating';
 import SectionTitle from '../../shared/components/SectionTitle';
 import Table from '../../shared/components/Table';
 import { ProjectUpdate } from '../../shared/models/ProjectData';
@@ -64,13 +65,7 @@ const columns = [
       const { projectRisksOpportunities } = projectUpdate;
       return (
         <FormControlLabel
-          control={
-            <Radio
-              color="primary"
-              style={{ paddingTop: 0, paddingBottom: 0 }}
-              disableRipple
-            />
-          }
+          control={<Radio color="primary" disableRipple />}
           label={undefined}
           checked={
             projectRisksOpportunities &&
@@ -90,9 +85,7 @@ const columns = [
       const { projectRisksOpportunities } = projectUpdate;
       return (
         <FormControlLabel
-          control={
-            <Radio style={{ paddingTop: 0, paddingBottom: 0 }} disableRipple />
-          }
+          control={<Radio disableRipple />}
           label={undefined}
           checked={
             projectRisksOpportunities && projectRisksOpportunities.isHelpNeeded
@@ -103,6 +96,20 @@ const columns = [
           }
         />
       );
+    },
+  },
+  {
+    title: i18n.t('dashboard.table.projectHealth'),
+    render: (projectUpdate: ProjectUpdate) => {
+      const { projectHealth } = projectUpdate;
+      const projectHealthRating = Boolean(projectHealth)
+        ? (projectHealth.teamSatisfaction +
+            projectHealth.clientSatisfaction +
+            projectHealth.budgetHealth +
+            projectHealth.timelineHealth) /
+          4
+        : 0;
+      return <LabeledRating value={projectHealthRating} />;
     },
   },
 ];

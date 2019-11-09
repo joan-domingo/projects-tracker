@@ -21,22 +21,18 @@ const ProjectHealthCard: FC<Props> = ({ data }) => {
           <SectionTitle>{i18n.t('project.health.label')}</SectionTitle>
           <LabeledRating
             label={i18n.t('project.health.teamSatisfaction')}
-            name="teamSatisfaction"
             value={data.teamSatisfaction}
           />
           <LabeledRating
             label={i18n.t('project.health.clientSatisfaction')}
-            name="clientSatisfaction"
             value={data.clientSatisfaction}
           />
           <LabeledRating
             label={i18n.t('project.health.budgetHealth')}
-            name="budgetHealth"
             value={data.budgetHealth}
           />
           <LabeledRating
             label={i18n.t('project.health.timelineHealth')}
-            name="timelineHealth"
             value={data.timelineHealth}
           />
         </CardContent>
