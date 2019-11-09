@@ -21,7 +21,7 @@ const ProjectViewBreadcrumbs: FC<Props> = ({ projectName }) => {
       <Link
         color="inherit"
         onClick={() => history.replace(dashboardPath)}
-        href="#"
+        style={{ cursor: 'pointer' }}
       >
         {i18n.t('dashboard.title')}
       </Link>

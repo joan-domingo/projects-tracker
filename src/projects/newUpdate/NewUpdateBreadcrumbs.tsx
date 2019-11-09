@@ -22,14 +22,14 @@ const NewUpdateBreadcrumbs: FC<Props> = ({ projectName, projectId }) => {
       <Link
         color="inherit"
         onClick={() => history.replace(dashboardPath)}
-        href="#"
+        style={{ cursor: 'pointer' }}
       >
         {i18n.t('dashboard.title')}
       </Link>
       <Link
         color="inherit"
         onClick={() => history.replace(generateProjectViewPath(projectId))}
-        href="#"
+        style={{ cursor: 'pointer' }}
       >
         {projectName}
       </Link>
