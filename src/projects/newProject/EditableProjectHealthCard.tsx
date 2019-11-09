@@ -1,9 +1,9 @@
 import { Card, CardContent } from '@material-ui/core';
-import Rating from '@material-ui/lab/Rating';
 import React, { FC, useCallback, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import i18n from '../../i18n/i18n';
 import CardContainer from '../../shared/components/CardContainer';
+import LabeledRating from '../../shared/components/LabeledRating';
 import SectionTitle from '../../shared/components/SectionTitle';
 import { ProjectHealth } from '../../shared/models/ProjectData';
 import {
@@ -49,34 +49,38 @@ const EditableProjectHealthCard: FC<Props> = ({ data }) => {
       <Card>
         <CardContent>
           <SectionTitle>{i18n.t('project.health.label')}</SectionTitle>
-          <Rating
+          <LabeledRating
+            label={i18n.t('project.health.teamSatisfaction')}
+            name="teamSatisfaction"
             value={teamSatisfaction}
-            precision={0.25}
-            onChange={(event, newValue) =>
+            onChange={newValue =>
               handleChangeRating(newValue, setNewProjectTeamSatisfactionAction)
             }
           />
-          <Rating
+          <LabeledRating
+            label={i18n.t('project.health.clientSatisfaction')}
+            name="clientSatisfaction"
             value={clientSatisfaction}
-            precision={0.25}
-            onChange={(event, newValue) =>
+            onChange={newValue =>
               handleChangeRating(
                 newValue,
                 setNewProjectClientSatisfactionAction
               )
             }
           />
-          <Rating
+          <LabeledRating
+            label={i18n.t('project.health.budgetHealth')}
+            name="budgetHealth"
             value={budgetHealth}
-            precision={0.25}
-            onChange={(event, newValue) =>
+            onChange={newValue =>
               handleChangeRating(newValue, setNewProjectBudgetHealthAction)
             }
           />
-          <Rating
+          <LabeledRating
+            label={i18n.t('project.health.timelineHealth')}
+            name="timelineHealth"
             value={timelineHealth}
-            precision={0.25}
-            onChange={(event, newValue) =>
+            onChange={newValue =>
               handleChangeRating(newValue, setNewProjectTimelineHealthAction)
             }
           />

@@ -10,6 +10,7 @@ import Button from '../../shared/components/Button';
 import LoadingPage from '../../shared/components/LoadingPage';
 import NavigationButtonsContainer from '../../shared/components/NavigationButtonsContainer';
 import { selectLastProjectUpdate } from '../projectData.redux';
+import ProjectHealthCard from './ProjectHealthCard';
 import ProjectOverviewCard from './ProjectOverviewCard';
 import ProjectRisksOpportunitiesCard from './ProjectRisksOpportunitiesCard';
 import ProjectTeamCard from './ProjectTeamCard';
@@ -55,6 +56,7 @@ const ProjectView: FC<Props> = props => {
       {NavigationBar}
       <ProjectOverviewCard data={projectUpdate.projectOverview} />
       <ProjectTeamCard data={projectUpdate.projectTeam} />
+      <ProjectHealthCard data={projectUpdate.projectHealth} />
       <ProjectRisksOpportunitiesCard
         data={projectUpdate.projectRisksOpportunities}
       />
