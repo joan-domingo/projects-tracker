@@ -116,6 +116,7 @@ const EditableProjectOverviewCard: FC<Props> = ({ overview }) => {
             <TextField
               fullWidth
               label={i18n.t('project.overview.budget')}
+              placeholder={i18n.t('project.overview.budgetHint')}
               onChange={e =>
                 handleOnChangeTextField(e, setNewProjectBudgetUrlAction)
               }
@@ -126,6 +127,7 @@ const EditableProjectOverviewCard: FC<Props> = ({ overview }) => {
             <TextField
               fullWidth
               label={i18n.t('project.overview.client')}
+              placeholder={i18n.t('project.overview.clientHint')}
               onChange={e =>
                 handleOnChangeTextField(e, setNewProjectClientUrlAction)
               }

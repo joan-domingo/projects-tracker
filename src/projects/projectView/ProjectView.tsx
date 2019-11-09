@@ -7,6 +7,7 @@ import i18n from '../../i18n/i18n';
 import { State } from '../../root.redux';
 import { generateNewProjectUpdatePath } from '../../routing/routes';
 import Button from '../../shared/components/Button';
+import Flex from '../../shared/components/Flex';
 import LoadingPage from '../../shared/components/LoadingPage';
 import NavigationButtonsContainer from '../../shared/components/NavigationButtonsContainer';
 import { selectLastProjectUpdate } from '../projectData.redux';
@@ -16,6 +17,7 @@ import ProjectRisksOpportunitiesCard from './ProjectRisksOpportunitiesCard';
 import ProjectTeamCard from './ProjectTeamCard';
 import ProjectUpdateHistory from './ProjectUpdateHistory';
 import ProjectViewBreadcrumbs from './ProjectViewBreadcrumbs';
+import { HalfWidthContainer } from '../../shared/components/HalfWidthContainer';
 
 const ProjectViewContainer = styled.div``;
 
@@ -55,8 +57,14 @@ const ProjectView: FC<Props> = props => {
     <ProjectViewContainer>
       {NavigationBar}
       <ProjectOverviewCard data={projectUpdate.projectOverview} />
-      <ProjectTeamCard data={projectUpdate.projectTeam} />
-      <ProjectHealthCard data={projectUpdate.projectHealth} />
+      <Flex direction="row">
+        <HalfWidthContainer style={{ marginRight: '0.5rem' }}>
+          <ProjectTeamCard data={projectUpdate.projectTeam} />
+        </HalfWidthContainer>
+        <HalfWidthContainer style={{ marginLeft: '0.5rem' }}>
+          <ProjectHealthCard data={projectUpdate.projectHealth} />
+        </HalfWidthContainer>
+      </Flex>
       <ProjectRisksOpportunitiesCard
         data={projectUpdate.projectRisksOpportunities}
       />

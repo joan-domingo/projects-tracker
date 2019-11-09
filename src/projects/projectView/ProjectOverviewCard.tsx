@@ -26,33 +26,43 @@ const ProjectOverviewCard: FC<Props> = ({ data }) => {
       <Card>
         <CardContent style={{ display: 'flex', flexDirection: 'column' }}>
           <SectionTitle>{i18n.t('project.overview.label')}</SectionTitle>
-          <LabeledText
-            label={i18n.t('project.overview.name')}
-            text={data.projectName}
-          />
-          <LabeledText
-            label={i18n.t('project.overview.goal')}
-            text={data.projectGoal}
-          />
           <Flex direction="row">
-            <LabeledText
-              label={i18n.t('project.overview.startDate')}
-              text={moment(data.projectStartDate).format('DD/MM/YYYY')}
-            />
-            <DateSeparator />
-            <LabeledText
-              label={i18n.t('project.overview.endDate')}
-              text={moment(data.projectEndDate).format('DD/MM/YYYY')}
-            />
+            <Flex>
+              <LabeledText
+                label={i18n.t('project.overview.name')}
+                text={data.projectName}
+              />
+              <LabeledText
+                label={i18n.t('project.overview.goal')}
+                text={data.projectGoal}
+              />
+            </Flex>
+            <Flex style={{ marginLeft: '1rem' }}>
+              <Flex direction="row">
+                <Flex>
+                  <LabeledText
+                    label={i18n.t('project.overview.startDate')}
+                    text={moment(data.projectStartDate).format('DD/MM/YYYY')}
+                  />
+                  <LabeledUrl
+                    label={i18n.t('project.overview.budget')}
+                    url={data.projectBudgetUrl}
+                  />
+                </Flex>
+                <DateSeparator />
+                <Flex>
+                  <LabeledText
+                    label={i18n.t('project.overview.endDate')}
+                    text={moment(data.projectEndDate).format('DD/MM/YYYY')}
+                  />
+                  <LabeledUrl
+                    label={i18n.t('project.overview.client')}
+                    url={data.projectClientUrl}
+                  />
+                </Flex>
+              </Flex>
+            </Flex>
           </Flex>
-          <LabeledUrl
-            label={i18n.t('project.overview.budget')}
-            url={data.projectBudgetUrl}
-          />
-          <LabeledUrl
-            label={i18n.t('project.overview.client')}
-            url={data.projectClientUrl}
-          />
         </CardContent>
       </Card>
     </CardContainer>

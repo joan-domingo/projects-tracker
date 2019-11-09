@@ -4,6 +4,8 @@ import Radio from '@material-ui/core/Radio';
 import React, { FC } from 'react';
 import i18n from '../../i18n/i18n';
 import CardContainer from '../../shared/components/CardContainer';
+import Flex from '../../shared/components/Flex';
+import { HalfWidthContainer } from '../../shared/components/HalfWidthContainer';
 import LabeledText from '../../shared/components/LabeledText';
 import SectionTitle from '../../shared/components/SectionTitle';
 import { ProjectRisksOpportunities } from '../../shared/models/ProjectData';
@@ -23,26 +25,32 @@ const ProjectRisksOpportunitiesCard: FC<Props> = ({ data }) => {
           <SectionTitle>
             {i18n.t('project.risksOpportunities.label')}
           </SectionTitle>
-          <FormControlLabel
-            control={<Radio color="primary" />}
-            label={i18n.t('project.risksOpportunities.actionNeeded')}
-            checked={data.isActionNeeded}
-            disabled={!data.isActionNeeded}
-          />
-          <FormControlLabel
-            control={<Radio />}
-            label={i18n.t('project.risksOpportunities.helpNeeded')}
-            checked={data.isHelpNeeded}
-            disabled={!data.isHelpNeeded}
-          />
-          <LabeledText
-            label={i18n.t('project.risksOpportunities.risks')}
-            text={data.projectRisks || ''}
-          />
-          <LabeledText
-            label={i18n.t('project.risksOpportunities.opportunities')}
-            text={data.projectOpportunities || ''}
-          />
+          <Flex direction="row">
+            <HalfWidthContainer style={{ marginRight: '0.5rem' }}>
+              <FormControlLabel
+                control={<Radio color="primary" />}
+                label={i18n.t('project.risksOpportunities.actionNeeded')}
+                checked={data.isActionNeeded}
+                disabled={!data.isActionNeeded}
+              />
+              <LabeledText
+                label={i18n.t('project.risksOpportunities.opportunities')}
+                text={data.projectOpportunities || ''}
+              />
+            </HalfWidthContainer>
+            <HalfWidthContainer style={{ marginLeft: '0.5rem' }}>
+              <FormControlLabel
+                control={<Radio />}
+                label={i18n.t('project.risksOpportunities.helpNeeded')}
+                checked={data.isHelpNeeded}
+                disabled={!data.isHelpNeeded}
+              />
+              <LabeledText
+                label={i18n.t('project.risksOpportunities.risks')}
+                text={data.projectRisks || ''}
+              />
+            </HalfWidthContainer>
+          </Flex>
         </CardContent>
       </Card>
     </CardContainer>

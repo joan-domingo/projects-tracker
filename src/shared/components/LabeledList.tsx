@@ -7,10 +7,15 @@ import { small } from '../styles/dimensions';
 const LabeledTextContainer = styled.div`
   padding: ${small} 0;
 `;
+
 const Label = styled.div`
   font-size: 1rem;
   color: ${colors.darkGray};
   padding-bottom: 0.3rem;
+`;
+
+const MemberContainer = styled.div`
+  padding: 0.2rem 0;
 `;
 
 interface Props {
@@ -22,7 +27,10 @@ const LabeledList: FC<Props> = ({ label, items }) => {
   return (
     <LabeledTextContainer>
       <Label>{label}</Label>
-      {items && items.map((item, index) => <div key={index}>{item}</div>)}
+      {items &&
+        items.map((item, index) => (
+          <MemberContainer key={index}>{item}</MemberContainer>
+        ))}
     </LabeledTextContainer>
   );
 };

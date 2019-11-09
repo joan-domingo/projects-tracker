@@ -21,8 +21,10 @@
             }
         },
         "overview": {
-            "budget": "Budget Link",
-            "client": "Client Link",
+            "budget": "Budget",
+            "budgetHint": "Budget Page URL",
+            "client": "Client",
+            "clientHint": "Client Page URL",
             "endDate": "End Date",
             "goal": "Project Goal",
             "label": "Overview",
