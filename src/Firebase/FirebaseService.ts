@@ -38,18 +38,20 @@ export default class FirebaseService {
     return Promise.reject();
   }
 
-  public signInWithGoogle = () => {
+  public signInWithGoogle(): Promise<
+    firebase.auth.UserCredential | firebase.User
+  > {
     const currentUser = this.auth.currentUser;
     if (currentUser) {
-      return Promise.resolve({ user: currentUser });
+      return Promise.resolve(currentUser);
     }
     return this.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider());
-  };
+  }
 
   public signOut = () => this.auth.signOut();
 
   public onAuthStateChanged$ = () =>
-    Observable.create((observer: Observer<User | null>) =>
+    new Observable((observer: Observer<User | null>) =>
       this.auth.onAuthStateChanged(
         user => observer.next(user),
         err => observer.error(err)

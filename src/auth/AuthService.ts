@@ -1,11 +1,6 @@
 import { User } from 'firebase';
 import { from, Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
 import FirebaseService from '../Firebase/FirebaseService';
-
-export interface UserCredentials {
-  email: string;
-}
 
 export default class AuthService {
   private firebaseService: FirebaseService;
@@ -18,13 +13,10 @@ export default class AuthService {
     return from(this.firebaseService.getCurrentUser());
   }
 
-  public signUserIn$(): Observable<UserCredentials> {
-    return from(this.firebaseService.signInWithGoogle()).pipe(
-      map(userCredential => {
-        const email = userCredential.user!.email!;
-        return { email };
-      })
-    );
+  public signUserIn$(): Observable<
+    firebase.auth.UserCredential | firebase.User
+  > {
+    return from(this.firebaseService.signInWithGoogle());
   }
 
   public signUserOut$(): Observable<void> {
