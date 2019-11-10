@@ -5,10 +5,14 @@
     "project": {
         "health": {
             "budgetHealth": "Budget Health",
+            "budgetHealthHint": "0: Overrun - 5: Profit",
             "clientSatisfaction": "Client satisfaction",
-            "label": "Health",
+            "clientSatisfactionHint": "0: Unsatisfied - 5: Very Satisfied",
+            "label": "Health (with the current project phase)",
             "teamSatisfaction": "Team satisfaction",
-            "timelineHealth": "Timeline health"
+            "teamSatisfactionHint": "0: Unsatisfied - 5: Very Satisfied\nThink about the next 5 key dynamics before rating the satisfaction:\n\n1. <2>Psychological safety</2>: Can we take risks on this team without feeling insecure or embarrassed?\n2. <5>Dependability</5>: Can we count on each other to do high quality work on time?\n3. <8>Structure & clarity</8>: Are goals, roles, and execution plans on our team clear?\n4. <11>Meaning of work</11>: Are we working on something that is personally important for each of us?\n5. <14>Impact of work</14>: Do we fundamentally believe that the work we’re doing matters?",
+            "timelineHealth": "Timeline health",
+            "timelineHealthHint": "0: Out of scope - 5: Ahead of scope"
         },
         "team": {
             "clientLocation": "Client Location",

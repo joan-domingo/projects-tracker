@@ -80,6 +80,22 @@ const EditableProjectRisksOpportunitiesCard: FC<Props> = ({ data }) => {
             />
           </TextFieldContainer>
           <TextFieldContainer>
+            <TextField
+              fullWidth
+              label={i18n.t('project.risksOpportunities.opportunities')}
+              onChange={e =>
+                handleOnChangeTextField(
+                  e.target.value,
+                  setNewProjectOpportunitiesAction
+                )
+              }
+              value={opportunities || ''}
+              variant="outlined"
+              multiline
+              rows="4"
+            />
+          </TextFieldContainer>
+          <TextFieldContainer>
             <FormControlLabel
               control={
                 <Switch
@@ -107,22 +123,6 @@ const EditableProjectRisksOpportunitiesCard: FC<Props> = ({ data }) => {
                 )
               }
               value={risks || ''}
-              variant="outlined"
-              multiline
-              rows="4"
-            />
-          </TextFieldContainer>
-          <TextFieldContainer>
-            <TextField
-              fullWidth
-              label={i18n.t('project.risksOpportunities.opportunities')}
-              onChange={e =>
-                handleOnChangeTextField(
-                  e.target.value,
-                  setNewProjectOpportunitiesAction
-                )
-              }
-              value={opportunities || ''}
               variant="outlined"
               multiline
               rows="4"
