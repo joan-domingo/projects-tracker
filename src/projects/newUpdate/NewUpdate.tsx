@@ -1,4 +1,4 @@
-import React, { FC, useEffect } from 'react';
+import React, { FC, useCallback, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { RouteComponentProps } from 'react-router';
 import { useHistory } from 'react-router-dom';
@@ -49,6 +49,10 @@ const NewUpdate: FC<Props> = props => {
     };
   }, [history, isUpdateSaved, dispatch, projectId]);
 
+  const handleSubmitNewUpdate = useCallback(() => {
+    dispatch(saveUpdateAction(projectId));
+  }, [dispatch, projectId]);
+
   if (!projectUpdate || isSavingUpdate) {
     return <LoadingPage />;
   }
@@ -82,10 +86,6 @@ const NewUpdate: FC<Props> = props => {
       {NavigationBar}
     </NewUpdateContainer>
   );
-
-  function handleSubmitNewUpdate() {
-    dispatch(saveUpdateAction(projectId));
-  }
 };
 
 export default NewUpdate;

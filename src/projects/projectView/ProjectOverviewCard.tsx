@@ -27,7 +27,7 @@ const ProjectOverviewCard: FC<Props> = ({ data }) => {
         <CardContent style={{ display: 'flex', flexDirection: 'column' }}>
           <SectionTitle>{i18n.t('project.overview.label')}</SectionTitle>
           <Flex direction="row">
-            <Flex>
+            <Flex flexGrow={1}>
               <LabeledText
                 label={i18n.t('project.overview.name')}
                 text={data.projectName}
