@@ -2,7 +2,6 @@ import React, { FC } from 'react';
 import { Provider } from 'react-redux';
 import { Store } from 'redux';
 import AppRouter from './AppRouter';
-import AuthContainer from './auth/AuthContainer';
 import AppContainer from './shared/components/AppContainer';
 import NavigationBar from './shared/components/NavigationBar';
 import PageContainer from './shared/components/PageContainer';
@@ -16,10 +15,8 @@ const App: FC<Props> = ({ store }) => {
     <Provider store={store}>
       <AppContainer>
         <PageContainer>
-          <AuthContainer>
-            <NavigationBar />
-            <AppRouter />
-          </AuthContainer>
+          <NavigationBar />
+          <AppRouter />
         </PageContainer>
       </AppContainer>
     </Provider>
