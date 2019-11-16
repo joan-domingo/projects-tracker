@@ -3,7 +3,6 @@ import { Provider } from 'react-redux';
 import { Store } from 'redux';
 import AppRouter from './AppRouter';
 import AppContainer from './shared/components/AppContainer';
-import NavigationBar from './shared/components/NavigationBar';
 import PageContainer from './shared/components/PageContainer';
 
 interface Props {
@@ -15,7 +14,6 @@ const App: FC<Props> = ({ store }) => {
     <Provider store={store}>
       <AppContainer>
         <PageContainer>
-          <NavigationBar />
           <AppRouter />
         </PageContainer>
       </AppContainer>

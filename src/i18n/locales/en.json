@@ -1,7 +1,4 @@
 {
-    "loginPage": {
-        "loginButton": "Log In"
-    },
     "project": {
         "health": {
             "budgetHealth": "Budget Health",
@@ -66,7 +63,6 @@
         "submit": "Submit"
     },
     "userBar": {
-        "logoutButton": "Log Out",
-        "welcomeLabel": "Welcome {{displayName}}!"
+        "title": "Futuprojects"
     }
 }

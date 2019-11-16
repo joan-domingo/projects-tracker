@@ -15,10 +15,12 @@ import {
   newProjectUpdatePath,
   projectViewPath,
 } from './routing/routes';
+import TopBar from './shared/components/TopBar';
 
 const AppRouter: FC = () => {
   return (
     <Router>
+      <TopBar />
       <Switch>
         <Route exact path={dashboardPath} component={Dashboard} />
         <Route exact path={newProjectPath} component={NewProject} />
