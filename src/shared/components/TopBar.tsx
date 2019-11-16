@@ -1,13 +1,12 @@
 import AppBar from '@material-ui/core/AppBar';
-import Button from '@material-ui/core/Button';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
-import React, { FC } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React, { FC, useCallback } from 'react';
+import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
-import { logoutAction, selectDisplayName } from '../../auth/auth.redux';
 import i18n from '../../i18n/i18n';
+import { dashboardPath } from '../../routing/routes';
 import { darkGray } from '../styles/colors';
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -20,6 +19,7 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     title: {
       flexGrow: 1,
+      cursor: 'pointer',
     },
   })
 );
@@ -30,28 +30,29 @@ const UserBarContainer = styled.div`
   display: flex;
 `;
 
-const NavigationBar: FC = () => {
-  const dispatch = useDispatch();
-  const displayName = useSelector(selectDisplayName);
+const TopBar: FC = () => {
+  const history = useHistory();
   const classes = useStyles();
+
+  const handleOnClickTitle = useCallback(() => {
+    history.replace(dashboardPath);
+  }, [history]);
+
   return (
     <UserBarContainer>
       <AppBar>
         <Toolbar>
-          <Typography variant="h6" className={classes.title}>
-            {i18n.t('userBar.welcomeLabel', { displayName })}
+          <Typography
+            variant="h6"
+            className={classes.title}
+            onClick={handleOnClickTitle}
+          >
+            {i18n.t('userBar.title')}
           </Typography>
-          <Button color="inherit" onClick={handleOnClickLogout}>
-            {i18n.t('userBar.logoutButton')}
-          </Button>
         </Toolbar>
       </AppBar>
     </UserBarContainer>
   );
-
-  function handleOnClickLogout() {
-    dispatch(logoutAction());
-  }
 };
 
-export default NavigationBar;
+export default TopBar;

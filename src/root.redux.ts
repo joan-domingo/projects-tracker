@@ -1,6 +1,5 @@
 import { combineReducers } from 'redux';
 import { combineEpics } from 'redux-observable';
-import authReducer, { authEpic, AuthState } from './auth/auth.redux';
 import newProjectReducer, {
   newProjectEpic,
   NewProjectState,
@@ -13,19 +12,17 @@ import projectDataReducer, {
 // State
 
 export interface State {
-  auth: AuthState;
   newProject: NewProjectState;
   projectData: ProjectDataState;
 }
 
 // Epic
 
-export const rootEpic = combineEpics(authEpic, newProjectEpic, projectDataEpic);
+export const rootEpic = combineEpics(newProjectEpic, projectDataEpic);
 
 // Reducer
 
 export default combineReducers({
-  auth: authReducer,
   newProject: newProjectReducer,
   projectData: projectDataReducer,
 });
