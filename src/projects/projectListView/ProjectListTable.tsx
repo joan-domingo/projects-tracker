@@ -43,7 +43,7 @@ const columns = [
     title: i18n.t('dashboard.table.lastUpdate'),
     render: (projectUpdate: ProjectUpdate) =>
       moment(projectUpdate.timeMillis).fromNow(),
-    defaultSort: 'desc' as ('asc' | 'desc'),
+    defaultSort: 'desc' as 'asc' | 'desc',
   },
   {
     field: 'projectOverview.projectName',
