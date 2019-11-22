@@ -44,8 +44,8 @@
     "dashboard": {
         "newProject": "New project",
         "table": {
-            "actionNeeded": "Action",
-            "helpNeeded": "Help",
+            "actionNeeded": "Action Needed",
+            "helpNeeded": "Help Needed",
             "lastUpdate": "Last Update",
             "projectGoal": "Project Goal",
             "projectHealth": "Project Health",
