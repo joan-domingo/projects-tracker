@@ -38,7 +38,7 @@ const ProjectTeamCard: FC<Props> = ({ data }) => {
         <CardContent style={{ display: 'flex', flexDirection: 'column' }}>
           <SectionTitle>{i18n.t('project.team.label')}</SectionTitle>
           <Flex direction="row">
-            <Flex flexGrow={1}>
+            <Flex style={{ width: '50%' }}>
               <LabeledList
                 label={i18n.t('project.team.members.label')}
                 items={
@@ -51,7 +51,7 @@ const ProjectTeamCard: FC<Props> = ({ data }) => {
                 }
               />
             </Flex>
-            <Flex flexGrow={1}>
+            <Flex style={{ width: '50%' }}>
               <LabeledText
                 label={i18n.t('project.team.location')}
                 text={convertLocationsToString(data.projectLocation)}

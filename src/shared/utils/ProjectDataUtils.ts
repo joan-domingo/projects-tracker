@@ -20,5 +20,5 @@ export const convertLocationsToString = (locations: Location[]): string => {
   if (!locations) {
     return '';
   }
-  return locations.toString();
+  return locations.toString().replace(/,/g, ', ');
 };
