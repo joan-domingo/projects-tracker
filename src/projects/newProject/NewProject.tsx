@@ -7,6 +7,7 @@ import { dashboardPath } from '../../routing/routes';
 import Button from '../../shared/components/Button';
 import LoadingPage from '../../shared/components/LoadingPage';
 import NavigationButtonsContainer from '../../shared/components/NavigationButtonsContainer';
+import ScrollToTop from '../../shared/components/ScrollToTop';
 import EditableProjectHealthCard from './EditableProjectHealthCard';
 import EditableProjectOverviewCard from './EditableProjectOverviewCard';
 import EditableProjectRisksOpportunitiesCard from './EditableProjectRisksOpportunitiesCard';
@@ -57,6 +58,7 @@ const NewProject: FC = () => {
 
   return (
     <NewProjectContainer>
+      <ScrollToTop />
       {NavigationBar}
       <EditableProjectOverviewCard />
       <EditableProjectTeamCard />

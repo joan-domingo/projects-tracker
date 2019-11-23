@@ -8,8 +8,10 @@ import { State } from '../../root.redux';
 import { generateNewProjectUpdatePath } from '../../routing/routes';
 import Button from '../../shared/components/Button';
 import Flex from '../../shared/components/Flex';
+import { HalfWidthContainer } from '../../shared/components/HalfWidthContainer';
 import LoadingPage from '../../shared/components/LoadingPage';
 import NavigationButtonsContainer from '../../shared/components/NavigationButtonsContainer';
+import ScrollToTop from '../../shared/components/ScrollToTop';
 import { selectLastProjectUpdate } from '../projectData.redux';
 import ProjectHealthCard from './ProjectHealthCard';
 import ProjectOverviewCard from './ProjectOverviewCard';
@@ -17,7 +19,6 @@ import ProjectRisksOpportunitiesCard from './ProjectRisksOpportunitiesCard';
 import ProjectTeamCard from './ProjectTeamCard';
 import ProjectUpdateHistory from './ProjectUpdateHistory';
 import ProjectViewBreadcrumbs from './ProjectViewBreadcrumbs';
-import { HalfWidthContainer } from '../../shared/components/HalfWidthContainer';
 
 const ProjectViewContainer = styled.div``;
 
@@ -55,6 +56,7 @@ const ProjectView: FC<Props> = props => {
 
   return (
     <ProjectViewContainer>
+      <ScrollToTop />
       {NavigationBar}
       <ProjectOverviewCard data={projectUpdate.projectOverview} />
       <Flex direction="row">
