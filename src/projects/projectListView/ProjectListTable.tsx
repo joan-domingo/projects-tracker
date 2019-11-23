@@ -1,5 +1,6 @@
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Radio from '@material-ui/core/Radio';
+import _ from 'lodash';
 import moment from 'moment';
 import React, { FC } from 'react';
 import { useSelector } from 'react-redux';
@@ -57,6 +58,16 @@ const columns = [
         return projectUpdate.projectTeam.projectMembers.length;
       }
       return 0;
+    },
+    customFilterAndSearch: (term: string, projectUpdate: ProjectUpdate) => {
+      const { projectTeam } = projectUpdate;
+      if (projectTeam && projectTeam.projectMembers) {
+        const members = projectUpdate.projectTeam.projectMembers
+          .map(m => m.role + m.fullName)
+          .toString();
+        return _.includes(members.toLowerCase(), term.toLowerCase());
+      }
+      return false;
     },
   },
   {
