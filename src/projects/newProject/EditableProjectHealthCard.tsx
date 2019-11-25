@@ -9,7 +9,13 @@ import Flex from '../../shared/components/Flex';
 import LabeledRating from '../../shared/components/LabeledRating';
 import SectionTitle from '../../shared/components/SectionTitle';
 import { ProjectHealth } from '../../shared/models/ProjectData';
-import { darkGray } from '../../shared/styles/colors';
+import {
+  budgetHealthColor,
+  clientSatisfactionColor,
+  darkGray,
+  teamSatisfactionColor,
+  timelineHealthColor,
+} from '../../shared/styles/colors';
 import { normal, small } from '../../shared/styles/dimensions';
 import {
   selectNewProjectBugetHealth,
@@ -71,6 +77,7 @@ const EditableProjectHealthCard: FC<Props> = ({ data }) => {
                   setNewProjectTeamSatisfactionAction
                 )
               }
+              color={teamSatisfactionColor}
             />
             <MultilineText>
               <Trans i18nKey="project.health.teamSatisfactionHint">
@@ -100,6 +107,7 @@ const EditableProjectHealthCard: FC<Props> = ({ data }) => {
                   setNewProjectClientSatisfactionAction
                 )
               }
+              color={clientSatisfactionColor}
             />
             <MultilineText>
               {i18n.t('project.health.clientSatisfactionHint')}
@@ -113,6 +121,7 @@ const EditableProjectHealthCard: FC<Props> = ({ data }) => {
               onChange={newValue =>
                 handleChangeRating(newValue, setNewProjectBudgetHealthAction)
               }
+              color={budgetHealthColor}
             />
             <MultilineText>
               {i18n.t('project.health.budgetHealthHint')}
@@ -126,6 +135,7 @@ const EditableProjectHealthCard: FC<Props> = ({ data }) => {
               onChange={newValue =>
                 handleChangeRating(newValue, setNewProjectTimelineHealthAction)
               }
+              color={timelineHealthColor}
             />
             <MultilineText>
               {i18n.t('project.health.timelineHealthHint')}

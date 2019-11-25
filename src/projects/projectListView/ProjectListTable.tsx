@@ -52,10 +52,16 @@ const columns = [
   },
   {
     title: i18n.t('dashboard.table.teamSize'),
+    headerStyle: { 'white-space': 'pre-line' },
     render: (projectUpdate: ProjectUpdate) => {
-      const { projectTeam } = projectUpdate;
+      const { projectTeam, projectOverview } = projectUpdate;
+      const duration = moment(projectOverview.projectEndDate).diff(
+        projectOverview.projectStartDate,
+        'days',
+        false
+      );
       if (projectTeam && projectTeam.projectMembers) {
-        return projectUpdate.projectTeam.projectMembers.length;
+        return `${projectUpdate.projectTeam.projectMembers.length} members / ${duration} days`;
       }
       return 0;
     },
@@ -72,6 +78,7 @@ const columns = [
   },
   {
     title: i18n.t('dashboard.table.actionNeeded'),
+    headerStyle: { width: '8rem', 'white-space': 'pre-line' },
     render: (projectUpdate: ProjectUpdate) => {
       const { projectRisksOpportunities } = projectUpdate;
       return (
@@ -92,6 +99,7 @@ const columns = [
   },
   {
     title: i18n.t('dashboard.table.helpNeeded'),
+    headerStyle: { width: '8rem', 'white-space': 'pre-line' },
     render: (projectUpdate: ProjectUpdate) => {
       const { projectRisksOpportunities } = projectUpdate;
       return (
