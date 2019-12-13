@@ -6,6 +6,7 @@ import {
   onAction,
   withInitialState,
 } from 'redux-preboiled';
+import { createSelector, ParametricSelector } from 'reselect';
 import { of } from 'rxjs';
 import { mergeMap } from 'rxjs/operators';
 import {
@@ -43,24 +44,27 @@ export const selectNewestProjectUpdate = (project: Project) =>
 export const selectIsLoadingProjects = (state: State) =>
   state.projectData.isLoadingProjects;
 
-export const selectProject = (
-  state: State,
-  projectId: string
-): Project | undefined =>
-  state.projectData.projects && state.projectData.projects[projectId];
+export const selectProjects = (state: State) => state.projectData.projects;
 
-export const selectLastProjectUpdate = (
-  state: State,
-  projectId: string
-): ProjectUpdate | undefined => {
-  if (
-    state.projectData.projects &&
-    _.values(state.projectData.projects[projectId].updates).length > 0
-  ) {
-    return _.last(_.values(state.projectData.projects[projectId].updates));
+export const selectProject: ParametricSelector<
+  State,
+  string,
+  Project | undefined
+> = createSelector(
+  [selectProjects, (state: State, projectId: string) => projectId],
+  (projects, projectId) => (projects ? projects[projectId] : undefined)
+);
+
+export const selectLastProjectUpdate: ParametricSelector<
+  State,
+  string,
+  ProjectUpdate | undefined
+> = createSelector([selectProject], project => {
+  if (project !== undefined && _.values(project.updates).length > 0) {
+    return _.last(_.values(project.updates));
   }
   return undefined;
-};
+});
 
 export const selectProjectUpdates = (
   state: State,
