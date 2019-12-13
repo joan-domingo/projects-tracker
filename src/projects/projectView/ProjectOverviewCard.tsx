@@ -9,18 +9,17 @@ import Flex from '../../shared/components/Flex';
 import LabeledText from '../../shared/components/LabeledText';
 import LabeledUrl from '../../shared/components/LabeledUrl';
 import SectionTitle from '../../shared/components/SectionTitle';
-import { ProjectOverview } from '../../shared/models/ProjectData';
 import { large } from '../../shared/styles/dimensions';
+import { ProjectOverviewProps } from '../../shared/utils/ProjectDataUtils';
 
 const DateSeparator = styled.div`
   width: ${large};
 `;
 
-interface Props {
-  data: ProjectOverview;
-}
-
-const ProjectOverviewCard: FC<Props> = ({ data }) => {
+const ProjectOverviewCard: FC<ProjectOverviewProps> = ({ data }) => {
+  if (!data) {
+    return null;
+  }
   return (
     <CardContainer>
       <Card>

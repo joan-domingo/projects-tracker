@@ -79,8 +79,8 @@ const NewUpdate: FC<Props> = props => {
     <NewUpdateContainer>
       <ScrollToTop />
       {NavigationBar}
-      <EditableProjectOverviewCard overview={projectUpdate.projectOverview} />
-      <EditableProjectTeamCard team={projectUpdate.projectTeam} />
+      <EditableProjectOverviewCard data={projectUpdate.projectOverview} />
+      <EditableProjectTeamCard data={projectUpdate.projectTeam} />
       <EditableProjectHealthCard data={projectUpdate.projectHealth} />
       <EditableProjectRisksOpportunitiesCard
         data={projectUpdate.projectRisksOpportunities}

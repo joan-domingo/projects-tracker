@@ -8,7 +8,11 @@ import LocationCheckboxInput from '../../shared/components/LocationCheckboxInput
 import MultipleTeamMembersInputField from '../../shared/components/MultipleTeamMembersInputField';
 import SectionTitle from '../../shared/components/SectionTitle';
 import TextFieldContainer from '../../shared/components/TextFieldContainer';
-import { NewProjectMember, ProjectTeam } from '../../shared/models/ProjectData';
+import { NewProjectMember } from '../../shared/models/ProjectData';
+import {
+  ProjectTeamProps,
+  projectTeamPropsValuesAreEqual,
+} from '../../shared/utils/ProjectDataUtils';
 import {
   selectNewProjectClientLocation,
   selectNewProjectMembers,
@@ -17,22 +21,18 @@ import {
   setNewProjectMembersAction,
 } from './newProject.redux';
 
-interface Props {
-  team?: ProjectTeam;
-}
-
-const EditableProjectTeamCard: FC<Props> = ({ team }) => {
+const EditableProjectTeamCard: FC<ProjectTeamProps> = ({ data }) => {
   const dispatch = useDispatch();
   const clientLocation = useSelector(selectNewProjectClientLocation);
   const projectMembers = useSelector(selectNewProjectMembers);
 
   useEffect(() => {
-    if (team) {
-      dispatch(setNewProjectClientLocationAction(team.clientLocation));
-      dispatch(setNewProjectMembersAction(team.projectMembers));
-      dispatch(setNewProjectLocationAction(team.projectLocation));
+    if (data) {
+      dispatch(setNewProjectClientLocationAction(data.clientLocation));
+      dispatch(setNewProjectMembersAction(data.projectMembers));
+      dispatch(setNewProjectLocationAction(data.projectLocation));
     }
-  }, [dispatch, team]);
+  }, [dispatch, data]);
 
   const handleOnMembersDataChange = useCallback(
     (members: NewProjectMember[]) => {
@@ -81,4 +81,7 @@ const EditableProjectTeamCard: FC<Props> = ({ team }) => {
   );
 };
 
-export default EditableProjectTeamCard;
+export default React.memo(
+  EditableProjectTeamCard,
+  projectTeamPropsValuesAreEqual
+);

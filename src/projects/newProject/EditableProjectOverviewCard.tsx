@@ -15,8 +15,11 @@ import CardContainer from '../../shared/components/CardContainer';
 import Flex from '../../shared/components/Flex';
 import SectionTitle from '../../shared/components/SectionTitle';
 import TextFieldContainer from '../../shared/components/TextFieldContainer';
-import { ProjectOverview } from '../../shared/models/ProjectData';
 import { large } from '../../shared/styles/dimensions';
+import {
+  ProjectOverviewProps,
+  projectOverviewPropsValuesAreEqual,
+} from '../../shared/utils/ProjectDataUtils';
 import {
   selectNewProjectBudgetUrl,
   selectNewProjectClientUrl,
@@ -36,11 +39,7 @@ const DatePickerSeparator = styled.div`
   width: ${large};
 `;
 
-interface Props {
-  overview?: ProjectOverview;
-}
-
-const EditableProjectOverviewCard: FC<Props> = ({ overview }) => {
+const EditableProjectOverviewCard: FC<ProjectOverviewProps> = ({ data }) => {
   const dispatch = useDispatch();
   const projectName = useSelector(selectNewProjectName);
   const projectGoal = useSelector(selectNewProjectGoal);
@@ -50,18 +49,18 @@ const EditableProjectOverviewCard: FC<Props> = ({ overview }) => {
   const projectClientUrl = useSelector(selectNewProjectClientUrl);
 
   useEffect(() => {
-    if (overview) {
-      dispatch(setNewProjectNameAction(overview.projectName));
-      dispatch(setNewProjectGoalAction(overview.projectGoal));
-      dispatch(setNewProjectStartDateAction(overview.projectStartDate));
-      dispatch(setNewProjectEndDateAction(overview.projectEndDate));
-      dispatch(setNewProjectBudgetUrlAction(overview.projectBudgetUrl));
-      dispatch(setNewProjectClientUrlAction(overview.projectClientUrl));
+    if (data) {
+      dispatch(setNewProjectNameAction(data.projectName));
+      dispatch(setNewProjectGoalAction(data.projectGoal));
+      dispatch(setNewProjectStartDateAction(data.projectStartDate));
+      dispatch(setNewProjectEndDateAction(data.projectEndDate));
+      dispatch(setNewProjectBudgetUrlAction(data.projectBudgetUrl));
+      dispatch(setNewProjectClientUrlAction(data.projectClientUrl));
     } else {
       dispatch(setNewProjectStartDateAction(moment().valueOf()));
       dispatch(setNewProjectEndDateAction(moment().valueOf()));
     }
-  }, [dispatch, overview]);
+  }, [dispatch, data]);
 
   return (
     <CardContainer>
@@ -156,4 +155,7 @@ const EditableProjectOverviewCard: FC<Props> = ({ overview }) => {
   }
 };
 
-export default EditableProjectOverviewCard;
+export default React.memo(
+  EditableProjectOverviewCard,
+  projectOverviewPropsValuesAreEqual
+);

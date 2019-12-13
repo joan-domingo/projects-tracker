@@ -5,19 +5,15 @@ import CardContainer from '../../shared/components/CardContainer';
 import Flex from '../../shared/components/Flex';
 import LabeledRating from '../../shared/components/LabeledRating';
 import SectionTitle from '../../shared/components/SectionTitle';
-import { ProjectHealth } from '../../shared/models/ProjectData';
 import {
   budgetHealthColor,
   clientSatisfactionColor,
   teamSatisfactionColor,
   timelineHealthColor,
 } from '../../shared/styles/colors';
+import { ProjectHealthProps } from '../../shared/utils/ProjectDataUtils';
 
-interface Props {
-  data: ProjectHealth;
-}
-
-const ProjectHealthCard: FC<Props> = ({ data }) => {
+const ProjectHealthCard: FC<ProjectHealthProps> = ({ data }) => {
   if (!data) {
     return null;
   }

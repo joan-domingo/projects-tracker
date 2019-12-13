@@ -8,7 +8,10 @@ import i18n from '../../i18n/i18n';
 import CardContainer from '../../shared/components/CardContainer';
 import SectionTitle from '../../shared/components/SectionTitle';
 import TextFieldContainer from '../../shared/components/TextFieldContainer';
-import { ProjectRisksOpportunities } from '../../shared/models/ProjectData';
+import {
+  ProjectRisksOpportunitiesProps,
+  projectRisksOpportunitiesPropsValuesAreEqual,
+} from '../../shared/utils/ProjectDataUtils';
 import {
   selectNewProjectIsActionNeeded,
   selectNewProjectIsHelpNeeded,
@@ -20,11 +23,9 @@ import {
   setNewProjectRisksAction,
 } from './newProject.redux';
 
-interface Props {
-  data?: ProjectRisksOpportunities;
-}
-
-const EditableProjectRisksOpportunitiesCard: FC<Props> = ({ data }) => {
+const EditableProjectRisksOpportunitiesCard: FC<ProjectRisksOpportunitiesProps> = ({
+  data,
+}) => {
   const dispatch = useDispatch();
   const isActionNeeded = useSelector(selectNewProjectIsActionNeeded);
   const isHelpNeeded = useSelector(selectNewProjectIsHelpNeeded);
@@ -134,4 +135,7 @@ const EditableProjectRisksOpportunitiesCard: FC<Props> = ({ data }) => {
   );
 };
 
-export default EditableProjectRisksOpportunitiesCard;
+export default React.memo(
+  EditableProjectRisksOpportunitiesCard,
+  projectRisksOpportunitiesPropsValuesAreEqual
+);

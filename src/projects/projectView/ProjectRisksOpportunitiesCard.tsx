@@ -8,13 +8,11 @@ import Flex from '../../shared/components/Flex';
 import { HalfWidthContainer } from '../../shared/components/HalfWidthContainer';
 import LabeledText from '../../shared/components/LabeledText';
 import SectionTitle from '../../shared/components/SectionTitle';
-import { ProjectRisksOpportunities } from '../../shared/models/ProjectData';
+import { ProjectRisksOpportunitiesProps } from '../../shared/utils/ProjectDataUtils';
 
-interface Props {
-  data: ProjectRisksOpportunities;
-}
-
-const ProjectRisksOpportunitiesCard: FC<Props> = ({ data }) => {
+const ProjectRisksOpportunitiesCard: FC<ProjectRisksOpportunitiesProps> = ({
+  data,
+}) => {
   if (!data) {
     return null;
   }

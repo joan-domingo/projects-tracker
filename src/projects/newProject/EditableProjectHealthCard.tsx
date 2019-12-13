@@ -8,7 +8,6 @@ import CardContainer from '../../shared/components/CardContainer';
 import Flex from '../../shared/components/Flex';
 import LabeledRating from '../../shared/components/LabeledRating';
 import SectionTitle from '../../shared/components/SectionTitle';
-import { ProjectHealth } from '../../shared/models/ProjectData';
 import {
   budgetHealthColor,
   clientSatisfactionColor,
@@ -17,6 +16,10 @@ import {
   timelineHealthColor,
 } from '../../shared/styles/colors';
 import { normal, small } from '../../shared/styles/dimensions';
+import {
+  ProjectHealthProps,
+  projectHealthPropsValuesAreEqual,
+} from '../../shared/utils/ProjectDataUtils';
 import {
   selectNewProjectBugetHealth,
   selectNewProjectClientSatisfaction,
@@ -34,11 +37,7 @@ const MultilineText = styled.div`
   color: ${darkGray};
 `;
 
-interface Props {
-  data?: ProjectHealth;
-}
-
-const EditableProjectHealthCard: FC<Props> = ({ data }) => {
+const EditableProjectHealthCard: FC<ProjectHealthProps> = ({ data }) => {
   const dispatch = useDispatch();
   const teamSatisfaction = useSelector(selectNewProjectTeamSatisfaction);
   const clientSatisfaction = useSelector(selectNewProjectClientSatisfaction);
@@ -147,4 +146,7 @@ const EditableProjectHealthCard: FC<Props> = ({ data }) => {
   );
 };
 
-export default EditableProjectHealthCard;
+export default React.memo(
+  EditableProjectHealthCard,
+  projectHealthPropsValuesAreEqual
+);

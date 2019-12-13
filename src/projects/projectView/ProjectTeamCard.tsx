@@ -7,9 +7,11 @@ import Flex from '../../shared/components/Flex';
 import LabeledList from '../../shared/components/LabeledList';
 import LabeledText from '../../shared/components/LabeledText';
 import SectionTitle from '../../shared/components/SectionTitle';
-import { ProjectTeam } from '../../shared/models/ProjectData';
 import { darkGray } from '../../shared/styles/colors';
-import { convertLocationsToString } from '../../shared/utils/ProjectDataUtils';
+import {
+  convertLocationsToString,
+  ProjectTeamProps,
+} from '../../shared/utils/ProjectDataUtils';
 
 const Text = styled.div`
   font-size: 1rem;
@@ -24,11 +26,7 @@ const Role = styled.div`
   color: ${darkGray};
 `;
 
-interface Props {
-  data: ProjectTeam;
-}
-
-const ProjectTeamCard: FC<Props> = ({ data }) => {
+const ProjectTeamCard: FC<ProjectTeamProps> = ({ data }) => {
   if (!data) {
     return null;
   }
